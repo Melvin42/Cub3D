@@ -1,4 +1,5 @@
-#include "mlx.h"
+#include <stdlib.h>
+#include <mlx.h>
 
 int	main()
 {
@@ -8,7 +9,7 @@ int	main()
 
 	mlx_ptr = mlx_init();
 	win_ptr = mlx_new_window(mlx_ptr, 500, 500, "Cub3D");
-/*	int	i;
+	int	i;
 
 	i = 0;
 	while (i < 500)
@@ -17,7 +18,10 @@ int	main()
 		i++;
 	}
 	mlx_string_put(mlx_ptr, win_ptr, 25, 25, 255, "HELLO");
-*/
-	mlx_new_image();
+
+//	mlx_new_image();
 	mlx_loop(mlx_ptr);
+	mlx_destroy_window(mlx_ptr, win_ptr);
+	mlx_destroy_display(mlx_ptr);
+	free(mlx_ptr);
 }
