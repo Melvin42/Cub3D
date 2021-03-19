@@ -21,52 +21,67 @@ int	handle_keyrelease(int keysym, void *data)
 	return (0);
 }
 
-/*
+
 int	encode_rgb(uint8_t red, uint8_t green, uint8_t blue)
 {
 	return (red << 16 | green << 8 | blue);
 }
-*/
 
-int	render_rect(t_data *data, t_rect rect)
+void	img_pix_put(t_img *img, int x, int y, int color)
+{
+  char	*pixel;
+	int	i;
+
+	i = img->bpp - 8;
+	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	while (i >= 0)
+	{
+	  if (img->endian != 0)
+		*pixel++ = (color >> i) & 0xFF;
+	  else
+		*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
+	}
+}
+
+int	render_rect(t_img *img, t_rect rect)
 {
 	int	i;
 	int	j;
 
-	if (data->win_ptr == NULL)
-		return (1);
 	i = rect.y;
 	while (i < rect.y + rect.height)
 	{
 		j = rect.x;
 		while (j < rect.x + rect.width)
-			mlx_pixel_put(data->mlx_ptr, data->win_ptr, j++, i, rect.color);
+			img_pix_put(img, j++, i, rect.color);
 		++i;
 	}
 	return (0);
 }
 
-void	render_background(t_data *data, int color)
+void	render_background(t_img *img, int color)
 {
 	int	i;
 	int	j;
 
-	if (data->win_ptr == NULL)
-		return ;
 	i = 0;
 	while (i < WINDOW_HEIGHT)
 	{
 		j = 0;
 		while (j < WINDOW_WIDTH)
-			mlx_pixel_put(data->mlx_ptr, data->win_ptr, j++, i, color);
+			img_pix_put(img, j++, i, color);
 		++i;
 	}
 }
 
 int	render(t_data *data)
 {
-	render_background(data, WHITE_PIXEL);
-	render_rect(data, (t_rect){WINDOW_WIDTH - 100, WINDOW_HEIGHT - 100, 100, 100, GREEN_PIXEL});
+  	if (data->win_ptr == NULL)
+	  return (1);
+	render_background(&data->img, WHITE_PIXEL);
+	render_rect(&data->img, (t_rect){WINDOW_WIDTH - 100, WINDOW_HEIGHT - 100, 100, 100, GREEN_PIXEL});
+	render_rect(&data->img, (t_rect){0, 0, 500, 300, RED_PIXEL});
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
 	return (0);
 }
 
@@ -83,9 +98,10 @@ int	main(void)
 		free(data.win_ptr);
 		return (MLX_ERROR);
 	}
-	mlx_string_put(data.mlx_ptr, data.win_ptr, 25, 25, 255, "HELLO");
+//	mlx_string_put(data.mlx_ptr, data.win_ptr, 25, 25, 255, "HELLO");
 
-//	mlx_new_image();
+	data.img.mlx_img = mlx_new_image(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	data.img.addr = mlx_get_data_addr(data.img.mlx_img, data.img.bpp
 	mlx_loop_hook(data.mlx_ptr, &render, &data);
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
 //	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, &data);
