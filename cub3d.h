@@ -2,9 +2,15 @@
 # define CUB3D_H
 # define WINDOW_WIDTH 500
 # define WINDOW_HEIGHT 500
-# define ERROR_ARG -2 
+# define PARS_ERROR -4
+# define MALLOC_ERROR -3
+# define ARG_ERROR -2 
+# define FD_ERROR -1
 # define MLX_ERROR 1
-# define STR_ERROR_ARG "Error\nBad number of arguments.\n"
+# define STR_ARG_ERROR "Error\nBad number of arguments.\n"
+# define STR_MALLOC_ERROR "Error\nA malloc doesn't work fine.\n"
+# define STR_FD_ERROR "Error\nFile descriptor = -1.\n"
+# define STR_PARS_ERROR "Error\nFile .cub isn't well formated.\n"
 # define RED_PIXEL 0xFF0000
 # define GREEN_PIXEL 0xFF00
 # define WHITE_PIXEL 0xFFFFFF
@@ -39,5 +45,19 @@ typedef struct	s_rect
   int	height;
   int	color;
 }				t_rect;
+
+typedef struct	s_param
+{
+	int		rx;
+	int 	ry;
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+	char	*sprite;
+	char	*ground;
+	char	*ceiling;
+	char	**map;
+}				t_param;
 
 #endif
