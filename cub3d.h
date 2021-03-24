@@ -23,11 +23,11 @@
 
 typedef struct	s_img
 {
-  void	*mlx_img;
-  char	*addr;
-  int	bpp;
-  int	line_len;
-  int	endian;
+	void	*mlx_img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
 }				t_img;
 
 typedef struct	s_data
@@ -39,12 +39,19 @@ typedef struct	s_data
 
 typedef struct	s_rect
 {
-  int	x;
-  int	y;
-  int	width;
-  int	height;
-  int	color;
+	int		x;
+	int		y;
+	int		width;
+	int		height;
+	int		color;
 }				t_rect;
+
+typedef struct	s_rgb
+{
+	int	red;
+	int	green;
+	int	blue;
+}				t_rgb;
 
 typedef struct	s_param
 {
@@ -55,9 +62,26 @@ typedef struct	s_param
 	char	*west;
 	char	*east;
 	char	*sprite;
-	char	*ground;
-	char	*ceiling;
+	t_rgb	floor;
+	t_rgb	ceiling;
 	char	**map;
 }				t_param;
+
+int				check_error(int i);
+int				check_resolution(char *line, t_param *param);
+int				check_north_path(char *line, t_param *param);
+int				check_south_path(char *line, t_param *param);
+int				check_west_path(char *line, t_param *param);
+int				check_east_path(char *line, t_param *param);
+int				check_sprite_path(char *line, t_param *param);
+int				check_floor_color(char *line, t_param *param);
+int				check_ceiling_color(char *line, t_param *param);
+int				extract_map(char *line, t_param *param, int n);
+int				check_map(t_param *param);
+int				dispatcher(char *line, t_param *param, int n);
+int 			only_space(char *line);
+int				read_file(int n, int fd, t_param *param);
+int				count_line(int fd);
+void			free_param(t_param *param);
 
 #endif
