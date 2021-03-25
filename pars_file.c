@@ -34,6 +34,11 @@ int	check_error(int i)
 		write(1, STR_PARS_ERROR, ft_strlen(STR_PARS_ERROR)); 
 		return (-1);
 	}
+	else if (i == MLX_ERROR)
+	{
+		write(1, STR_MLX_ERROR, ft_strlen(STR_MLX_ERROR)); 
+		return (-1);
+	}
 	return (0);
 }
 

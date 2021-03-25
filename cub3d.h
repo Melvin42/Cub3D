@@ -1,16 +1,17 @@
 #ifndef CUB3D_H
 # define CUB3D_H
-# define WINDOW_WIDTH 500
-# define WINDOW_HEIGHT 500
+//# define WINDOW_WIDTH 500
+//# define WINDOW_HEIGHT 500
+# define MLX_ERROR -5
 # define PARS_ERROR -4
 # define MALLOC_ERROR -3
 # define ARG_ERROR -2 
 # define FD_ERROR -1
-# define MLX_ERROR 1
-# define STR_ARG_ERROR "Error\nBad number of arguments.\n"
-# define STR_MALLOC_ERROR "Error\nA malloc doesn't work fine.\n"
-# define STR_FD_ERROR "Error\nFile descriptor = -1.\n"
+# define STR_MLX_ERROR "Error\nmlx error.\n"
 # define STR_PARS_ERROR "Error\nFile .cub isn't well formated.\n"
+# define STR_MALLOC_ERROR "Error\nA malloc doesn't work fine.\n"
+# define STR_ARG_ERROR "Error\nBad number of arguments.\n"
+# define STR_FD_ERROR "Error\nFile descriptor = -1.\n"
 # define RED_PIXEL 0xFF0000
 # define GREEN_PIXEL 0xFF00
 # define WHITE_PIXEL 0xFFFFFF
@@ -20,6 +21,10 @@
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdint.h>
+
+/*******************************************************************************
+**==============================> STRUCT <====================================**
+*******************************************************************************/
 
 typedef struct	s_img
 {
@@ -76,6 +81,14 @@ typedef struct	s_player
 	int	diry;
 }				t_player;
 
+typedef struct	s_cub
+{
+}				t_cub;
+
+/*******************************************************************************
+**=============================> PARSING <====================================**
+*******************************************************************************/
+
 int				check_error(int i);
 int				check_resolution(char *line, t_param *param);
 int				check_north_path(char *line, t_param *param);
@@ -93,5 +106,18 @@ int 			only_space(char *line);
 int				read_file(int n, int fd, t_param *param);
 int				count_line(int fd);
 void			free_param(t_param *param);
+
+/*******************************************************************************
+**=============================>   MLX   <====================================**
+*******************************************************************************/
+
+int		handle_no_event(void *data);
+int		handle_keypress(int keysym, t_data *data);
+int		handle_keyrelease(int keysym, void *data);
+int		encode_rgb(uint8_t red, uint8_t green, uint8_t blue);
+void	img_pix_put(t_img *img, int x, int y, int color);
+int		render_rect(t_img *img, t_rect rect);
+void	render_background(t_img *img, t_param *param, int color);
+int		render(t_data *data, t_param *param);
 
 #endif
