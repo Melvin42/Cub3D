@@ -67,6 +67,15 @@ typedef struct	s_param
 	char	**map;
 }				t_param;
 
+typedef struct	s_player
+{
+	int flag;
+	int	posx;
+	int	posy;
+	int	dirx;
+	int	diry;
+}				t_player;
+
 int				check_error(int i);
 int				check_resolution(char *line, t_param *param);
 int				check_north_path(char *line, t_param *param);
@@ -77,7 +86,8 @@ int				check_sprite_path(char *line, t_param *param);
 int				check_floor_color(char *line, t_param *param);
 int				check_ceiling_color(char *line, t_param *param);
 int				extract_map(char *line, t_param *param, int n);
-int				check_map(t_param *param);
+int				check_map(t_param *param, t_player *player);
+void			set_player(t_param *param, t_player *player, int x, int y);
 int				dispatcher(char *line, t_param *param, int n);
 int 			only_space(char *line);
 int				read_file(int n, int fd, t_param *param);

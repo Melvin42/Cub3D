@@ -13,7 +13,20 @@ int	extract_map(char *line, t_param *param, int n)
 	return (0);
 }
 
-int	check_map(t_param *param)
+void	set_player(t_param *param, t_player *player, int x, int y)
+{
+	player->flag = 1;
+	if (param->map[y][x] =='N')
+		player->diry = -1;
+	else if (param->map[y][x] =='S')
+		player->diry = 1;
+	else if (param->map[y][x] =='E')
+		player->dirx = -1;
+	else if (param->map[y][x] =='W')
+		player->dirx = 1;
+}
+
+int	check_map(t_param *param, t_player *player)
 {
 	int	i;
 	int	j;
@@ -21,12 +34,24 @@ int	check_map(t_param *param)
 	i = -1;
 	while (param->map[++i])
 	{
-		j = -1;
-		while (param->map[i][++j])
+		j = 0;
+		while (param->map[i][j])
 		{
-			printf("%c", param->map[i][j]);
-			if (!ft_isdigit(param->map[i][j]) || param->map[i][j] != ' ')
-				return(check_error(PARS_ERROR));
+			if (param->map[i][j] == '0' || param->map[i][j] == '1'
+				|| param->map[i][j] == '2' || param->map[i][j] == ' ')
+				j++;
+			else if (param->map[i][j] == 'N' || param->map[i][j] == 'S'
+				|| param->map[i][j] == 'E' || param->map[i][j] == 'W')
+			{
+				if (player->flag == 1)
+					return (check_error(PARS_ERROR));
+				set_player(param, player, j, i);
+				player->posx = j;
+				player->posy = i;
+				j++;
+			}
+			else
+				return (check_error(PARS_ERROR));
 		}
 	}
 	return (0);
