@@ -10,6 +10,10 @@ int	handle_keypress(int keysym, t_data *data)
 {
 	if (keysym == XK_Escape)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	else if (keysym == 65293)//touche entree
+	{
+		mlx_loop_hook(data->mlx_ptr, &render, &data);
+	}
 	printf("Keypress: %d\n", keysym);
 	return (0);
 }
@@ -60,27 +64,27 @@ int	render_rect(t_img *img, t_rect rect)
 	return (0);
 }
 
-void	render_background(t_img *img, t_param *param, int color)
+void	render_background(t_img *img, t_data *data, int color)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < param->ry)
+	while (i < data->ry)
 	{
 		j = 0;
-		while (j < param->rx)
+		while (j < data->rx)
 			img_pix_put(img, j++, i, color);
 		++i;
 	}
 }
 
-int	render(t_data *data, t_param *param)
+int	render(t_data *data)
 {
 	if (data->win_ptr == NULL)
 		return (1);
-	render_background(&data->img, param, WHITE_PIXEL);
-	render_rect(&data->img, (t_rect){param->rx - 100, param->ry - 100, 100, 100, GREEN_PIXEL});
+	render_background(&data->img, data, WHITE_PIXEL);
+	render_rect(&data->img, (t_rect){data->rx - 100, data->ry - 100, 100, 100, GREEN_PIXEL});
 	render_rect(&data->img, (t_rect){0, 0, 500, 300, RED_PIXEL});
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
 	return (0);

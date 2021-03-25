@@ -42,9 +42,9 @@ int	check_error(int i)
 	return (0);
 }
 
-int	check_resolution(char *line, t_param *param)
+int	check_resolution(char *line, t_data *data)
 {
-	if (param->rx != 0 || param->ry != 0)
+	if (data->rx != 0 || data->ry != 0)
 		return (check_error(PARS_ERROR));
 	line++;
 	while (*line)
@@ -52,7 +52,7 @@ int	check_resolution(char *line, t_param *param)
 		while (*line == ' ')
 			line++;
 		if (ft_isdigit(*line))
-			param->rx = ft_atoi(line);
+			data->rx = ft_atoi(line);
 		else
 			return (PARS_ERROR);
 		while (ft_isdigit(*line))
@@ -60,7 +60,7 @@ int	check_resolution(char *line, t_param *param)
 		while (*line == ' ')
 			line++;
 		if (ft_isdigit(*line))
-			param->ry = ft_atoi(line);
+			data->ry = ft_atoi(line);
 		else
 			return (PARS_ERROR);
 		while (ft_isdigit(*line))
@@ -69,10 +69,10 @@ int	check_resolution(char *line, t_param *param)
 	return (0);
 }
 
-int	check_floor_color(char *line, t_param *param)
+int	check_floor_color(char *line, t_data *data)
 {
-	if (param->floor.red != -1 || param->floor.green != -1
-		|| param->floor.blue != -1)
+	if (data->floor.red != -1 || data->floor.green != -1
+		|| data->floor.blue != -1)
 		return (check_error(PARS_ERROR));
 	line++;
 	while (*line == ' ')
@@ -81,7 +81,7 @@ int	check_floor_color(char *line, t_param *param)
 		return (check_error(PARS_ERROR));
 	else
 	{
-		param->floor.red = ft_atoi(line);
+		data->floor.red = ft_atoi(line);
 		while (ft_isdigit(*line))
 			line++;
 	}
@@ -93,7 +93,7 @@ int	check_floor_color(char *line, t_param *param)
 		return (check_error(PARS_ERROR));
 	else
 	{
-		param->floor.green = ft_atoi(line);
+		data->floor.green = ft_atoi(line);
 		while (ft_isdigit(*line))
 			line++;
 	}
@@ -105,17 +105,17 @@ int	check_floor_color(char *line, t_param *param)
 		return (check_error(PARS_ERROR));
 	else
 	{
-		param->floor.blue = ft_atoi(line);
+		data->floor.blue = ft_atoi(line);
 		while (ft_isdigit(*line))
 			line++;
 	}
 	return (0);
 }
 
-int	check_ceiling_color(char *line, t_param *param)
+int	check_ceiling_color(char *line, t_data *data)
 {
-	if (param->ceiling.red != -1 || param->ceiling.green != -1
-		|| param->ceiling.blue != -1)
+	if (data->ceiling.red != -1 || data->ceiling.green != -1
+		|| data->ceiling.blue != -1)
 		return (check_error(PARS_ERROR));
 	line++;
 	while (*line == ' ')
@@ -124,7 +124,7 @@ int	check_ceiling_color(char *line, t_param *param)
 		return (check_error(PARS_ERROR));
 	else
 	{
-		param->ceiling.red = ft_atoi(line);
+		data->ceiling.red = ft_atoi(line);
 		while (ft_isdigit(*line))
 			line++;
 	}
@@ -136,7 +136,7 @@ int	check_ceiling_color(char *line, t_param *param)
 		return (check_error(PARS_ERROR));
 	else
 	{
-		param->ceiling.green = ft_atoi(line);
+		data->ceiling.green = ft_atoi(line);
 		while (ft_isdigit(*line))
 			line++;
 	}
@@ -148,33 +148,33 @@ int	check_ceiling_color(char *line, t_param *param)
 		return (check_error(PARS_ERROR));
 	else
 	{
-		param->ceiling.blue = ft_atoi(line);
+		data->ceiling.blue = ft_atoi(line);
 		while (ft_isdigit(*line))
 			line++;
 	}
 	return (0);
 }
 
-int	dispatcher(char *line, t_param *param, int n)
+int	dispatcher(char *line, t_data *data, int n)
 {
 	if (*line == 'R')
-		return(check_resolution(line, param));
+		return(check_resolution(line, data));
 	else if (*line == 'N')
-		return(check_north_path(line, param));
+		return(check_north_path(line, data));
 	else if (*line == 'S' && line[1] == 'O')
-		return(check_south_path(line, param));
+		return(check_south_path(line, data));
 	else if (*line == 'W')
-		return(check_west_path(line, param));
+		return(check_west_path(line, data));
 	else if (*line == 'E')
-		return(check_east_path(line, param));
+		return(check_east_path(line, data));
 	else if (*line == 'S' && line[1] != 'O')
-		return(check_sprite_path(line, param));
+		return(check_sprite_path(line, data));
 	else if (*line == 'F')
-		return(check_floor_color(line, param));
+		return(check_floor_color(line, data));
 	else if (*line == 'C')
-		return(check_ceiling_color(line, param));
+		return(check_ceiling_color(line, data));
 	else if (*line == ' ' || *line == '1')
-		return(extract_map(line, param, n)); 
+		return(extract_map(line, data, n)); 
 	else
 		return (PARS_ERROR);
 	return (0);
@@ -193,7 +193,7 @@ int only_space(char *line)
 	return (1);
 }
 
-int	read_file(int n, int fd, t_param *param)
+int	read_file(int n, int fd, t_data *data)
 {
 	char	*line;
 
@@ -201,7 +201,7 @@ int	read_file(int n, int fd, t_param *param)
 	{
 		if (!only_space(line))
 		{
-			if (dispatcher(line, param, n) < 0)
+			if (dispatcher(line, data, n) < 0)
 				return (-1);
 		}
 		n--;
@@ -224,17 +224,17 @@ int	count_line(int fd)
 	return (i);
 }
 
-void	free_param(t_param *param)
+void	free_data(t_data *data)
 {
-	if (param->north)
-		free(param->north);
-	if (param->south)
-		free(param->south);
-	if (param->west)
-		free(param->west);
-	if (param->east)
-		free(param->east);
-	if (param->sprite)
-		free(param->sprite);
+	if (data->north)
+		free(data->north);
+	if (data->south)
+		free(data->south);
+	if (data->west)
+		free(data->west);
+	if (data->east)
+		free(data->east);
+	if (data->sprite)
+		free(data->sprite);
 	//free > char **map
 }

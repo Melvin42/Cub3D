@@ -1,53 +1,53 @@
 #include "cub3d.h"
 
-int	extract_map(char *line, t_param *param, int n)
+int	extract_map(char *line, t_data *data, int n)
 {
 	static int	i = 0;
-	if (!param->map)
+	if (!data->map)
 	{
-		if (!(param->map = (char **)malloc(sizeof(char *) * n)))
+		if (!(data->map = (char **)malloc(sizeof(char *) * n)))
 			return (check_error(MALLOC_ERROR));
-		param->map[n] = NULL;
+		data->map[n] = NULL;
 	}
-	param->map[i++] = ft_strdup(line);
+	data->map[i++] = ft_strdup(line);
 	return (0);
 }
 
-void	set_player(t_param *param, t_player *player, int x, int y)
+void	set_player(t_data *data, int x, int y)
 {
-	player->flag = 1;
-	if (param->map[y][x] =='N')
-		player->diry = -1;
-	else if (param->map[y][x] =='S')
-		player->diry = 1;
-	else if (param->map[y][x] =='E')
-		player->dirx = -1;
-	else if (param->map[y][x] =='W')
-		player->dirx = 1;
+	data->player.flag = 1;
+	if (data->map[y][x] =='N')
+		data->player.diry = -1;
+	else if (data->map[y][x] =='S')
+		data->player.diry = 1;
+	else if (data->map[y][x] =='E')
+		data->player.dirx = -1;
+	else if (data->map[y][x] =='W')
+		data->player.dirx = 1;
 }
 
-int	check_map(t_param *param, t_player *player)
+int	check_map(t_data *data)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	while (param->map[++i])
+	while (data->map[++i])
 	{
 		j = 0;
-		while (param->map[i][j])
+		while (data->map[i][j])
 		{
-			if (param->map[i][j] == '0' || param->map[i][j] == '1'
-				|| param->map[i][j] == '2' || param->map[i][j] == ' ')
+			if (data->map[i][j] == '0' || data->map[i][j] == '1'
+				|| data->map[i][j] == '2' || data->map[i][j] == ' ')
 				j++;
-			else if (param->map[i][j] == 'N' || param->map[i][j] == 'S'
-				|| param->map[i][j] == 'E' || param->map[i][j] == 'W')
+			else if (data->map[i][j] == 'N' || data->map[i][j] == 'S'
+				|| data->map[i][j] == 'E' || data->map[i][j] == 'W')
 			{
-				if (player->flag == 1)
+				if (data->player.flag == 1)
 					return (check_error(PARS_ERROR));
-				set_player(param, player, j, i);
-				player->posx = j;
-				player->posy = i;
+				set_player(data, j, i);
+				data->player.posx = j;
+				data->player.posy = i;
 				j++;
 			}
 			else
