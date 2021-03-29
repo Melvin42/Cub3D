@@ -9,10 +9,24 @@ int	handle_no_event(void *data)
 int	handle_keypress(int keysym, t_data *data)
 {
 	if (keysym == XK_Escape)
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	else if (keysym == 65293)//touche entree
 	{
-		mlx_loop_hook(data->mlx_ptr, &render, &data);
+		mlx_destroy_image(data->mlx_ptr,data->img.mlx_img);
+		mlx_destroy_display(data->mlx_ptr);
+		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+		free(data->win_ptr);
+		free(data->mlx_ptr);
+		free_data(data);
+		exit(1);
+	}
+	else if (keysym == XK_Return)
+	{
+		mlx_clear_window(data->mlx_ptr, data->win_ptr);
+		raycast(data);
+	}
+	else if (keysym == XK_1)
+	{
+		mlx_clear_window(data->mlx_ptr, data->win_ptr);
+		menu(data);
 	}
 	printf("Keypress: %d\n", keysym);
 	return (0);
@@ -64,6 +78,20 @@ int	render_rect(t_img *img, t_rect rect)
 	return (0);
 }
 
+int	render_col(t_data *data, int x, int drawstart, int drawend, int color)
+{
+	if (data->win_ptr == NULL)
+		return (1);
+	int	i = drawstart;
+	(void)color;
+	printf("drawstart %d\n", drawstart);
+	printf("drawend %d\n", drawend);
+	while (i < drawend)
+		img_pix_put(&data->img, x, i++, RED_PIXEL); 
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
+	return (0);
+}
+
 void	render_background(t_img *img, t_data *data, int color)
 {
 	int	i;
@@ -79,13 +107,130 @@ void	render_background(t_img *img, t_data *data, int color)
 	}
 }
 
+int	menu(t_data *data)
+{
+	if (data->win_ptr == NULL)
+		return (1);
+	mlx_string_put(data->mlx_ptr, data->win_ptr, data->rx / 2, data->ry / 2, 255, "BIENVENUE");
+	mlx_string_put(data->mlx_ptr, data->win_ptr, data->rx / 2, data->ry / 2+20, 255, "Appuyez sur entree");
+	return (0);
+}
+
 int	render(t_data *data)
 {
 	if (data->win_ptr == NULL)
 		return (1);
-	render_background(&data->img, data, WHITE_PIXEL);
-	render_rect(&data->img, (t_rect){data->rx - 100, data->ry - 100, 100, 100, GREEN_PIXEL});
-	render_rect(&data->img, (t_rect){0, 0, 500, 300, RED_PIXEL});
+	render_background(&data->img, data, BLACK_PIXEL);
+	//	render_rect(&data->img, (t_rect){data->rx - 100, data->ry - 100, 100, 100, GREEN_PIXEL});
+	//	render_rect(&data->img, (t_rect){0, 0, 500, 300, RED_PIXEL});
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
+	return (0);
+}
+
+double	ft_abs(double n)
+{
+	if (n < 0)
+		return (n * -1);
+	else 
+		return (n);
+}
+
+int	raycast(t_data *data)
+{
+	int	x;
+	double	deltadistx;
+	double	deltadisty;
+	int		mapx;
+	int		mapy;
+	double	sidedistx;
+	double	sidedisty; 
+	double	perpwalldist;
+	int		stepx;
+	int		stepy;
+	int		hit;
+	int		side;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
+	int		w = 1920;
+	int		h = 1024;
+	while (1)
+	{
+		x = -1;
+		while (++x < w)
+		{
+			data->player.camerax = 2.0 * (double)x / (double)data->rx - 1.0;
+			data->player.raydirx = data->player.dirx + data->player.planex * data->player.camerax;
+			data->player.raydiry = data->player.diry + data->player.planey * data->player.camerax;
+			mapx = (int)data->player.posx;
+			mapy = (int)data->player.posy;
+			deltadistx = ft_abs(1.0 / data->player.raydirx);
+			deltadisty = ft_abs(1.0 / data->player.raydiry);
+			hit = 0;
+			if (data->player.raydirx < 0.0)
+			{
+				stepx = -1;
+				sidedistx = (data->player.posx - (double)mapx) * deltadistx;
+			}
+			else
+			{
+				stepx = 1;
+				sidedistx = ((double)mapx + 1.0 - data->player.posx) * deltadistx;
+			}
+			if (data->player.raydiry < 0.0)
+			{
+				stepy = -1;
+				sidedisty = (data->player.posy - (double)mapy) * deltadisty;
+			}
+			else
+			{
+				stepy = 1;
+				sidedisty = ((double)mapy + 1.0 - data->player.posy) * deltadisty;
+			}
+			while (hit == 0)
+			{
+				if (sidedistx < sidedisty)
+				{
+					sidedistx += deltadistx;
+					mapx += stepx;
+					side = 0;
+				}
+				else
+				{
+					sidedisty += deltadisty;
+					mapy += stepy;
+					side = 1;
+				}
+				if (data->map[mapy][mapx] > 0)
+					hit = 1;
+			}
+			if (side == 0)
+				perpwalldist = (double)((double)mapx - data->player.posx + (1 - (double)stepx) / 2) / data->player.raydirx;
+			else
+				perpwalldist = (double)((double)mapy - data->player.posy + (1 - (double)stepy) / 2) / data->player.raydiry;
+			printf("perp = %f\n", perpwalldist);
+			//lineheight = (int)(data->ry / perpwalldist);
+			lineheight = 400;
+			drawstart = -lineheight / 2 + data->ry / 2;
+			if (drawstart < 0)
+				drawstart = 0;
+			drawend = lineheight / 2 + data->ry / 2;
+			if (drawend >= h)
+				drawend = h - 1; 
+			/*	int color;
+				switch (data->map[mapx][mapy])
+				{
+				case 1: color = RED_PIXEL; break;
+				case 2: color = GREEN_PIXEL; break;
+				case 3: color = BLUE_PIXEL; break;
+				case 4: color = WHITE_PIXEL; break;
+				default: color = YELLOW_PIXEL; break;
+				}
+			 */
+			//	if (side == 1)
+			//		color = color / 2;
+			render_col(data, x, drawstart, drawend, RED_PIXEL);
+		}
+	}
 	return (0);
 }

@@ -12,13 +12,18 @@
 # define STR_FD_ERROR "Error\nFile descriptor = -1.\n"
 # define RED_PIXEL 0xFF0000
 # define GREEN_PIXEL 0xFF00
+# define BLUE_PIXEL 0xFF
+# define YELLOW_PIXEL 0xFFFF00
 # define WHITE_PIXEL 0xFFFFFF
+# define BLACK_PIXEL 0x0
 
 # include "libft/libft.h"
 # include <mlx.h>
 # include <X11/keysym.h>
+# include <X11/keysymdef.h>
 # include <X11/X.h>
 # include <stdint.h>
+# include <math.h>
 
 /*******************************************************************************
 **==============================> STRUCT <====================================**
@@ -52,12 +57,27 @@ typedef struct	s_rgb
 typedef struct	s_player
 {
 	int flag;
-	int	posx;
-	int	posy;
-	int	dirx;
-	int	diry;
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
+	double	time;
+	double	oldtime;
+	double	camerax;
+	double	raydirx;
+	double	raydiry;
 }				t_player;
-
+/*
+typedef struct	s_raycast
+{
+	double	planex;
+	double	planey;
+	double	time;
+	double	oldtime;
+}				t_raycast;
+*/
 typedef struct	s_data
 {
 	void	*mlx_ptr;
@@ -110,5 +130,7 @@ void	img_pix_put(t_img *img, int x, int y, int color);
 int		render_rect(t_img *img, t_rect rect);
 void	render_background(t_img *img, t_data *data, int color);
 int		render(t_data *data);
+int		menu(t_data *data);
+int		raycast(t_data *data);
 
 #endif
