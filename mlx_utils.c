@@ -88,7 +88,7 @@ int	render_col(t_data *data, int x, int drawstart, int drawend, int color)
 	printf("drawend %d\n", drawend);
 	while (i < drawend)
 		img_pix_put(&data->img, x, i++, RED_PIXEL); 
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
+//	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
 	return (0);
 }
 
@@ -152,40 +152,55 @@ int	raycast(t_data *data)
 	int		lineheight;
 	int		drawstart;
 	int		drawend;
-	int		w = 1920;
-	int		h = 1024;
 	while (1)
 	{
 		x = -1;
-		while (++x < w)
+		while (++x < data->rx)
 		{
 			data->player.camerax = 2.0 * (double)x / (double)data->rx - 1.0;
+			//printf("camera %f\n", data->player.camerax);
 			data->player.raydirx = data->player.dirx + data->player.planex * data->player.camerax;
 			data->player.raydiry = data->player.diry + data->player.planey * data->player.camerax;
 			mapx = (int)data->player.posx;
 			mapy = (int)data->player.posy;
-			deltadistx = ft_abs(1.0 / data->player.raydirx);
-			deltadisty = ft_abs(1.0 / data->player.raydiry);
+			if (data->player.raydiry == 0)
+				deltadistx = 0;
+			else
+			{
+				if (data->player.raydirx == 0)
+					deltadistx = 1;
+				else
+					deltadistx = ft_abs(1.0 / data->player.raydirx);
+			}
+			if (data->player.raydirx == 0)
+				deltadisty = 0;
+			else
+			{
+				if (data->player.raydiry == 0)
+					deltadisty = 1;
+				else
+					deltadisty = ft_abs(1.0 / data->player.raydiry);
+			}
 			hit = 0;
-			if (data->player.raydirx < 0.0)
+			if (data->player.raydirx < 0)
 			{
 				stepx = -1;
-				sidedistx = (data->player.posx - (double)mapx) * deltadistx;
+				sidedistx = (data->player.posx - mapx) * deltadistx;
 			}
 			else
 			{
 				stepx = 1;
-				sidedistx = ((double)mapx + 1.0 - data->player.posx) * deltadistx;
+				sidedistx = (mapx + 1.0 - data->player.posx) * deltadistx;
 			}
-			if (data->player.raydiry < 0.0)
+			if (data->player.raydiry < 0)
 			{
 				stepy = -1;
-				sidedisty = (data->player.posy - (double)mapy) * deltadisty;
+				sidedisty = (data->player.posy - mapy) * deltadisty;
 			}
 			else
 			{
 				stepy = 1;
-				sidedisty = ((double)mapy + 1.0 - data->player.posy) * deltadisty;
+				sidedisty = (mapy + 1.0 - data->player.posy) * deltadisty;
 			}
 			while (hit == 0)
 			{
@@ -204,19 +219,21 @@ int	raycast(t_data *data)
 				if (data->map[mapy][mapx] > 0)
 					hit = 1;
 			}
+	//			perpwalldist = (mapx - data->player.posx + (1 - stepx) / 2) / data->player.raydirx;
 			if (side == 0)
-				perpwalldist = (double)((double)mapx - data->player.posx + (1 - (double)stepx) / 2) / data->player.raydirx;
+				perpwalldist = (mapx - data->player.posx + (1 - stepx) / 2) / data->player.raydirx;
 			else
-				perpwalldist = (double)((double)mapy - data->player.posy + (1 - (double)stepy) / 2) / data->player.raydiry;
+				perpwalldist = (mapy - data->player.posy + (1 - stepy) / 2) / data->player.raydiry;
 			printf("perp = %f\n", perpwalldist);
-			//lineheight = (int)(data->ry / perpwalldist);
-			lineheight = 400;
+			lineheight = (data->ry / perpwalldist);
+			printf("lineheight = %d\n", lineheight);
+			lineheight = 200;
 			drawstart = -lineheight / 2 + data->ry / 2;
 			if (drawstart < 0)
 				drawstart = 0;
 			drawend = lineheight / 2 + data->ry / 2;
-			if (drawend >= h)
-				drawend = h - 1; 
+			if (drawend >= data->ry)
+				drawend = data->ry - 1; 
 			/*	int color;
 				switch (data->map[mapx][mapy])
 				{
@@ -231,6 +248,7 @@ int	raycast(t_data *data)
 			//		color = color / 2;
 			render_col(data, x, drawstart, drawend, RED_PIXEL);
 		}
+		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
 	}
 	return (0);
 }
