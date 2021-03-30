@@ -7,7 +7,7 @@ int	main(int ac, char **av)
 	t_data		data;
 
 	data = (t_data){NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL,
-			(t_player){0, 0, 0, 0, 0, 0, 0.66, 0, 0, 0, 0, 0}, (t_img){NULL, NULL, 0, 0, 0},
+			(t_player){0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, (t_img){NULL, NULL, 0, 0, 0},
 			(t_rgb){-1, -1, -1}, (t_rgb){-1, -1, -1}};
 	if (ac != 2)
 		return (check_error(ARG_ERROR));

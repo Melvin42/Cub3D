@@ -16,14 +16,30 @@ int	extract_map(char *line, t_data *data, int n)
 void	set_player(t_data *data, int x, int y)
 {
 	data->player.flag = 1;
-	if (data->map[y][x] =='N')
+	if (data->map[y][x] == 'N')
+	{
 		data->player.diry = -1;
-	else if (data->map[y][x] =='S')
+		data->player.planx = 0.66;
+		data->player.plany = 0;
+	}
+	else if (data->map[y][x] == 'S')
+	{
 		data->player.diry = 1;
-	else if (data->map[y][x] =='E')
+		data->player.planx = -0.66;
+		data->player.plany = 0;
+	}
+	else if (data->map[y][x] == 'E')
+	{
 		data->player.dirx = -1;
-	else if (data->map[y][x] =='W')
+		data->player.planx = 0;
+		data->player.plany = 0.66;
+	}
+	else if (data->map[y][x] == 'W')
+	{
 		data->player.dirx = 1;
+		data->player.planx = 0;
+		data->player.plany = -0.66;
+	}
 }
 
 int	check_map(t_data *data)

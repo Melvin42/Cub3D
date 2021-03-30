@@ -61,10 +61,8 @@ typedef struct	s_player
 	double	posy;
 	double	dirx;
 	double	diry;
-	double	planex;
-	double	planey;
-	double	time;
-	double	oldtime;
+	double	planx;
+	double	plany;
 	double	camerax;
 	double	raydirx;
 	double	raydiry;
