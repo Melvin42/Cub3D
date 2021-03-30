@@ -29,7 +29,7 @@ int	main(int ac, char **av)
 		free_data(&data);
 		return (0);
 	}
-/*
+
 	printf("rx = %15d\n", data.rx);
 	printf("ry = %15d\n", data.ry);
 	printf("north = %35s\n", data.north);
@@ -51,7 +51,7 @@ int	main(int ac, char **av)
 	printf("posy = %f\n", data.player.posy);
 	printf("dirx = %f\n", data.player.dirx);
 	printf("diry = %f\n", data.player.diry);
-*/	data.mlx_ptr = mlx_init();
+	data.mlx_ptr = mlx_init();
 	if (data.mlx_ptr == NULL)
 		return (check_error(MLX_ERROR));
 	data.win_ptr = mlx_new_window(data.mlx_ptr, data.rx, data.ry, "Cub3D");
@@ -60,13 +60,12 @@ int	main(int ac, char **av)
 		free(data.win_ptr);
 		return (check_error(MLX_ERROR));
 	}
-//	menu(&data);
+	menu(&data);
 	data.img.mlx_img = mlx_new_image(data.mlx_ptr, data.rx, data.ry);
 	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp,
 					&data.img.line_len, &data.img.endian);
 	render_background(&data.img, &data, BLACK_PIXEL);
-	raycast(&data);
-//	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
+	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
 	mlx_loop(data.mlx_ptr);
 	return (0);
 }
