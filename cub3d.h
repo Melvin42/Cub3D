@@ -16,6 +16,8 @@
 # define YELLOW_PIXEL 0xFFFF00
 # define WHITE_PIXEL 0xFFFFFF
 # define BLACK_PIXEL 0x0
+# define TEXTURE_WIDTH 64
+# define TEXTURE_HEIGHT 64
 
 # include "libft/libft.h"
 # include <mlx.h>

@@ -143,13 +143,6 @@ int	render(t_data *data)
 	return (0);
 }
 
-double	ft_abs(double n)
-{
-	if (n < 0)
-		return (n * -1);
-	else 
-		return (n);
-}
 int		raycast(t_data *data)
 {
 	int	x;
@@ -167,6 +160,13 @@ int		raycast(t_data *data)
 	int		lineheight;
 	int		drawstart;
 	int		drawend;
+	int		wallx;
+//	int		north_color;
+//	int		south_color;
+//	int		east_color;
+//	int		weast_color;
+//	uint32_t	buffer[data->ry][data->rx];	
+
 	x = -1;
 	render_background(&data->img, data, BLACK_PIXEL);
 	while (++x < data->rx)
@@ -182,7 +182,7 @@ int		raycast(t_data *data)
 		printf("raydiry %f\n", data->player.raydirx);
 		mapx = (int)(data->player.posx);
 		mapy = (int)(data->player.posy);
-/*		1f (data->player.raydiry == 0)
+/*		if (data->player.raydiry == 0)
 			deltadistx = 0;
 		else
 		{
@@ -201,8 +201,10 @@ int		raycast(t_data *data)
 				deltadisty = ft_abs(1.0 / data->player.raydiry);
 		}
 */
-		deltadistx = ft_abs(1.0 / data->player.raydirx);
-		deltadisty = ft_abs(1.0 / data->player.raydiry);
+		//deltadistx = fabs(1.0 / data->player.raydirx);
+		//deltadisty = fabs(1.0 / data->player.raydiry);
+		deltadistx = sqrt(1.0 + (data->player.raydiry * data->player.raydiry) / (data->player.raydirx * data->player.raydirx));
+		deltadisty = sqrt(1.0 + (data->player.raydirx * data->player.raydirx) / (data->player.raydiry * data->player.raydiry));
 
 		hit = 0;
 		if (data->player.raydirx < 0)
@@ -259,6 +261,13 @@ int		raycast(t_data *data)
 		drawend = lineheight / 2 + data->ry / 2;
 		if (drawend >= data->ry)
 			drawend = data->ry - 1; 
+		if (side == 0)
+			wallx = (int)(data->player.posy + perpwalldist * data->player.raydiry);
+		else
+			wallx = (int)(data->player.posx + perpwalldist * data->player.raydirx);
+		wallx -= floor(wallx);
+		printf("wallx = %d\n", wallx);
+
 		render_col(data, x, drawstart, drawend, RED_PIXEL);
 	}
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
