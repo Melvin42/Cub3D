@@ -103,10 +103,8 @@ int	render_col(t_data *data, int x, int drawstart, int drawend, int color)
 {
 	if (data->win_ptr == NULL)
 		return (1);
-	int	i = drawstart;
-	(void)color;
-	while (i < drawend)
-		img_pix_put(&data->img, x, i++, color); 
+	while (drawstart < drawend)
+		img_pix_put(&data->img, x, drawstart++, color); 
 	return (0);
 }
 
@@ -161,10 +159,6 @@ int		raycast(t_data *data)
 	int		drawstart;
 	int		drawend;
 	int		wallx;
-//	int		north_color;
-//	int		south_color;
-//	int		east_color;
-//	int		weast_color;
 //	uint32_t	buffer[data->ry][data->rx];	
 
 	x = -1;
@@ -172,14 +166,9 @@ int		raycast(t_data *data)
 	while (++x < data->rx)
 	{
 		data->player.camerax = 2 * (double)x / (double)data->rx - 1;
-	//	printf("camera %f\n", data->player.camerax);
-	//	printf("planx %f\n", data->player.planx);
-	//	printf("plany %f\n", data->player.plany);
 
 		data->player.raydirx = data->player.dirx + data->player.planx * data->player.camerax;
 		data->player.raydiry = data->player.diry + data->player.plany * data->player.camerax;
-	//	printf("raydirx %f\n", data->player.raydirx);
-	//	printf("raydiry %f\n", data->player.raydirx);
 		mapx = (int)(data->player.posx);
 		mapy = (int)(data->player.posy);
 /*		if (data->player.raydiry == 0)
@@ -244,7 +233,7 @@ int		raycast(t_data *data)
 			if (data->map[mapy][mapx] > '0')
 				hit = 1;
 		}
-		printf("SIDE = %d\n", side);
+	//	printf("SIDE = %d\n", side);
 		if (side == 0)
 			perpwalldist = ((double)mapx - data->player.posx + (1 - (double)stepx) / 2) / (data->player.raydirx);
 		else
@@ -269,13 +258,29 @@ int		raycast(t_data *data)
 		wallx -= floor(wallx);
 
 		if (side == 0 && stepx == -1)
+		{
+			render_col(data, x, 0, drawstart, CYAN_PIXEL);
 			render_col(data, x, drawstart, drawend, RED_PIXEL);
+			render_col(data, x, drawend, data->ry, GREY_PIXEL);
+		}
 		else if (side == 0 && stepx == 1)
+		{
+			render_col(data, x, 0, drawstart, CYAN_PIXEL);
 			render_col(data, x, drawstart, drawend, BLUE_PIXEL);
+			render_col(data, x, drawend, data->ry, GREY_PIXEL);
+		}
 		else if (side == 1 && stepy == -1)
+		{
+			render_col(data, x, 0, drawstart, CYAN_PIXEL);
 			render_col(data, x, drawstart, drawend, GREEN_PIXEL);
-		else// if (side == 1 && stepy == 1)
+			render_col(data, x, drawend, data->ry, GREY_PIXEL);
+		}
+		else
+		{
+			render_col(data, x, 0, drawstart, CYAN_PIXEL);
 			render_col(data, x, drawstart, drawend, YELLOW_PIXEL);
+			render_col(data, x, drawend, data->ry, GREY_PIXEL);
+		}
 	}
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
 	return (0);
