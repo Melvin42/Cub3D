@@ -106,7 +106,7 @@ int	render_col(t_data *data, int x, int drawstart, int drawend, int color)
 	int	i = drawstart;
 	(void)color;
 	while (i < drawend)
-		img_pix_put(&data->img, x, i++, RED_PIXEL); 
+		img_pix_put(&data->img, x, i++, color); 
 	return (0);
 }
 
@@ -172,14 +172,14 @@ int		raycast(t_data *data)
 	while (++x < data->rx)
 	{
 		data->player.camerax = 2 * (double)x / (double)data->rx - 1;
-		printf("camera %f\n", data->player.camerax);
-		printf("planx %f\n", data->player.planx);
-		printf("plany %f\n", data->player.plany);
+	//	printf("camera %f\n", data->player.camerax);
+	//	printf("planx %f\n", data->player.planx);
+	//	printf("plany %f\n", data->player.plany);
 
 		data->player.raydirx = data->player.dirx + data->player.planx * data->player.camerax;
 		data->player.raydiry = data->player.diry + data->player.plany * data->player.camerax;
-		printf("raydirx %f\n", data->player.raydirx);
-		printf("raydiry %f\n", data->player.raydirx);
+	//	printf("raydirx %f\n", data->player.raydirx);
+	//	printf("raydiry %f\n", data->player.raydirx);
 		mapx = (int)(data->player.posx);
 		mapy = (int)(data->player.posy);
 /*		if (data->player.raydiry == 0)
@@ -244,17 +244,18 @@ int		raycast(t_data *data)
 			if (data->map[mapy][mapx] > '0')
 				hit = 1;
 		}
+		printf("SIDE = %d\n", side);
 		if (side == 0)
 			perpwalldist = ((double)mapx - data->player.posx + (1 - (double)stepx) / 2) / (data->player.raydirx);
 		else
 			perpwalldist = ((double)mapy - data->player.posy + (1 - (double)stepy) / 2) / (data->player.raydiry);
-		printf("perp = %f\n", perpwalldist);
-		printf("dirx = %f\n", data->player.dirx);
-		printf("diry = %f\n", data->player.diry);
-		printf("posx = %f\n", data->player.posx);
-		printf("posy = %f\n", data->player.posy);
+	//	printf("perp = %f\n", perpwalldist);
+	//	printf("dirx = %f\n", data->player.dirx);
+	//	printf("diry = %f\n", data->player.diry);
+	//	printf("posx = %f\n", data->player.posx);
+	//	printf("posy = %f\n", data->player.posy);
 		lineheight = (int)((double)data->ry / perpwalldist);
-		printf("lineheight = %d\n", lineheight);
+	//	printf("lineheight = %d\n", lineheight);
 		drawstart = -lineheight / 2 + data->ry / 2;
 		if (drawstart < 0)
 			drawstart = 0;
@@ -266,9 +267,15 @@ int		raycast(t_data *data)
 		else
 			wallx = (int)(data->player.posx + perpwalldist * data->player.raydirx);
 		wallx -= floor(wallx);
-		printf("wallx = %d\n", wallx);
 
-		render_col(data, x, drawstart, drawend, RED_PIXEL);
+		if (side == 0 && stepx == -1)
+			render_col(data, x, drawstart, drawend, RED_PIXEL);
+		else if (side == 0 && stepx == 1)
+			render_col(data, x, drawstart, drawend, BLUE_PIXEL);
+		else if (side == 1 && stepy == -1)
+			render_col(data, x, drawstart, drawend, GREEN_PIXEL);
+		else// if (side == 1 && stepy == 1)
+			render_col(data, x, drawstart, drawend, YELLOW_PIXEL);
 	}
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
 	return (0);
