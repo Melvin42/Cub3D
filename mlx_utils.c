@@ -1,13 +1,12 @@
 #include "cub3d.h"
 
-int	handle_no_event(void *data)
-{
-	(void)data;
-	return (0);
-}
-
 int	handle_keypress(int keysym, t_data *data)
 {
+	double 	olddirx;
+	double	oldplanx;
+	double rotspeed = 0.1;
+	double movespeed = 0.1;
+
 	if (keysym == XK_Escape)
 	{
 		mlx_destroy_image(data->mlx_ptr,data->img.mlx_img);
@@ -21,51 +20,62 @@ int	handle_keypress(int keysym, t_data *data)
 	else if (keysym == XK_Return)
 	{
 		mlx_clear_window(data->mlx_ptr, data->win_ptr);
-		raycast(data);
 	}
 	else if (keysym == XK_1)
 	{
 		mlx_clear_window(data->mlx_ptr, data->win_ptr);
 		menu(data);
+		return (0);
 	}
 	else if (keysym == XK_Up || keysym == XK_w)
 	{
-	//	if (data->map[(int)(data->player.posy + 1.0)][(int)data->player.posx] == '0')
-		data->player.posy -= 1;
-		mlx_clear_window(data->mlx_ptr, data->win_ptr);
-		raycast(data);
+		if (data->map[(int)data->player.posy][(int)(data->player.posx + data->player.dirx * movespeed)] == '0')
+			data->player.posx += data->player.dirx * movespeed;
+		if (data->map[(int)(data->player.posy + data->player.diry * movespeed)][(int)data->player.posx] == '0')
+			data->player.posy += data->player.diry * movespeed;
 	}
 	else if (keysym == XK_Down || keysym == XK_s)
 	{
-	//	if (data->map[(int)(data->player.posy + 1)][(int)data->player.posx] == '0')
-			data->player.posy += 1;
-
-		mlx_clear_window(data->mlx_ptr, data->win_ptr);
-		raycast(data);
+		if (data->map[(int)data->player.posy][(int)(data->player.posx - data->player.diry * movespeed)] == '0')
+			data->player.posx -= data->player.dirx * movespeed;
+		if (data->map[(int)(data->player.posy - data->player.diry * movespeed)][(int)data->player.posx] == '0')
+			data->player.posy -= data->player.diry * movespeed;
 	}
-	else if (keysym == XK_Left || keysym == XK_a)
+	else if (keysym == XK_a)
 	{
-		data->player.posx -= 1;
-		mlx_clear_window(data->mlx_ptr, data->win_ptr);
-		raycast(data);
+		if (data->map[(int)(data->player.posy)][(int)(data->player.posx + data->player.diry * movespeed)] == '0')
+			data->player.posx += data->player.diry * movespeed;
+		if (data->map[(int)(data->player.posy - data->player.dirx * movespeed)][(int)data->player.posx] == '0')
+			data->player.posy -= data->player.dirx * movespeed;
 	}
-	else if (keysym == XK_Right || keysym == XK_d)
+	else if (keysym == XK_d)
 	{
-		data->player.posx += 1;
-		mlx_clear_window(data->mlx_ptr, data->win_ptr);
-		raycast(data);
+		if (data->map[(int)(data->player.posy)][(int)(data->player.posx - data->player.diry * movespeed)] == '0')
+			data->player.posx -= data->player.diry * movespeed;
+		if (data->map[(int)(data->player.posy - data->player.dirx * movespeed)][(int)data->player.posx] == '0')
+			data->player.posy += data->player.dirx * movespeed;
 	}
-	printf("Keypress: %d\n", keysym);
+	else if (keysym == XK_Left || keysym == XK_q)
+	{
+		olddirx = data->player.dirx;
+		data->player.dirx = data->player.dirx * cos(-rotspeed) - data->player.diry * sin(-rotspeed);
+		data->player.diry = olddirx * sin(-rotspeed) + data->player.diry * cos(-rotspeed);
+		oldplanx = data->player.planx;
+		data->player.planx = data->player.planx * cos(-rotspeed) - data->player.plany * sin(-rotspeed);
+		data->player.plany = oldplanx * sin(-rotspeed) + data->player.plany * cos(-rotspeed);
+	}
+	else if (keysym == XK_Right || keysym == XK_e)
+	{
+		olddirx = data->player.dirx;
+		data->player.dirx = data->player.dirx * cos(rotspeed) - data->player.diry * sin(rotspeed);
+		data->player.diry = olddirx * sin(rotspeed) + data->player.diry * cos(rotspeed);
+		oldplanx = data->player.planx;
+		data->player.planx = data->player.planx * cos(rotspeed) - data->player.plany * sin(rotspeed);
+		data->player.plany = oldplanx * sin(rotspeed) + data->player.plany * cos(rotspeed);
+	}
+	raycast(data);
 	return (0);
 }
-
-int	handle_keyrelease(int keysym, void *data)
-{
-	(void)data;
-	printf("Keyrelease: %d\n", keysym);
-	return (0);
-}
-
 
 int	encode_rgb(uint8_t red, uint8_t green, uint8_t blue)
 {
@@ -87,22 +97,6 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 			*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
 		i -= 8;
 	}
-}
-
-int	render_rect(t_img *img, t_rect rect)
-{
-	int	i;
-	int	j;
-
-	i = rect.y;
-	while (i < rect.y + rect.height)
-	{
-		j = rect.x;
-		while (j < rect.x + rect.width)
-			img_pix_put(img, j++, i, rect.color);
-		++i;
-	}
-	return (0);
 }
 
 int	render_col(t_data *data, int x, int drawstart, int drawend, int color)
@@ -135,8 +129,8 @@ int	menu(t_data *data)
 {
 	if (data->win_ptr == NULL)
 		return (1);
-	mlx_string_put(data->mlx_ptr, data->win_ptr, data->rx / 2, data->ry / 2, 255, "BIENVENUE");
-	mlx_string_put(data->mlx_ptr, data->win_ptr, data->rx / 2, data->ry / 2+20, 255, "Appuyez sur entree");
+	mlx_string_put(data->mlx_ptr, data->win_ptr, data->rx / 2, data->ry / 2, WHITE_PIXEL, "BIENVENUE");
+	mlx_string_put(data->mlx_ptr, data->win_ptr, data->rx / 2, data->ry / 2+20, WHITE_PIXEL, "APPUYEZ SUR ENTREE");
 	return (0);
 }
 
@@ -145,8 +139,6 @@ int	render(t_data *data)
 	if (data->win_ptr == NULL)
 		return (1);
 	render_background(&data->img, data, BLACK_PIXEL);
-	//	render_rect(&data->img, (t_rect){data->rx - 100, data->ry - 100, 100, 100, GREEN_PIXEL});
-	//	render_rect(&data->img, (t_rect){0, 0, 500, 300, RED_PIXEL});
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
 	return (0);
 }
@@ -176,6 +168,7 @@ int		raycast(t_data *data)
 	int		drawstart;
 	int		drawend;
 	x = -1;
+	render_background(&data->img, data, BLACK_PIXEL);
 	while (++x < data->rx)
 	{
 		data->player.camerax = 2 * (double)x / (double)data->rx - 1;

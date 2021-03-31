@@ -32,14 +32,15 @@ void	set_player(t_data *data, int x, int y)
 	{
 		data->player.dirx = -1;
 		data->player.planx = 0;
-		data->player.plany = 0.66;
+		data->player.plany = -0.66;
 	}
 	else if (data->map[y][x] == 'W')
 	{
 		data->player.dirx = 1;
 		data->player.planx = 0;
-		data->player.plany = -0.66;
+		data->player.plany = 0.66;
 	}
+	data->map[y][x] = '0';
 }
 
 int	check_map(t_data *data)
@@ -54,16 +55,21 @@ int	check_map(t_data *data)
 		while (data->map[i][j])
 		{
 			if (data->map[i][j] == '0' || data->map[i][j] == '1'
-				|| data->map[i][j] == '2' || data->map[i][j] == ' ')
+				|| data->map[i][j] == '2')
 				j++;
+			else if (data->map[i][j] == ' ')
+			{
+				data->map[i][j] = '1';
+				j++;
+			}
 			else if (data->map[i][j] == 'N' || data->map[i][j] == 'S'
 				|| data->map[i][j] == 'E' || data->map[i][j] == 'W')
 			{
 				if (data->player.flag == 1)
 					return (check_error(PARS_ERROR));
 				set_player(data, j, i);
-				data->player.posx = j;
-				data->player.posy = i;
+				data->player.posx = j + 0.5;
+				data->player.posy = i + 0.5;
 				j++;
 			}
 			else
