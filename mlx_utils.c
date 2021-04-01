@@ -107,16 +107,67 @@ int	render_col(t_data *data, int x, int drawstart, int drawend, int color)
 		img_pix_put(&data->img, x, drawstart++, color); 
 	return (0);
 }
-/*
-int	render_tex(t_data *data, int x, int drawstart, int drawend, void *img_ptr)
+
+int	render_tex_n(t_data *data, int x, int drawstart, int drawend, double step)
 {
 	if (data->win_ptr == NULL)
 		return (1);
 	while (drawstart < drawend)
-		img_pix_put(&data->img, x, drawstart++, color); 
+	{
+		data->texture.tex_y = (int)data->texture.tex_pos & (TEXTURE_HEIGHT - 1);
+		data->texture.tex_pos += step;
+		data->texture.color = *((int *)data->tex_n.addr + (TEXTURE_HEIGHT * data->texture.tex_y + data->texture.tex_x));
+		img_pix_put(&data->img, x, drawstart++, data->texture.color);
+	}
+	data->tex_n.addr+=4;
 	return (0);
 }
-*/
+
+int	render_tex_s(t_data *data, int x, int drawstart, int drawend, double step)
+{
+	if (data->win_ptr == NULL)
+		return (1);
+	while (drawstart < drawend)
+	{
+		data->texture.tex_y = (int)data->texture.tex_pos & (TEXTURE_HEIGHT - 1);
+		data->texture.tex_pos += step;
+		data->texture.color = *((int *)data->tex_s.addr + (TEXTURE_HEIGHT * data->texture.tex_y + data->texture.tex_x));
+		img_pix_put(&data->img, x, drawstart++, data->texture.color);
+	}
+	data->tex_s.addr+=4;
+	return (0);
+}
+
+int	render_tex_e(t_data *data, int x, int drawstart, int drawend, double step)
+{
+	if (data->win_ptr == NULL)
+		return (1);
+	while (drawstart < drawend)
+	{
+		data->texture.tex_y = (int)data->texture.tex_pos & (TEXTURE_HEIGHT - 1);
+		data->texture.tex_pos += step;
+		data->texture.color = *((int *)data->tex_e.addr + (TEXTURE_HEIGHT * data->texture.tex_y + data->texture.tex_x));
+		img_pix_put(&data->img, x, drawstart++, data->texture.color);
+	}
+	data->tex_e.addr+=4;
+	return (0);
+}
+
+int	render_tex_w(t_data *data, int x, int drawstart, int drawend, double step)
+{
+	if (data->win_ptr == NULL)
+		return (1);
+	while (drawstart < drawend)
+	{
+		data->texture.tex_y = (int)data->texture.tex_pos & (TEXTURE_HEIGHT - 1);
+		data->texture.tex_pos += step;
+		data->texture.color = *((int *)data->tex_w.addr + (TEXTURE_HEIGHT * data->texture.tex_y + data->texture.tex_x));
+		img_pix_put(&data->img, x, drawstart++, data->texture.color);
+	}
+	data->tex_w.addr+=4;
+	return (0);
+}
+
 void	render_background(t_img *img, t_data *data, int color)
 {
 	int	i;
@@ -153,7 +204,6 @@ int	render(t_data *data)
 int		raycast(t_data *data)
 {
 	int	x;
-	int	y;
 	int		mapx;
 	int		mapy;
 	int		stepx;
@@ -257,7 +307,6 @@ int		raycast(t_data *data)
 		data->texture.tex_x = (int)(data->texture.wall_x * (double)TEXTURE_WIDTH);
 		step = 1.0 * (double)TEXTURE_HEIGHT / lineheight;
 		data->texture.tex_pos = (drawstart - (double)data->ry / 2 + lineheight / 2) * step;
-		y = drawstart;
 	/*	int	d;
 		while (y < drawend)
 		{
@@ -272,60 +321,32 @@ int		raycast(t_data *data)
 		if (side == 0 && stepx == -1)
 		{
 			render_col(data, x, 0, drawstart, CYAN_PIXEL);
-			while (y < drawend)
-			{
-				data->texture.tex_y = (int)data->texture.tex_pos & (TEXTURE_HEIGHT - 1);
-				data->texture.tex_pos += step;
-				data->texture.color = *((int *)data->tex_e.addr + (TEXTURE_HEIGHT * data->texture.tex_y + data->texture.tex_x));
-				img_pix_put(&data->img, x, y, data->texture.color);
-				y++;
-			}
-			data->tex_e.addr+=4;
+			render_tex_e(data, x, drawstart, drawend, step);
 			render_col(data, x, drawend, data->ry, GREY_PIXEL);
 		}
 		else if (side == 0 && stepx == 1)
 		{
 			render_col(data, x, 0, drawstart, CYAN_PIXEL);
-			while (y < drawend)
-			{
-				data->texture.tex_y = (int)data->texture.tex_pos & (TEXTURE_HEIGHT - 1);
-				data->texture.tex_pos += step;
-				data->texture.color = *((int *)data->tex_w.addr + (TEXTURE_HEIGHT * data->texture.tex_y + data->texture.tex_x));
-				img_pix_put(&data->img, x, y, data->texture.color);
-				y++;
-			}
-			data->tex_w.addr+=4;
+			render_tex_w(data, x, drawstart, drawend, step);
 			render_col(data, x, drawend, data->ry, GREY_PIXEL);
 		}
 		else if (side == 1 && stepy == -1)
 		{
 			render_col(data, x, 0, drawstart, CYAN_PIXEL);
-			while (y < drawend)
-			{
-				data->texture.tex_y = (int)data->texture.tex_pos & (TEXTURE_HEIGHT - 1);
-				data->texture.tex_pos += step;
-				data->texture.color = *((int *)data->tex_s.addr + (TEXTURE_HEIGHT * data->texture.tex_y + data->texture.tex_x));
-				img_pix_put(&data->img, x, y, data->texture.color);
-				y++;
-			}
-			data->tex_s.addr+=4;
+			render_tex_s(data, x, drawstart, drawend, step);
 			render_col(data, x, drawend, data->ry, GREY_PIXEL);
 		}
 		else
 		{
 			render_col(data, x, 0, drawstart, CYAN_PIXEL);
-			while (y < drawend)
-			{
-				data->texture.tex_y = (int)data->texture.tex_pos & (TEXTURE_HEIGHT - 1);
-				data->texture.tex_pos += step;
-				data->texture.color = *((int *)data->tex_n.addr + (TEXTURE_HEIGHT * data->texture.tex_y + data->texture.tex_x));
-				img_pix_put(&data->img, x, y, data->texture.color);
-				y++;
-			}
-			data->tex_n.addr+=4;
+			render_tex_n(data, x, drawstart, drawend, step);
 			render_col(data, x, drawend, data->ry, GREY_PIXEL);
 		}
 	}
+/*	data->tex_n.addr -= 4;
+	data->tex_s.addr -= 4;
+	data->tex_e.addr -= 4;
+	data->tex_w.addr -= 4;*/
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
 	return (0);
 }
