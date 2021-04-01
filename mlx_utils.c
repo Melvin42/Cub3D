@@ -107,7 +107,16 @@ int	render_col(t_data *data, int x, int drawstart, int drawend, int color)
 		img_pix_put(&data->img, x, drawstart++, color); 
 	return (0);
 }
-
+/*
+int	render_tex(t_data *data, int x, int drawstart, int drawend, void *img_ptr)
+{
+	if (data->win_ptr == NULL)
+		return (1);
+	while (drawstart < drawend)
+		img_pix_put(&data->img, x, drawstart++, color); 
+	return (0);
+}
+*/
 void	render_background(t_img *img, t_data *data, int color)
 {
 	int	i;
@@ -144,13 +153,9 @@ int	render(t_data *data)
 int		raycast(t_data *data)
 {
 	int	x;
-	double	deltadistx;
-	double	deltadisty;
+	int	y;
 	int		mapx;
 	int		mapy;
-	double	sidedistx;
-	double	sidedisty; 
-	double	perpwalldist;
 	int		stepx;
 	int		stepy;
 	int		hit;
@@ -158,8 +163,7 @@ int		raycast(t_data *data)
 	int		lineheight;
 	int		drawstart;
 	int		drawend;
-	int		wallx;
-//	uint32_t	buffer[data->ry][data->rx];	
+	double	step; // a mettre dans t_texture attention a sed stepx stepy
 
 	x = -1;
 	render_background(&data->img, data, BLACK_PIXEL);
@@ -172,61 +176,61 @@ int		raycast(t_data *data)
 		mapx = (int)(data->player.posx);
 		mapy = (int)(data->player.posy);
 /*		if (data->player.raydiry == 0)
-			deltadistx = 0;
+			data->raycast.delta_dist_x = 0;
 		else
 		{
 			if (data->player.raydirx == 0)
-				deltadistx = 1;
+				data->raycast.delta_dist_x = 1;
 			else
-				deltadistx = ft_abs(1.0 / data->player.raydirx);
+				data->raycast.delta_dist_x = ft_abs(1.0 / data->player.raydirx);
 		}
 		if (data->player.raydirx == 0)
-			deltadisty = 0;
+			data->raycast.delta_dist_y = 0;
 		else
 		{
 			if (data->player.raydiry == 0)
-				deltadisty = 1;
+				data->raycast.delta_dist_y = 1;
 			else
-				deltadisty = ft_abs(1.0 / data->player.raydiry);
+				data->raycast.delta_dist_y = ft_abs(1.0 / data->player.raydiry);
 		}
 */
-		//deltadistx = fabs(1.0 / data->player.raydirx);
-		//deltadisty = fabs(1.0 / data->player.raydiry);
-		deltadistx = sqrt(1.0 + (data->player.raydiry * data->player.raydiry) / (data->player.raydirx * data->player.raydirx));
-		deltadisty = sqrt(1.0 + (data->player.raydirx * data->player.raydirx) / (data->player.raydiry * data->player.raydiry));
+		//data->raycast.delta_dist_x = fabs(1.0 / data->player.raydirx);
+		//data->raycast.delta_dist_y = fabs(1.0 / data->player.raydiry);
+		data->raycast.delta_dist_x = sqrt(1.0 + (data->player.raydiry * data->player.raydiry) / (data->player.raydirx * data->player.raydirx));
+		data->raycast.delta_dist_y = sqrt(1.0 + (data->player.raydirx * data->player.raydirx) / (data->player.raydiry * data->player.raydiry));
 
 		hit = 0;
 		if (data->player.raydirx < 0)
 		{
 			stepx = -1;
-			sidedistx = (data->player.posx - (double)mapx) * deltadistx;
+			data->raycast.side_dist_x = (data->player.posx - (double)mapx) * data->raycast.delta_dist_x;
 		}
 		else
 		{
 			stepx = 1;
-			sidedistx = ((double)mapx + 1.0 - data->player.posx) * deltadistx;
+			data->raycast.side_dist_x = ((double)mapx + 1.0 - data->player.posx) * data->raycast.delta_dist_x;
 		}
 		if (data->player.raydiry < 0)
 		{
 			stepy = -1;
-			sidedisty = (data->player.posy - (double)mapy) * deltadisty;
+			data->raycast.side_dist_y = (data->player.posy - (double)mapy) * data->raycast.delta_dist_y;
 		}
 		else
 		{
 			stepy = 1;
-			sidedisty = ((double)mapy + 1.0 - data->player.posy) * deltadisty;
+			data->raycast.side_dist_y = ((double)mapy + 1.0 - data->player.posy) * data->raycast.delta_dist_y;
 		}
 		while (hit == 0)
 		{
-			if (sidedistx < sidedisty)
+			if (data->raycast.side_dist_x < data->raycast.side_dist_y)
 			{
-				sidedistx += deltadistx;
+				data->raycast.side_dist_x += data->raycast.delta_dist_x;
 				mapx += stepx;
 				side = 0;
 			}
 			else
 			{
-				sidedisty += deltadisty;
+				data->raycast.side_dist_y += data->raycast.delta_dist_y;
 				mapy += stepy;
 				side = 1;
 			}
@@ -235,16 +239,10 @@ int		raycast(t_data *data)
 		}
 	//	printf("SIDE = %d\n", side);
 		if (side == 0)
-			perpwalldist = ((double)mapx - data->player.posx + (1 - (double)stepx) / 2) / (data->player.raydirx);
+			data->raycast.perpwalldist = ((double)mapx - data->player.posx + (1 - (double)stepx) / 2) / (data->player.raydirx);
 		else
-			perpwalldist = ((double)mapy - data->player.posy + (1 - (double)stepy) / 2) / (data->player.raydiry);
-	//	printf("perp = %f\n", perpwalldist);
-	//	printf("dirx = %f\n", data->player.dirx);
-	//	printf("diry = %f\n", data->player.diry);
-	//	printf("posx = %f\n", data->player.posx);
-	//	printf("posy = %f\n", data->player.posy);
-		lineheight = (int)((double)data->ry / perpwalldist);
-	//	printf("lineheight = %d\n", lineheight);
+			data->raycast.perpwalldist = ((double)mapy - data->player.posy + (1 - (double)stepy) / 2) / (data->player.raydiry);
+		lineheight = (int)((double)data->ry / data->raycast.perpwalldist);
 		drawstart = -lineheight / 2 + data->ry / 2;
 		if (drawstart < 0)
 			drawstart = 0;
@@ -252,33 +250,79 @@ int		raycast(t_data *data)
 		if (drawend >= data->ry)
 			drawend = data->ry - 1; 
 		if (side == 0)
-			wallx = (int)(data->player.posy + perpwalldist * data->player.raydiry);
+			data->texture.wall_x = (int)(data->player.posy + data->raycast.perpwalldist * data->player.raydiry);
 		else
-			wallx = (int)(data->player.posx + perpwalldist * data->player.raydirx);
-		wallx -= floor(wallx);
-
+			data->texture.wall_x = (int)(data->player.posx + data->raycast.perpwalldist * data->player.raydirx);
+		data->texture.wall_x -= floor(data->texture.wall_x);
+		data->texture.tex_x = (int)(data->texture.wall_x * (double)TEXTURE_WIDTH);
+		step = 1.0 * (double)TEXTURE_HEIGHT / lineheight;
+		data->texture.tex_pos = (drawstart - (double)data->ry / 2 + lineheight / 2) * step;
+		y = drawstart;
+	/*	int	d;
+		while (y < drawend)
+		{
+			d = y * 256 - data->ry * 128 + lineheight * 128;
+			data->texture.tex_y = (((d * TEXTURE_HEIGHT) / lineheight) / 256);
+			data->texture.tex_pos = data->texture.tex_y * TEXTURE_WIDTH + data->texture.tex_x;
+			data->texture.color = *(((int *)data->tex.addr) + (int)data->texture.tex_pos);
+			img_pix_put(&data->img, x, y, data->texture.color);
+			y++;
+		}
+	*/
 		if (side == 0 && stepx == -1)
 		{
 			render_col(data, x, 0, drawstart, CYAN_PIXEL);
-			render_col(data, x, drawstart, drawend, RED_PIXEL);
+			while (y < drawend)
+			{
+				data->texture.tex_y = (int)data->texture.tex_pos & (TEXTURE_HEIGHT - 1);
+				data->texture.tex_pos += step;
+				data->texture.color = *((int *)data->tex_e.addr + (TEXTURE_HEIGHT * data->texture.tex_y + data->texture.tex_x));
+				img_pix_put(&data->img, x, y, data->texture.color);
+				y++;
+			}
+			data->tex_e.addr+=4;
 			render_col(data, x, drawend, data->ry, GREY_PIXEL);
 		}
 		else if (side == 0 && stepx == 1)
 		{
 			render_col(data, x, 0, drawstart, CYAN_PIXEL);
-			render_col(data, x, drawstart, drawend, BLUE_PIXEL);
+			while (y < drawend)
+			{
+				data->texture.tex_y = (int)data->texture.tex_pos & (TEXTURE_HEIGHT - 1);
+				data->texture.tex_pos += step;
+				data->texture.color = *((int *)data->tex_w.addr + (TEXTURE_HEIGHT * data->texture.tex_y + data->texture.tex_x));
+				img_pix_put(&data->img, x, y, data->texture.color);
+				y++;
+			}
+			data->tex_w.addr+=4;
 			render_col(data, x, drawend, data->ry, GREY_PIXEL);
 		}
 		else if (side == 1 && stepy == -1)
 		{
 			render_col(data, x, 0, drawstart, CYAN_PIXEL);
-			render_col(data, x, drawstart, drawend, GREEN_PIXEL);
+			while (y < drawend)
+			{
+				data->texture.tex_y = (int)data->texture.tex_pos & (TEXTURE_HEIGHT - 1);
+				data->texture.tex_pos += step;
+				data->texture.color = *((int *)data->tex_s.addr + (TEXTURE_HEIGHT * data->texture.tex_y + data->texture.tex_x));
+				img_pix_put(&data->img, x, y, data->texture.color);
+				y++;
+			}
+			data->tex_s.addr+=4;
 			render_col(data, x, drawend, data->ry, GREY_PIXEL);
 		}
 		else
 		{
 			render_col(data, x, 0, drawstart, CYAN_PIXEL);
-			render_col(data, x, drawstart, drawend, YELLOW_PIXEL);
+			while (y < drawend)
+			{
+				data->texture.tex_y = (int)data->texture.tex_pos & (TEXTURE_HEIGHT - 1);
+				data->texture.tex_pos += step;
+				data->texture.color = *((int *)data->tex_n.addr + (TEXTURE_HEIGHT * data->texture.tex_y + data->texture.tex_x));
+				img_pix_put(&data->img, x, y, data->texture.color);
+				y++;
+			}
+			data->tex_n.addr+=4;
 			render_col(data, x, drawend, data->ry, GREY_PIXEL);
 		}
 	}

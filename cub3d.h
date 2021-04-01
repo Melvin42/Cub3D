@@ -60,7 +60,7 @@ typedef struct	s_rgb
 
 typedef struct	s_player
 {
-	int flag;
+	int 	flag;
 	double	posx;
 	double	posy;
 	double	dirx;
@@ -71,15 +71,31 @@ typedef struct	s_player
 	double	raydirx;
 	double	raydiry;
 }				t_player;
-/*
+
 typedef struct	s_raycast
 {
-	double	planex;
-	double	planey;
-	double	time;
-	double	oldtime;
+	double	camerax;
+	double	raydirx;
+	double	raydiry;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	side_dist_x;
+	double	side_dist_y; 
+	double	perpwalldist;
+	double	plan_x;
+	double	plan_y;
 }				t_raycast;
-*/
+
+typedef struct	s_texture
+{
+	int		wall_x;
+	int		tex_x;
+	int		tex_y;
+	double	step;
+	double	tex_pos;
+	int		color;
+}				t_texture;
+
 typedef struct	s_data
 {
 	void	*mlx_ptr;
@@ -93,7 +109,13 @@ typedef struct	s_data
 	char	*sprite;
 	char	**map;
 	t_player	player;
+	t_raycast	raycast;
+	t_texture	texture;
 	t_img	img;
+	t_img	tex_n;
+	t_img	tex_s;
+	t_img	tex_e;
+	t_img	tex_w;
 	t_rgb	floor;
 	t_rgb	ceiling;
 }				t_data;
