@@ -5,7 +5,7 @@ int	handle_keypress(int keysym, t_all *all)
 	double 	olddirx;
 	double	oldplanx;
 	double rotspeed = 0.1;
-	double movespeed = 0.1;
+	double movespeed = 0.8;
 
 	if (keysym == XK_Escape)
 	{
@@ -128,11 +128,11 @@ int	render_tex_n(t_all *all, int x, int drawstart, int drawend, double step)
 		all->texture.color = *((int *)all->tex_n.addr + (TEXTURE_HEIGHT * all->texture.tex_y + all->texture.tex_x));
 		img_pix_put(&all->img, x, drawstart++, all->texture.color);
 	}
-	if (all->tex_n.addr[++a])
+	if (++a < 64)
 	{
 		all->tex_n.addr+=4;
 	}
-	else if (!all->tex_n.addr[++a])
+	else
 	{
 		all->tex_n.addr -= 4 * (char)a;
 		a = -1;
@@ -153,11 +153,11 @@ int	render_tex_s(t_all *all, int x, int drawstart, int drawend, double step)
 		all->texture.color = *((int *)all->tex_s.addr + (TEXTURE_HEIGHT * all->texture.tex_y + all->texture.tex_x));
 		img_pix_put(&all->img, x, drawstart++, all->texture.color);
 	}
-	if (all->tex_s.addr[++b])
+	if (++b < 64)
 	{
 		all->tex_s.addr+=4;
 	}
-	else if (all->tex_s.addr[++b])
+	else
 	{
 		all->tex_s.addr -= 4 * (char)b;
 		b = -1;
@@ -178,11 +178,11 @@ int	render_tex_e(t_all *all, int x, int drawstart, int drawend, double step)
 		all->texture.color = *((int *)all->tex_e.addr + (TEXTURE_HEIGHT * all->texture.tex_y + all->texture.tex_x));
 		img_pix_put(&all->img, x, drawstart++, all->texture.color);
 	}
-	if (all->tex_e.addr[++c])
+	if (++c < 64)
 	{
 		all->tex_e.addr+=4;
 	}
-	else if (all->tex_e.addr[++c])
+	else
 	{
 		all->tex_e.addr -= 4 * (char)c;
 		c = -1;
@@ -202,11 +202,11 @@ int	render_tex_w(t_all *all, int x, int drawstart, int drawend, double step)
 		all->texture.color = *((int *)all->tex_w.addr + (TEXTURE_HEIGHT * all->texture.tex_y + all->texture.tex_x));
 		img_pix_put(&all->img, x, drawstart++, all->texture.color);
 	}
-	if (all->tex_w.addr[++d])
+	if (++d < 64)
 	{
 		all->tex_w.addr+=4;
 	}
-	else if (all->tex_w.addr[++d])
+	else
 	{
 		all->tex_w.addr -= 4 * (char)d;
 		d = -1;
@@ -400,32 +400,32 @@ int		raycast(t_all *all)
 		if (side == 0 && stepx == -1)
 		{
 			render_col(all, x, 0, drawstart, CYAN_PIXEL);
-			//render_col(all, x, drawstart, drawend, RED_PIXEL);
-	//		render_tex_e(all, x, drawstart, drawend, step);
+			render_col(all, x, drawstart, drawend, RED_PIXEL);
+			//render_tex_e(all, x, drawstart, drawend, step);
 			render_col(all, x, drawend, all->ry, GREY_PIXEL);
 		}
 		else if (side == 0 && stepx == 1)
 		{
 			render_col(all, x, 0, drawstart, CYAN_PIXEL);
-			//render_col(all, x, drawstart, drawend, BLUE_PIXEL);
-		//	render_tex_w(all, x, drawstart, drawend, step);
+			render_col(all, x, drawstart, drawend, BLUE_PIXEL);
+			//render_tex_w(all, x, drawstart, drawend, step);
 			render_col(all, x, drawend, all->ry, GREY_PIXEL);
 		}
 		else if (side == 1 && stepy == -1)
 		{
 			render_col(all, x, 0, drawstart, CYAN_PIXEL);
-			//render_col(all, x, drawstart, drawend, GREEN_PIXEL);
-			render_tex_s(all, x, drawstart, drawend, step);
+			render_col(all, x, drawstart, drawend, GREEN_PIXEL);
+			//render_tex_s(all, x, drawstart, drawend, step);
 			render_col(all, x, drawend, all->ry, GREY_PIXEL);
 		}
 		else
 		{
 			render_col(all, x, 0, drawstart, CYAN_PIXEL);
-			//render_col(all, x, drawstart, drawend, YELLOW_PIXEL);
-			render_tex_n(all, x, drawstart, drawend, step);
+			render_col(all, x, drawstart, drawend, YELLOW_PIXEL);
+		//	render_tex_n(all, x, drawstart, drawend, step);
 			render_col(all, x, drawend, all->ry, GREY_PIXEL);
 		}
-	//	render_life(all);
+		render_life(all);
 	}
 /*	all->tex_n.addr -= 4;
 	all->tex_s.addr -= 4;
