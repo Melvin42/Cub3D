@@ -96,7 +96,7 @@ typedef struct	s_texture
 	int		color;
 }				t_texture;
 
-typedef struct	s_data
+typedef struct	s_all
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
@@ -118,43 +118,43 @@ typedef struct	s_data
 	t_img	tex_w;
 	t_rgb	floor;
 	t_rgb	ceiling;
-}				t_data;
+}				t_all;
 
 /*******************************************************************************
 **=============================> PARSING <====================================**
 *******************************************************************************/
 
 int				check_error(int i);
-int				check_resolution(char *line, t_data *data);
-int				check_north_path(char *line, t_data *data);
-int				check_south_path(char *line, t_data *data);
-int				check_west_path(char *line, t_data *data);
-int				check_east_path(char *line, t_data *data);
-int				check_sprite_path(char *line, t_data *data);
-int				check_floor_color(char *line, t_data *data);
-int				check_ceiling_color(char *line, t_data *data);
-int				extract_map(char *line, t_data *data, int n);
-int				check_map(t_data *data);
-void			set_player(t_data *data, int x, int y);
-int				dispatcher(char *line, t_data *data, int n);
+int				check_resolution(char *line, t_all *all);
+int				check_north_path(char *line, t_all *all);
+int				check_south_path(char *line, t_all *all);
+int				check_west_path(char *line, t_all *all);
+int				check_east_path(char *line, t_all *all);
+int				check_sprite_path(char *line, t_all *all);
+int				check_floor_color(char *line, t_all *all);
+int				check_ceiling_color(char *line, t_all *all);
+int				extract_map(char *line, t_all *all, int n);
+int				check_map(t_all *all);
+void			set_player(t_all *all, int x, int y);
+int				dispatcher(char *line, t_all *all, int n);
 int 			only_space(char *line);
-int				read_file(int n, int fd, t_data *data);
+int				read_file(int n, int fd, t_all *all);
 int				count_line(int fd);
-void			free_data(t_data *data);
+void			free_all(t_all *all);
 
 /*******************************************************************************
 **=============================>   MLX   <====================================**
 *******************************************************************************/
 
-int		handle_no_event(void *data);
-int		handle_keypress(int keysym, t_data *data);
-int		handle_keyrelease(int keysym, void *data);
-int		encode_rgb(uint8_t red, uint8_t green, uint8_t blue);
-void	img_pix_put(t_img *img, int x, int y, int color);
-int		render_rect(t_img *img, t_rect rect);
-void	render_background(t_img *img, t_data *data, int color);
-int		render(t_data *data);
-int		menu(t_data *data);
-int		raycast(t_data *data);
+int				handle_no_event(void *all);
+int				handle_keypress(int keysym, t_all *all);
+int				handle_keyrelease(int keysym, void *all);
+int				encode_rgb(uint8_t red, uint8_t green, uint8_t blue);
+void			img_pix_put(t_img *img, int x, int y, int color);
+int				render_rect(t_img *img, t_rect rect);
+void			render_background(t_img *img, t_all *all, int color);
+int				render(t_all *all);
+int				menu(t_all *all);
+int				raycast(t_all *all);
 
 #endif

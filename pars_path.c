@@ -1,65 +1,65 @@
 #include "cub3d.h"
 
-int	check_north_path(char *line, t_data *data)
+int	check_north_path(char *line, t_all *all)
 {
 	line++;
-	if (*line != 'O' || data->north)
+	if (*line != 'O' || all->north)
 		return (check_error(PARS_ERROR));
 	line++;
 	while (*line == ' ')
 		line++;
-	data->north = ft_strdup(line);	
+	all->north = ft_strdup(line);	
 	
 	return (0);
 }
 
-int	check_south_path(char *line, t_data *data)
+int	check_south_path(char *line, t_all *all)
 {
 	line++;
-	if (*line != 'O' || data->south)
+	if (*line != 'O' || all->south)
 		return (check_error(PARS_ERROR));
 	line++;
 	while (*line == ' ')
 		line++;
-	data->south = ft_strdup(line);	
+	all->south = ft_strdup(line);	
 	
 	return (0);
 }
 
-int	check_west_path(char *line, t_data *data)
+int	check_west_path(char *line, t_all *all)
 {
 	line++;
-	if (*line != 'E' || data->west)
+	if (*line != 'E' || all->west)
 		return (check_error(PARS_ERROR));
 	line++;
 	while (*line == ' ')
 		line++;
-	data->west = ft_strdup(line);	
+	all->west = ft_strdup(line);	
 	
 	return (0);
 }
 
-int	check_east_path(char *line, t_data *data)
+int	check_east_path(char *line, t_all *all)
 {
 	line++;
-	if (*line != 'A' || data->east)
+	if (*line != 'A' || all->east)
 		return (check_error(PARS_ERROR));
 	line++;
 	while (*line == ' ')
 		line++;
-	data->east = ft_strdup(line);	
+	all->east = ft_strdup(line);	
 	
 	return (0);
 }
 
-int	check_sprite_path(char *line, t_data *data)
+int	check_sprite_path(char *line, t_all *all)
 {
 	line++;
-	if (*line != ' ' || data->sprite)
+	if (*line != ' ' || all->sprite)
 		return (check_error(PARS_ERROR));
 	line++;
 	while (*line == ' ')
 		line++;
-	data->sprite = ft_strdup(line);	
+	all->sprite = ft_strdup(line);	
 	return (0);
 }

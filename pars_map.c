@@ -1,75 +1,75 @@
 #include "cub3d.h"
 
-int	extract_map(char *line, t_data *data, int n)
+int	extract_map(char *line, t_all *all, int n)
 {
 	static int	i = 0;
-	if (!data->map)
+	if (!all->map)
 	{
-		if (!(data->map = (char **)malloc(sizeof(char *) * n)))
+		if (!(all->map = (char **)malloc(sizeof(char *) * n)))
 			return (check_error(MALLOC_ERROR));
-		data->map[n] = NULL;
+		all->map[n] = NULL;
 	}
-	data->map[i++] = ft_strdup(line);
+	all->map[i++] = ft_strdup(line);
 	return (0);
 }
 
-void	set_player(t_data *data, int x, int y)
+void	set_player(t_all *all, int x, int y)
 {
-	data->player.flag = 1;
-	if (data->map[y][x] == 'N')
+	all->player.flag = 1;
+	if (all->map[y][x] == 'N')
 	{
-		data->player.diry = -1;
-		data->player.planx = 0.66;
-		data->player.plany = 0;
+		all->player.diry = -1;
+		all->player.planx = 0.66;
+		all->player.plany = 0;
 	}
-	else if (data->map[y][x] == 'S')
+	else if (all->map[y][x] == 'S')
 	{
-		data->player.diry = 1;
-		data->player.planx = -0.66;
-		data->player.plany = 0;
+		all->player.diry = 1;
+		all->player.planx = -0.66;
+		all->player.plany = 0;
 	}
-	else if (data->map[y][x] == 'E')
+	else if (all->map[y][x] == 'E')
 	{
-		data->player.dirx = -1;
-		data->player.planx = 0;
-		data->player.plany = -0.66;
+		all->player.dirx = -1;
+		all->player.planx = 0;
+		all->player.plany = -0.66;
 	}
-	else if (data->map[y][x] == 'W')
+	else if (all->map[y][x] == 'W')
 	{
-		data->player.dirx = 1;
-		data->player.planx = 0;
-		data->player.plany = 0.66;
+		all->player.dirx = 1;
+		all->player.planx = 0;
+		all->player.plany = 0.66;
 	}
-	data->map[y][x] = '0';
+	all->map[y][x] = '0';
 }
 
-int	check_map(t_data *data)
+int	check_map(t_all *all)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	while (data->map[++i])
+	while (all->map[++i])
 	{
 		j = 0;
-		while (data->map[i][j])
+		while (all->map[i][j])
 		{
-			if (data->map[i][j] == '0' || data->map[i][j] == '1'
-				|| data->map[i][j] == '2')
+			if (all->map[i][j] == '0' || all->map[i][j] == '1'
+				|| all->map[i][j] == '2')
 				j++;
-			else if (data->map[i][j] == ' ')
+			else if (all->map[i][j] == ' ')
 			{
-				data->map[i][j] = '1';
+				all->map[i][j] = '1';
 				j++;
 			}
-			else if (data->map[i][j] == 'N' || data->map[i][j] == 'S'
-				|| data->map[i][j] == 'E' || data->map[i][j] == 'W')
+			else if (all->map[i][j] == 'N' || all->map[i][j] == 'S'
+				|| all->map[i][j] == 'E' || all->map[i][j] == 'W')
 			{
-				if (data->player.flag == 1)
+				if (all->player.flag == 1)
 					return (check_error(PARS_ERROR));
-				set_player(data, j, i);
-				data->player.posx = j + 0.5;
-				data->player.posy = i + 0.5;
+				set_player(all, j, i);
+				all->player.posx = j + 0.5;
+				all->player.posy = i + 0.5;
 				j++;
 			}
 			else

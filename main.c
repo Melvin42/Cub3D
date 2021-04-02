@@ -1,8 +1,8 @@
 #include "cub3d.h"
 
-void	set_data(t_data *data)
+void	set_all(t_all *all)
 {
-	*data = (t_data){NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL,
+	*all = (t_all){NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL,
 			(t_player){0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			(t_raycast){0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			(t_texture){0, 0, 0, 0, 0, 0},
@@ -21,9 +21,9 @@ int	main(int ac, char **av)
 	int			n;
 	int			texture_width = TEXTURE_WIDTH;
 	int			texture_height = TEXTURE_HEIGHT;
-	t_data		data;
+	t_all		all;
 
-	set_data(&data);
+	set_all(&all);
 	if (ac != 2)
 		return (check_error(ARG_ERROR));
 	fd = open(av[1], O_RDONLY);
@@ -32,46 +32,46 @@ int	main(int ac, char **av)
 	n = count_line(fd);
 	close(fd);
 	fd = open(av[1], O_RDONLY);
-	if (read_file(n, fd, &data) < 0)
+	if (read_file(n, fd, &all) < 0)
 	{
 		close(fd);
-		free_data(&data);
+		free_all(&all);
 		return (0);
 	}
 	close(fd);
-	if (check_map(&data) < 0)
+	if (check_map(&all) < 0)
 	{
-		free_data(&data);
+		free_all(&all);
 		return (0);
 	}
-	data.mlx_ptr = mlx_init();
-	if (data.mlx_ptr == NULL)
+	all.mlx_ptr = mlx_init();
+	if (all.mlx_ptr == NULL)
 		return (check_error(MLX_ERROR));
-	data.win_ptr = mlx_new_window(data.mlx_ptr, data.rx, data.ry, "Cub3D");
-	if (data.win_ptr == NULL)
+	all.win_ptr = mlx_new_window(all.mlx_ptr, all.rx, all.ry, "Cub3D");
+	if (all.win_ptr == NULL)
 	{
-		free(data.win_ptr);
+		free(all.win_ptr);
 		return (check_error(MLX_ERROR));
 	}
-	menu(&data);
-	data.img.mlx_img = mlx_new_image(data.mlx_ptr, data.rx, data.ry);
-	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp,
-					&data.img.line_len, &data.img.endian);
+	menu(&all);
+	all.img.mlx_img = mlx_new_image(all.mlx_ptr, all.rx, all.ry);
+	all.img.addr = mlx_get_data_addr(all.img.mlx_img, &all.img.bpp,
+					&all.img.line_len, &all.img.endian);
 	
-	data.tex_n.mlx_img = mlx_xpm_file_to_image(data.mlx_ptr, data.south, &texture_width, &texture_height);
-	data.tex_n.addr = mlx_get_data_addr(data.tex_n.mlx_img, &data.tex_n.bpp,
-					&data.tex_n.line_len, &data.tex_n.endian);
-	data.tex_s.mlx_img = mlx_xpm_file_to_image(data.mlx_ptr, data.south, &texture_width, &texture_height);
-	data.tex_s.addr = mlx_get_data_addr(data.tex_s.mlx_img, &data.tex_s.bpp,
-					&data.tex_s.line_len, &data.tex_s.endian);
-	data.tex_e.mlx_img = mlx_xpm_file_to_image(data.mlx_ptr, data.south, &texture_width, &texture_height);
-	data.tex_e.addr = mlx_get_data_addr(data.tex_e.mlx_img, &data.tex_e.bpp,
-					&data.tex_e.line_len, &data.tex_e.endian);
-	data.tex_w.mlx_img = mlx_xpm_file_to_image(data.mlx_ptr, data.south, &texture_width, &texture_height);
-	data.tex_w.addr = mlx_get_data_addr(data.tex_w.mlx_img, &data.tex_w.bpp,
-					&data.tex_w.line_len, &data.tex_w.endian);
-	render_background(&data.img, &data, BLACK_PIXEL);
-	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &data);
-	mlx_loop(data.mlx_ptr);
+	all.tex_n.mlx_img = mlx_xpm_file_to_image(all.mlx_ptr, all.south, &texture_width, &texture_height);
+	all.tex_n.addr = mlx_get_data_addr(all.tex_n.mlx_img, &all.tex_n.bpp,
+					&all.tex_n.line_len, &all.tex_n.endian);
+	all.tex_s.mlx_img = mlx_xpm_file_to_image(all.mlx_ptr, all.south, &texture_width, &texture_height);
+	all.tex_s.addr = mlx_get_data_addr(all.tex_s.mlx_img, &all.tex_s.bpp,
+					&all.tex_s.line_len, &all.tex_s.endian);
+	all.tex_e.mlx_img = mlx_xpm_file_to_image(all.mlx_ptr, all.south, &texture_width, &texture_height);
+	all.tex_e.addr = mlx_get_data_addr(all.tex_e.mlx_img, &all.tex_e.bpp,
+					&all.tex_e.line_len, &all.tex_e.endian);
+	all.tex_w.mlx_img = mlx_xpm_file_to_image(all.mlx_ptr, all.south, &texture_width, &texture_height);
+	all.tex_w.addr = mlx_get_data_addr(all.tex_w.mlx_img, &all.tex_w.bpp,
+					&all.tex_w.line_len, &all.tex_w.endian);
+	render_background(&all.img, &all, BLACK_PIXEL);
+	mlx_hook(all.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &all);
+	mlx_loop(all.mlx_ptr);
 	return (0);
 }
