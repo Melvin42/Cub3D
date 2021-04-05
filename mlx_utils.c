@@ -5,7 +5,7 @@ int	handle_keypress(int keysym, t_all *all)
 	double 	olddirx;
 	double	oldplanx;
 	double rotspeed = 0.1;
-	double movespeed = 0.8;
+	double movespeed = 0.1;
 
 	if (keysym == XK_Escape)
 	{
@@ -118,7 +118,6 @@ int	render_col(t_all *all, int x, int drawstart, int drawend, int color)
 
 int	render_tex_n(t_all *all, int x, int drawstart, int drawend, double step)
 {
-	static int a = -1;
 	if (all->win_ptr == NULL)
 		return (1);
 	while (drawstart < drawend)
@@ -128,22 +127,11 @@ int	render_tex_n(t_all *all, int x, int drawstart, int drawend, double step)
 		all->texture.color = *((int *)all->tex_n.addr + (TEXTURE_HEIGHT * all->texture.tex_y + all->texture.tex_x));
 		img_pix_put(&all->img, x, drawstart++, all->texture.color);
 	}
-	if (++a < 64)
-	{
-		all->tex_n.addr+=4;
-	}
-	else
-	{
-		all->tex_n.addr -= 4 * (char)a;
-		a = -1;
-	}
 	return (0);
 }
 
 int	render_tex_s(t_all *all, int x, int drawstart, int drawend, double step)
 {
-	static int b = -1;
-
 	if (all->win_ptr == NULL)
 		return (1);
 	while (drawstart < drawend)
@@ -153,22 +141,11 @@ int	render_tex_s(t_all *all, int x, int drawstart, int drawend, double step)
 		all->texture.color = *((int *)all->tex_s.addr + (TEXTURE_HEIGHT * all->texture.tex_y + all->texture.tex_x));
 		img_pix_put(&all->img, x, drawstart++, all->texture.color);
 	}
-	if (++b < 64)
-	{
-		all->tex_s.addr+=4;
-	}
-	else
-	{
-		all->tex_s.addr -= 4 * (char)b;
-		b = -1;
-	}
-		
 	return (0);
 }
 
 int	render_tex_e(t_all *all, int x, int drawstart, int drawend, double step)
 {
-	static int c = -1;
 	if (all->win_ptr == NULL)
 		return (1);
 	while (drawstart < drawend)
@@ -178,21 +155,11 @@ int	render_tex_e(t_all *all, int x, int drawstart, int drawend, double step)
 		all->texture.color = *((int *)all->tex_e.addr + (TEXTURE_HEIGHT * all->texture.tex_y + all->texture.tex_x));
 		img_pix_put(&all->img, x, drawstart++, all->texture.color);
 	}
-	if (++c < 64)
-	{
-		all->tex_e.addr+=4;
-	}
-	else
-	{
-		all->tex_e.addr -= 4 * (char)c;
-		c = -1;
-	}
 	return (0);
 }
 
 int	render_tex_w(t_all *all, int x, int drawstart, int drawend, double step)
 {
-	static int d = -1;
 	if (all->win_ptr == NULL)
 		return (1);
 	while (drawstart < drawend)
@@ -202,14 +169,23 @@ int	render_tex_w(t_all *all, int x, int drawstart, int drawend, double step)
 		all->texture.color = *((int *)all->tex_w.addr + (TEXTURE_HEIGHT * all->texture.tex_y + all->texture.tex_x));
 		img_pix_put(&all->img, x, drawstart++, all->texture.color);
 	}
-	if (++d < 64)
+	return (0);
+}
+
+int	render_tex(t_all *all, uint32_t buffer[all->ry][all->rx])
+{
+	int	i = -1;
+	int j = -1;
+
+	if (all->win_ptr == NULL)
+		return (1);
+	while (++i < all->ry)
 	{
-		all->tex_w.addr+=4;
-	}
-	else
-	{
-		all->tex_w.addr -= 4 * (char)d;
-		d = -1;
+		j = -1;
+		while (++j < all->rx)
+		{
+			img_pix_put(&all->img, j, i, buffer[i][j]);
+		}
 	}
 	return (0);
 }
@@ -225,7 +201,6 @@ int		render_life(t_all *all)
 		return (1);
 	drawstart = (all->ry / 2);
 	drawend = (all->ry / 2) + (all->ry / 3);
-	printf("x %d\n", drawstart);
 	y = 10;
 	x = drawstart - 1;
 	while (x < drawend + 1)
@@ -245,7 +220,6 @@ int		render_life(t_all *all)
 	x = drawstart - 1;
 	while (x < drawend + 1)
 		img_pix_put(&all->img, x++, y, BLACK_PIXEL);
-	mlx_string_put(all->mlx_ptr, all->win_ptr, all->rx / 2, (all->ry / 2 + ((all->ry / 3) / 2)), BLACK_PIXEL, "100%");
 	return (0);
 }
 void	render_background(t_img *img, t_all *all, int color)
@@ -283,7 +257,7 @@ int	render(t_all *all)
 
 int		raycast(t_all *all)
 {
-	int	x;
+	int		x;
 	int		mapx;
 	int		mapy;
 	int		stepx;
@@ -294,6 +268,7 @@ int		raycast(t_all *all)
 	int		drawstart;
 	int		drawend;
 	double	step; // a mettre dans t_texture attention a sed stepx stepy
+//	uint32_t		buffer[all->ry][all->rx];
 
 	x = -1;
 	render_background(&all->img, all, BLACK_PIXEL);
@@ -379,58 +354,82 @@ int		raycast(t_all *all)
 		if (drawend >= all->ry)
 			drawend = all->ry - 1; 
 		if (side == 0)
-			all->texture.wall_x = (int)(all->player.posy + all->raycast.perpwalldist * all->player.raydiry);
+			all->texture.wall_x = all->player.posy + all->raycast.perpwalldist * all->player.raydiry;
 		else
-			all->texture.wall_x = (int)(all->player.posx + all->raycast.perpwalldist * all->player.raydirx);
+			all->texture.wall_x = all->player.posx + all->raycast.perpwalldist * all->player.raydirx;
 		all->texture.wall_x -= floor(all->texture.wall_x);
 		all->texture.tex_x = (int)(all->texture.wall_x * (double)TEXTURE_WIDTH);
+		
+		if (side == 0 && all->player.raydirx > 0)
+			all->texture.tex_x = (double)TEXTURE_WIDTH - all->texture.tex_x - 1;
+		if (side == 1 && all->player.raydiry > 0)
+			all->texture.tex_x = (double)TEXTURE_WIDTH - all->texture.tex_x - 1;
+
 		step = 1.0 * (double)TEXTURE_HEIGHT / lineheight;
 		all->texture.tex_pos = (drawstart - (double)all->ry / 2 + lineheight / 2) * step;
-	/*	int	d;
-		while (y < drawend)
+	//	int	d;
+		int	y;
+		y = drawstart;
+/*		while (y < drawend)
 		{
 			d = y * 256 - all->ry * 128 + lineheight * 128;
 			all->texture.tex_y = (((d * TEXTURE_HEIGHT) / lineheight) / 256);
 			all->texture.tex_pos = all->texture.tex_y * TEXTURE_WIDTH + all->texture.tex_x;
-			all->texture.color = *(((int *)all->tex.addr) + (int)all->texture.tex_pos);
-			img_pix_put(&all->img, x, y, all->texture.color);
+			all->texture.color = *(((int *)all->tex_s.addr) + (int)all->texture.tex_pos);
+			buffer[y][x] = all->texture.color;
 			y++;
 		}
-	*/
+*/		
+/*		while (y < drawend)
+		{
+			all->texture.tex_y = (int)all->texture.tex_pos & (TEXTURE_HEIGHT - 1);
+			all->texture.tex_pos += step;
+			all->texture.color = *(((int *)all->tex_s.addr) + (TEXTURE_HEIGHT * all->texture.tex_y + all->texture.tex_x));
+			buffer[y][x] = all->texture.color;
+			y++;
+		}
+*/	
 		if (side == 0 && stepx == -1)
 		{
 			render_col(all, x, 0, drawstart, CYAN_PIXEL);
-			render_col(all, x, drawstart, drawend, RED_PIXEL);
-			//render_tex_e(all, x, drawstart, drawend, step);
+			render_tex_e(all, x, drawstart, drawend, step);
+			//render_tex(all, buffer);
 			render_col(all, x, drawend, all->ry, GREY_PIXEL);
 		}
 		else if (side == 0 && stepx == 1)
 		{
 			render_col(all, x, 0, drawstart, CYAN_PIXEL);
-			render_col(all, x, drawstart, drawend, BLUE_PIXEL);
-			//render_tex_w(all, x, drawstart, drawend, step);
+			render_tex_w(all, x, drawstart, drawend, step);
+			//render_tex(all, buffer);
 			render_col(all, x, drawend, all->ry, GREY_PIXEL);
 		}
 		else if (side == 1 && stepy == -1)
 		{
 			render_col(all, x, 0, drawstart, CYAN_PIXEL);
-			render_col(all, x, drawstart, drawend, GREEN_PIXEL);
-			//render_tex_s(all, x, drawstart, drawend, step);
+			render_tex_s(all, x, drawstart, drawend, step);
+			//render_tex(all, buffer);
 			render_col(all, x, drawend, all->ry, GREY_PIXEL);
 		}
 		else
 		{
 			render_col(all, x, 0, drawstart, CYAN_PIXEL);
-			render_col(all, x, drawstart, drawend, YELLOW_PIXEL);
-		//	render_tex_n(all, x, drawstart, drawend, step);
+			render_tex_n(all, x, drawstart, drawend, step);
+			//render_tex(all, buffer);
 			render_col(all, x, drawend, all->ry, GREY_PIXEL);
 		}
-		render_life(all);
+//		render_life(all);
 	}
-/*	all->tex_n.addr -= 4;
-	all->tex_s.addr -= 4;
-	all->tex_e.addr -= 4;
-	all->tex_w.addr -= 4;*/
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img.mlx_img, 0, 0);
+	mlx_string_put(all->mlx_ptr, all->win_ptr, all->rx / 2, 25, BLACK_PIXEL, "100%");
+/*	int i = -1;
+	int j = -1;
+	while (++i < all->ry)
+	{
+		j = -1;
+		while (++j < all->rx)
+		{
+			buffer[i][j] = 0;
+		}
+	}*/
 	return (0);
 }

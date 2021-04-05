@@ -48,7 +48,7 @@ typedef struct	s_rect
 	int		y;
 	int		width;
 	int		height;
-	int		color;
+	uint32_t		color;
 }				t_rect;
 
 typedef struct	s_rgb
@@ -88,7 +88,7 @@ typedef struct	s_raycast
 
 typedef struct	s_texture
 {
-	int		wall_x;
+	double		wall_x;
 	int		tex_x;
 	int		tex_y;
 	double	step;
