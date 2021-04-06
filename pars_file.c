@@ -234,7 +234,7 @@ void	free_all(t_all *all)
 		free(all->west);
 	if (all->east)
 		free(all->east);
-	if (all->sprite)
-		free(all->sprite);
+	if (all->path_sprite)
+		free(all->path_sprite);
 	//free > char **map
 }

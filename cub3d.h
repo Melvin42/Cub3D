@@ -18,8 +18,10 @@
 # define GREY_PIXEL 0x808080
 # define WHITE_PIXEL 0xFFFFFF
 # define BLACK_PIXEL 0x0
-# define TEXTURE_WIDTH 64
-# define TEXTURE_HEIGHT 64
+# define TEXTURE_WIDTH 256
+# define TEXTURE_HEIGHT 256
+# define SPRITE_WIDTH 1024
+# define SPRITE_HEIGHT 1024
 
 # include "libft/libft.h"
 # include <mlx.h>
@@ -72,19 +74,24 @@ typedef struct	s_player
 	double	raydiry;
 }				t_player;
 
-typedef struct	s_raycast
+typedef struct	s_ray
 {
-	double	camerax;
-	double	raydirx;
-	double	raydiry;
 	double	delta_dist_x;
 	double	delta_dist_y;
 	double	side_dist_x;
 	double	side_dist_y; 
 	double	perpwalldist;
-	double	plan_x;
-	double	plan_y;
-}				t_raycast;
+	double	step;
+	int		step_x;
+	int		step_y;
+	int		map_x;
+	int		map_y;
+	int		drawstart;
+	int		drawend;
+	int		lineheight;
+	int		hit;
+	int		side;
+}				t_ray;
 
 typedef struct	s_texture
 {
@@ -106,16 +113,18 @@ typedef struct	s_all
 	char	*south;
 	char	*west;
 	char	*east;
-	char	*sprite;
+	char	*path_sprite;
 	char	**map;
 	t_player	player;
-	t_raycast	raycast;
+	t_ray		ray;
 	t_texture	texture;
+	t_img	menu;
 	t_img	img;
 	t_img	tex_n;
 	t_img	tex_s;
 	t_img	tex_e;
 	t_img	tex_w;
+	t_img	sprite;
 	t_rgb	floor;
 	t_rgb	ceiling;
 }				t_all;
@@ -151,8 +160,16 @@ int				handle_keypress(int keysym, t_all *all);
 int				handle_keyrelease(int keysym, void *all);
 int				encode_rgb(uint8_t red, uint8_t green, uint8_t blue);
 void			img_pix_put(t_img *img, int x, int y, int color);
-int				render_rect(t_img *img, t_rect rect);
+
+/*******************************************************************************
+**=============================>   RENDER  <==================================**
+*******************************************************************************/
+
 void			render_background(t_img *img, t_all *all, int color);
+int				render_tex_n(t_all *all, int x, int y);
+int				render_tex_s(t_all *all, int x, int y);
+int				render_tex_e(t_all *all, int x, int y);
+int				render_tex_w(t_all *all, int x, int y);
 int				render(t_all *all);
 int				menu(t_all *all);
 int				raycast(t_all *all);

@@ -55,11 +55,11 @@ int	check_east_path(char *line, t_all *all)
 int	check_sprite_path(char *line, t_all *all)
 {
 	line++;
-	if (*line != ' ' || all->sprite)
+	if (*line != ' ' || all->path_sprite)
 		return (check_error(PARS_ERROR));
 	line++;
 	while (*line == ' ')
 		line++;
-	all->sprite = ft_strdup(line);	
+	all->path_sprite = ft_strdup(line);	
 	return (0);
 }

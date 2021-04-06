@@ -1,5 +1,33 @@
 #include "cub3d.h"
 
+void	ft_debug(t_all *all)
+{
+	printf("\n\n\nplayer struc pos x = %f\n", all->player.posx);
+	printf("player struc pos y  = %f\n", all->player.posy);
+	printf("player struc dir x = %f\n", all->player.dirx);
+	printf("player struc dir y = %f\n", all->player.diry);
+	printf("player struc plan x = %f\n", all->player.planx);
+	printf("player struc plan y = %f\n", all->player.plany);
+	printf("player struc camera = %f\n", all->player.camerax);
+	printf("player struc raydirx = %f\n", all->player.raydirx);
+	printf("player struc raydiry = %f\n", all->player.raydiry);
+	printf("ray struc delta dist x = %f\n", all->ray.delta_dist_x);
+	printf("ray struc delta dist y = %f\n", all->ray.delta_dist_y);
+	printf("ray struc side dist x = %f\n", all->ray.side_dist_x);
+	printf("ray struc side dist y = %f\n", all->ray.side_dist_y);
+	printf("ray struc perpwalldist = %f\n", all->ray.perpwalldist);
+	printf("ray struc step = %f\n", all->ray.step);
+	printf("ray struc step x = %d\n", all->ray.step_y);
+	printf("ray struc step y = %d\n", all->ray.step_x);
+	printf("ray struc map x = %d\n", all->ray.map_x);
+	printf("ray struc map y = %d\n", all->ray.map_y);
+	printf("ray struc drawstart = %d\n", all->ray.drawstart);
+	printf("ray struc drawend = %d\n", all->ray.drawend);
+	printf("ray struc lineheight = %d\n", all->ray.lineheight);
+	printf("ray struc hit = %d\n", all->ray.hit);
+	printf("ray struc side = %d\n", all->ray.side);
+}
+
 int	handle_keypress(int keysym, t_all *all)
 {
 	double 	olddirx;
@@ -61,10 +89,6 @@ int	handle_keypress(int keysym, t_all *all)
 		all->player.dirx = all->player.dirx * cos(-rotspeed) - all->player.diry * sin(-rotspeed);
 		all->player.diry = olddirx * sin(-rotspeed) + all->player.diry * cos(-rotspeed);
 		oldplanx = all->player.planx;
-//		printf("%f\n", all->player.planx);
-//		printf("%f\n", all->player.plany);
-//		all->player.planx = -all->player.diry;
-//		all->player.plany = all->player.dirx;
 		all->player.planx = all->player.planx * cos(-rotspeed) - all->player.plany * sin(-rotspeed);
 		all->player.plany = oldplanx * sin(-rotspeed) + all->player.plany * cos(-rotspeed);
 	}
@@ -74,14 +98,14 @@ int	handle_keypress(int keysym, t_all *all)
 		all->player.dirx = all->player.dirx * cos(rotspeed) - all->player.diry * sin(rotspeed);
 		all->player.diry = olddirx * sin(rotspeed) + all->player.diry * cos(rotspeed);
 		oldplanx = all->player.planx;
-//		all->player.planx = -all->player.diry;
-//		all->player.plany = all->player.dirx;
-//		printf("%f\n", all->player.planx);
-//		printf("%f\n", all->player.plany);
 		all->player.planx = all->player.planx * cos(rotspeed) - all->player.plany * sin(rotspeed);
 		all->player.plany = oldplanx * sin(rotspeed) + all->player.plany * cos(rotspeed);
 	}
-	raycast(all);
+	else if(keysym == XK_t)
+	{
+		ft_debug(all);
+	}
+	render(all);
 	return (0);
 }
 
@@ -90,149 +114,33 @@ int	encode_rgb(uint8_t red, uint8_t green, uint8_t blue)
 	return (red << 16 | green << 8 | blue);
 }
 
-void	img_pix_put(t_img *img, int x, int y, int color)
+void	img_pix_put( t_img *img, int x, int y, int color)
 {
 	char	*pixel;
-	int	i;
 
-	i = img->bpp - 8;
 	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	while (i >= 0)
-	{
-		if (img->endian != 0)
-			*pixel++ = (color >> i) & 0xFF;
-		else
-			*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
-		i -= 8;
-	}
+	*(unsigned int *)pixel = color;
 }
 
-int	render_col(t_all *all, int x, int drawstart, int drawend, int color)
-{
-	if (all->win_ptr == NULL)
-		return (1);
-	while (drawstart < drawend)
-		img_pix_put(&all->img, x, drawstart++, color); 
-	return (0);
-}
-
-int	render_tex_n(t_all *all, int x, int drawstart, int drawend, double step)
-{
-	if (all->win_ptr == NULL)
-		return (1);
-	while (drawstart < drawend)
-	{
-		all->texture.tex_y = (int)all->texture.tex_pos & (TEXTURE_HEIGHT - 1);
-		all->texture.tex_pos += step;
-		all->texture.color = *((int *)all->tex_n.addr + (TEXTURE_HEIGHT * all->texture.tex_y + all->texture.tex_x));
-		img_pix_put(&all->img, x, drawstart++, all->texture.color);
-	}
-	return (0);
-}
-
-int	render_tex_s(t_all *all, int x, int drawstart, int drawend, double step)
-{
-	if (all->win_ptr == NULL)
-		return (1);
-	while (drawstart < drawend)
-	{
-		all->texture.tex_y = (int)all->texture.tex_pos & (TEXTURE_HEIGHT - 1);
-		all->texture.tex_pos += step;
-		all->texture.color = *((int *)all->tex_s.addr + (TEXTURE_HEIGHT * all->texture.tex_y + all->texture.tex_x));
-		img_pix_put(&all->img, x, drawstart++, all->texture.color);
-	}
-	return (0);
-}
-
-int	render_tex_e(t_all *all, int x, int drawstart, int drawend, double step)
-{
-	if (all->win_ptr == NULL)
-		return (1);
-	while (drawstart < drawend)
-	{
-		all->texture.tex_y = (int)all->texture.tex_pos & (TEXTURE_HEIGHT - 1);
-		all->texture.tex_pos += step;
-		all->texture.color = *((int *)all->tex_e.addr + (TEXTURE_HEIGHT * all->texture.tex_y + all->texture.tex_x));
-		img_pix_put(&all->img, x, drawstart++, all->texture.color);
-	}
-	return (0);
-}
-
-int	render_tex_w(t_all *all, int x, int drawstart, int drawend, double step)
-{
-	if (all->win_ptr == NULL)
-		return (1);
-	while (drawstart < drawend)
-	{
-		all->texture.tex_y = (int)all->texture.tex_pos & (TEXTURE_HEIGHT - 1);
-		all->texture.tex_pos += step;
-		all->texture.color = *((int *)all->tex_w.addr + (TEXTURE_HEIGHT * all->texture.tex_y + all->texture.tex_x));
-		img_pix_put(&all->img, x, drawstart++, all->texture.color);
-	}
-	return (0);
-}
-
-int	render_tex(t_all *all, uint32_t buffer[all->ry][all->rx])
-{
-	int	i = -1;
-	int j = -1;
-
-	if (all->win_ptr == NULL)
-		return (1);
-	while (++i < all->ry)
-	{
-		j = -1;
-		while (++j < all->rx)
-		{
-			img_pix_put(&all->img, j, i, buffer[i][j]);
-		}
-	}
-	return (0);
-}
-
-int		render_life(t_all *all)
-{
-	int	drawstart;
-	int	drawend;
-	int	x;
-	int	y;
-
-	if (all->win_ptr == NULL)
-		return (1);
-	drawstart = (all->ry / 2);
-	drawend = (all->ry / 2) + (all->ry / 3);
-	y = 10;
-	x = drawstart - 1;
-	while (x < drawend + 1)
-		img_pix_put(&all->img, x++, y - 1, BLACK_PIXEL);
-	while (y <= 30)
-	{
-		x = drawstart - 1;
-		img_pix_put(&all->img, x, y, BLACK_PIXEL);
-		x++;
-		while (x < drawend)
-		{
-			img_pix_put(&all->img, x++, y, RED_PIXEL);
-		}
-		img_pix_put(&all->img, x, y, BLACK_PIXEL);
-		y++;
-	}
-	x = drawstart - 1;
-	while (x < drawend + 1)
-		img_pix_put(&all->img, x++, y, BLACK_PIXEL);
-	return (0);
-}
 void	render_background(t_img *img, t_all *all, int color)
 {
 	int	i;
 	int	j;
 
+	(void)color;
 	i = 0;
+	while (i < all->ry / 2)
+	{
+		j = 0;
+		while (j < all->rx)
+			img_pix_put(img, j++, i, BLACK_PIXEL);
+		++i;
+	}
 	while (i < all->ry)
 	{
 		j = 0;
 		while (j < all->rx)
-			img_pix_put(img, j++, i, color);
+			img_pix_put(img, j++, i, GREY_PIXEL);
 		++i;
 	}
 }
@@ -241,8 +149,11 @@ int	menu(t_all *all)
 {
 	if (all->win_ptr == NULL)
 		return (1);
-	mlx_string_put(all->mlx_ptr, all->win_ptr, all->rx / 2, all->ry / 2, WHITE_PIXEL, "BIENVENUE");
-	mlx_string_put(all->mlx_ptr, all->win_ptr, all->rx / 2, all->ry / 2+20, WHITE_PIXEL, "APPUYEZ SUR ENTREE");
+	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->menu.mlx_img, ((all->rx / 2) - (418 / 2)), 0);
+	mlx_string_put(all->mlx_ptr, all->win_ptr, ((all->rx / 2 - (all->rx / 2) / 10)),
+		all->ry / 2, WHITE_PIXEL, "WELCOME TO THE WORLD OF WARCUB!!!");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, ((all->rx / 2 - (all->rx / 8) / 10)),
+		(all->ry / 2 + ((all->ry / 2) / 8)), WHITE_PIXEL, "PRESS ENTER");
 	return (0);
 }
 
@@ -251,185 +162,131 @@ int	render(t_all *all)
 	if (all->win_ptr == NULL)
 		return (1);
 	render_background(&all->img, all, BLACK_PIXEL);
+	raycast(all);
+//	render_life(all);
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img.mlx_img, 0, 0);
+//	mlx_string_put(all->mlx_ptr, all->win_ptr, all->rx / 2, 25, WHITE_PIXEL, "100%");
 	return (0);
 }
 
 int		raycast(t_all *all)
 {
 	int		x;
-	int		mapx;
-	int		mapy;
-	int		stepx;
-	int		stepy;
-	int		hit;
-	int		side;
-	int		lineheight;
-	int		drawstart;
-	int		drawend;
-	double	step; // a mettre dans t_texture attention a sed stepx stepy
-//	uint32_t		buffer[all->ry][all->rx];
 
 	x = -1;
-	render_background(&all->img, all, BLACK_PIXEL);
 	while (++x < all->rx)
 	{
 		all->player.camerax = 2 * (double)x / (double)all->rx - 1;
 
 		all->player.raydirx = all->player.dirx + all->player.planx * all->player.camerax;
 		all->player.raydiry = all->player.diry + all->player.plany * all->player.camerax;
-		mapx = (int)(all->player.posx);
-		mapy = (int)(all->player.posy);
+		all->ray.map_x = (int)(all->player.posx);
+		all->ray.map_y = (int)(all->player.posy);
 /*		if (all->player.raydiry == 0)
-			all->raycast.delta_dist_x = 0;
+			all->ray.delta_dist_x = 0;
 		else
 		{
 			if (all->player.raydirx == 0)
-				all->raycast.delta_dist_x = 1;
+				all->ray.delta_dist_x = 1;
 			else
-				all->raycast.delta_dist_x = ft_abs(1.0 / all->player.raydirx);
+				all->ray.delta_dist_x = fabs(1.0 / all->player.raydirx);
 		}
 		if (all->player.raydirx == 0)
-			all->raycast.delta_dist_y = 0;
+			all->ray.delta_dist_y = 0;
 		else
 		{
 			if (all->player.raydiry == 0)
-				all->raycast.delta_dist_y = 1;
+				all->ray.delta_dist_y = 1;
 			else
-				all->raycast.delta_dist_y = ft_abs(1.0 / all->player.raydiry);
+				all->ray.delta_dist_y = fabs(1.0 / all->player.raydiry);
 		}
 */
-		//all->raycast.delta_dist_x = fabs(1.0 / all->player.raydirx);
-		//all->raycast.delta_dist_y = fabs(1.0 / all->player.raydiry);
-		all->raycast.delta_dist_x = sqrt(1.0 + (all->player.raydiry * all->player.raydiry) / (all->player.raydirx * all->player.raydirx));
-		all->raycast.delta_dist_y = sqrt(1.0 + (all->player.raydirx * all->player.raydirx) / (all->player.raydiry * all->player.raydiry));
+		//all->ray.delta_dist_x = fabs(1.0 / all->player.raydirx);
+		//all->ray.delta_dist_y = fabs(1.0 / all->player.raydiry);
+		all->ray.delta_dist_x = sqrt(1.0 + (all->player.raydiry * all->player.raydiry) / (all->player.raydirx * all->player.raydirx));
+		all->ray.delta_dist_y = sqrt(1.0 + (all->player.raydirx * all->player.raydirx) / (all->player.raydiry * all->player.raydiry));
 
-		hit = 0;
+		all->ray.hit = 0;
 		if (all->player.raydirx < 0)
 		{
-			stepx = -1;
-			all->raycast.side_dist_x = (all->player.posx - (double)mapx) * all->raycast.delta_dist_x;
+			all->ray.step_x = -1;
+			all->ray.side_dist_x = (all->player.posx - (double)all->ray.map_x) * all->ray.delta_dist_x;
 		}
 		else
 		{
-			stepx = 1;
-			all->raycast.side_dist_x = ((double)mapx + 1.0 - all->player.posx) * all->raycast.delta_dist_x;
+			all->ray.step_x = 1;
+			all->ray.side_dist_x = ((double)all->ray.map_x + 1.0 - all->player.posx) * all->ray.delta_dist_x;
 		}
 		if (all->player.raydiry < 0)
 		{
-			stepy = -1;
-			all->raycast.side_dist_y = (all->player.posy - (double)mapy) * all->raycast.delta_dist_y;
+			all->ray.step_y = -1;
+			all->ray.side_dist_y = (all->player.posy - (double)all->ray.map_y) * all->ray.delta_dist_y;
 		}
 		else
 		{
-			stepy = 1;
-			all->raycast.side_dist_y = ((double)mapy + 1.0 - all->player.posy) * all->raycast.delta_dist_y;
+			all->ray.step_y = 1;
+			all->ray.side_dist_y = ((double)all->ray.map_y + 1.0 - all->player.posy) * all->ray.delta_dist_y;
 		}
-		while (hit == 0)
+		while (all->ray.hit == 0)
 		{
-			if (all->raycast.side_dist_x < all->raycast.side_dist_y)
+			if (all->ray.side_dist_x < all->ray.side_dist_y)
 			{
-				all->raycast.side_dist_x += all->raycast.delta_dist_x;
-				mapx += stepx;
-				side = 0;
+				all->ray.side_dist_x += all->ray.delta_dist_x;
+				all->ray.map_x += all->ray.step_x;
+				all->ray.side = 0;
 			}
 			else
 			{
-				all->raycast.side_dist_y += all->raycast.delta_dist_y;
-				mapy += stepy;
-				side = 1;
+				all->ray.side_dist_y += all->ray.delta_dist_y;
+				all->ray.map_y += all->ray.step_y;
+				all->ray.side = 1;
 			}
-			if (all->map[mapy][mapx] > '0')
-				hit = 1;
+			if (all->map[all->ray.map_y][all->ray.map_x] > '0')
+				all->ray.hit = 1;
 		}
-		if (side == 0)
-			all->raycast.perpwalldist = ((double)mapx - all->player.posx + (1 - (double)stepx) / 2) / (all->player.raydirx);
+		if (all->ray.side == 0)
+			all->ray.perpwalldist = ((double)all->ray.map_x - all->player.posx + (1 - (double)all->ray.step_x) / 2) / (all->player.raydirx);
 		else
-			all->raycast.perpwalldist = ((double)mapy - all->player.posy + (1 - (double)stepy) / 2) / (all->player.raydiry);
-		lineheight = (int)((double)all->ry / all->raycast.perpwalldist);
-		drawstart = -lineheight / 2 + all->ry / 2;
-		if (drawstart < 0)
-			drawstart = 0;
-		drawend = lineheight / 2 + all->ry / 2;
-		if (drawend >= all->ry)
-			drawend = all->ry - 1; 
-		if (side == 0)
-			all->texture.wall_x = all->player.posy + all->raycast.perpwalldist * all->player.raydiry;
+			all->ray.perpwalldist = ((double)all->ray.map_y - all->player.posy + (1 - (double)all->ray.step_y) / 2) / (all->player.raydiry);
+		if (all->ray.perpwalldist == 0)
+			all->ray.perpwalldist = 1;
+		all->ray.lineheight = (int)((double)all->ry / all->ray.perpwalldist);
+		all->ray.drawstart = -(all->ray.lineheight) / 2 + all->ry / 2;
+		if (all->ray.drawstart < 0)
+			all->ray.drawstart = 0;
+		all->ray.drawend = all->ray.lineheight / 2 + all->ry / 2;
+		if (all->ray.drawend >= all->ry)
+			all->ray.drawend = all->ry - 1; 
+		if (all->ray.side == 0)
+			all->texture.wall_x = all->player.posy + all->ray.perpwalldist * all->player.raydiry;
 		else
-			all->texture.wall_x = all->player.posx + all->raycast.perpwalldist * all->player.raydirx;
+			all->texture.wall_x = all->player.posx + all->ray.perpwalldist * all->player.raydirx;
 		all->texture.wall_x -= floor(all->texture.wall_x);
 		all->texture.tex_x = (int)(all->texture.wall_x * (double)TEXTURE_WIDTH);
 		
-		if (side == 0 && all->player.raydirx > 0)
+		if (all->ray.side == 0 && all->player.raydirx > 0)
 			all->texture.tex_x = (double)TEXTURE_WIDTH - all->texture.tex_x - 1;
-		if (side == 1 && all->player.raydiry > 0)
+		if (all->ray.side == 1 && all->player.raydiry > 0)
 			all->texture.tex_x = (double)TEXTURE_WIDTH - all->texture.tex_x - 1;
 
-		step = 1.0 * (double)TEXTURE_HEIGHT / lineheight;
-		all->texture.tex_pos = (drawstart - (double)all->ry / 2 + lineheight / 2) * step;
-	//	int	d;
-		int	y;
-		y = drawstart;
-/*		while (y < drawend)
+		all->ray.step = 1.0 * (double)TEXTURE_HEIGHT / (double)all->ray.lineheight;
+		all->texture.tex_pos = ((double)all->ray.drawstart - (double)all->ry / 2 + (double)all->ray.lineheight / 2) * all->ray.step;
+		if (all->ray.side == 0 && all->ray.step_x == -1)
 		{
-			d = y * 256 - all->ry * 128 + lineheight * 128;
-			all->texture.tex_y = (((d * TEXTURE_HEIGHT) / lineheight) / 256);
-			all->texture.tex_pos = all->texture.tex_y * TEXTURE_WIDTH + all->texture.tex_x;
-			all->texture.color = *(((int *)all->tex_s.addr) + (int)all->texture.tex_pos);
-			buffer[y][x] = all->texture.color;
-			y++;
+			render_tex_e(all, x, all->ray.drawstart);
 		}
-*/		
-/*		while (y < drawend)
+		else if (all->ray.side == 0 && all->ray.step_x == 1)
 		{
-			all->texture.tex_y = (int)all->texture.tex_pos & (TEXTURE_HEIGHT - 1);
-			all->texture.tex_pos += step;
-			all->texture.color = *(((int *)all->tex_s.addr) + (TEXTURE_HEIGHT * all->texture.tex_y + all->texture.tex_x));
-			buffer[y][x] = all->texture.color;
-			y++;
+			render_tex_w(all, x, all->ray.drawstart);
 		}
-*/	
-		if (side == 0 && stepx == -1)
+		else if (all->ray.side == 1 && all->ray.step_y == -1)
 		{
-			render_col(all, x, 0, drawstart, CYAN_PIXEL);
-			render_tex_e(all, x, drawstart, drawend, step);
-			//render_tex(all, buffer);
-			render_col(all, x, drawend, all->ry, GREY_PIXEL);
-		}
-		else if (side == 0 && stepx == 1)
-		{
-			render_col(all, x, 0, drawstart, CYAN_PIXEL);
-			render_tex_w(all, x, drawstart, drawend, step);
-			//render_tex(all, buffer);
-			render_col(all, x, drawend, all->ry, GREY_PIXEL);
-		}
-		else if (side == 1 && stepy == -1)
-		{
-			render_col(all, x, 0, drawstart, CYAN_PIXEL);
-			render_tex_s(all, x, drawstart, drawend, step);
-			//render_tex(all, buffer);
-			render_col(all, x, drawend, all->ry, GREY_PIXEL);
+			render_tex_s(all, x, all->ray.drawstart);
 		}
 		else
 		{
-			render_col(all, x, 0, drawstart, CYAN_PIXEL);
-			render_tex_n(all, x, drawstart, drawend, step);
-			//render_tex(all, buffer);
-			render_col(all, x, drawend, all->ry, GREY_PIXEL);
+			render_tex_n(all, x, all->ray.drawstart);
 		}
-//		render_life(all);
 	}
-	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img.mlx_img, 0, 0);
-	mlx_string_put(all->mlx_ptr, all->win_ptr, all->rx / 2, 25, BLACK_PIXEL, "100%");
-/*	int i = -1;
-	int j = -1;
-	while (++i < all->ry)
-	{
-		j = -1;
-		while (++j < all->rx)
-		{
-			buffer[i][j] = 0;
-		}
-	}*/
 	return (0);
 }
