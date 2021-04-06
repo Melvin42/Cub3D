@@ -2,30 +2,30 @@
 
 void	ft_debug(t_all *all)
 {
-	printf("\n\n\nplayer struc pos x = %f\n", all->player.posx);
-	printf("player struc pos y  = %f\n", all->player.posy);
+	//printf("\n\n\nplayer struc pos x = %f\n", all->player.posx);
+	//printf("player struc pos y  = %f\n", all->player.posy);
 	printf("player struc dir x = %f\n", all->player.dirx);
 	printf("player struc dir y = %f\n", all->player.diry);
-	printf("player struc plan x = %f\n", all->player.planx);
-	printf("player struc plan y = %f\n", all->player.plany);
-	printf("player struc camera = %f\n", all->player.camerax);
-	printf("player struc raydirx = %f\n", all->player.raydirx);
-	printf("player struc raydiry = %f\n", all->player.raydiry);
-	printf("ray struc delta dist x = %f\n", all->ray.delta_dist_x);
-	printf("ray struc delta dist y = %f\n", all->ray.delta_dist_y);
-	printf("ray struc side dist x = %f\n", all->ray.side_dist_x);
-	printf("ray struc side dist y = %f\n", all->ray.side_dist_y);
-	printf("ray struc perpwalldist = %f\n", all->ray.perpwalldist);
-	printf("ray struc step = %f\n", all->ray.step);
-	printf("ray struc step x = %d\n", all->ray.step_y);
-	printf("ray struc step y = %d\n", all->ray.step_x);
-	printf("ray struc map x = %d\n", all->ray.map_x);
-	printf("ray struc map y = %d\n", all->ray.map_y);
-	printf("ray struc drawstart = %d\n", all->ray.drawstart);
-	printf("ray struc drawend = %d\n", all->ray.drawend);
-	printf("ray struc lineheight = %d\n", all->ray.lineheight);
-	printf("ray struc hit = %d\n", all->ray.hit);
-	printf("ray struc side = %d\n", all->ray.side);
+	//printf("player struc plan x = %f\n", all->player.planx);
+	//printf("player struc plan y = %f\n", all->player.plany);
+	//printf("player struc camera = %f\n", all->player.camerax);
+	//printf("player struc raydirx = %f\n", all->player.raydirx);
+	//printf("player struc raydiry = %f\n", all->player.raydiry);
+	//printf("ray struc delta dist x = %f\n", all->ray.delta_dist_x);
+	//printf("ray struc delta dist y = %f\n", all->ray.delta_dist_y);
+	//printf("ray struc side dist x = %f\n", all->ray.side_dist_x);
+	//printf("ray struc side dist y = %f\n", all->ray.side_dist_y);
+	//printf("ray struc perpwalldist = %f\n", all->ray.perpwalldist);
+	//printf("ray struc step = %f\n", all->ray.step);
+	//printf("ray struc step x = %d\n", all->ray.step_y);
+	//printf("ray struc step y = %d\n", all->ray.step_x);
+	//printf("ray struc map x = %d\n", all->ray.map_x);
+	//printf("ray struc map y = %d\n", all->ray.map_y);
+	//printf("ray struc drawstart = %d\n", all->ray.drawstart);
+	//printf("ray struc drawend = %d\n", all->ray.drawend);
+	//printf("ray struc lineheight = %d\n", all->ray.lineheight);
+	//printf("ray struc hit = %d\n", all->ray.hit);
+	//printf("ray struc side = %d\n", all->ray.side);
 }
 
 int	handle_keypress(int keysym, t_all *all)
@@ -58,30 +58,31 @@ int	handle_keypress(int keysym, t_all *all)
 	else if (keysym == XK_Up || keysym == XK_w)
 	{
 		if (all->map[(int)all->player.posy][(int)(all->player.posx + all->player.dirx * movespeed)] == '0')
-			all->player.posx += all->player.dirx * movespeed;
+			all->player.posx += all->player.dirx * movespeed * 1.1;
 		if (all->map[(int)(all->player.posy + all->player.diry * movespeed)][(int)all->player.posx] == '0')
-			all->player.posy += all->player.diry * movespeed;
+			all->player.posy += all->player.diry * movespeed * 1.1;
 	}
 	else if (keysym == XK_Down || keysym == XK_s)
 	{
-		if (all->map[(int)all->player.posy][(int)(all->player.posx - all->player.diry * movespeed)] == '0')
-			all->player.posx -= all->player.dirx * movespeed;
+		if (all->map[(int)all->player.posy][(int)(all->player.posx - all->player.dirx * movespeed)] == '0')
+			all->player.posx -= all->player.dirx * movespeed * 1.1;
 		if (all->map[(int)(all->player.posy - all->player.diry * movespeed)][(int)all->player.posx] == '0')
-			all->player.posy -= all->player.diry * movespeed;
+			all->player.posy -= all->player.diry * movespeed * 1.1;
 	}
 	else if (keysym == XK_a)
 	{
+		//voir avec plan
 		if (all->map[(int)(all->player.posy)][(int)(all->player.posx + all->player.diry * movespeed)] == '0')
-			all->player.posx += all->player.diry * movespeed;
+			all->player.posx += all->player.diry * movespeed * 1.1;
 		if (all->map[(int)(all->player.posy - all->player.dirx * movespeed)][(int)all->player.posx] == '0')
-			all->player.posy -= all->player.dirx * movespeed;
+			all->player.posy -= all->player.dirx * movespeed * 1.1;
 	}
 	else if (keysym == XK_d)
 	{
 		if (all->map[(int)(all->player.posy)][(int)(all->player.posx - all->player.diry * movespeed)] == '0')
-			all->player.posx -= all->player.diry * movespeed;
+			all->player.posx -= all->player.diry * movespeed * 1.1;
 		if (all->map[(int)(all->player.posy - all->player.dirx * movespeed)][(int)all->player.posx] == '0')
-			all->player.posy += all->player.dirx * movespeed;
+			all->player.posy += all->player.dirx * movespeed * 1.1;
 	}
 	else if (keysym == XK_Left || keysym == XK_q)
 	{
@@ -176,7 +177,7 @@ int		raycast(t_all *all)
 	x = -1;
 	while (++x < all->rx)
 	{
-		all->player.camerax = 2 * (double)x / (double)all->rx - 1;
+		all->player.camerax = 2.0 * (double)x / (double)all->rx - 1.0;
 
 		all->player.raydirx = all->player.dirx + all->player.planx * all->player.camerax;
 		all->player.raydiry = all->player.diry + all->player.plany * all->player.camerax;
@@ -245,11 +246,9 @@ int		raycast(t_all *all)
 				all->ray.hit = 1;
 		}
 		if (all->ray.side == 0)
-			all->ray.perpwalldist = ((double)all->ray.map_x - all->player.posx + (1 - (double)all->ray.step_x) / 2) / (all->player.raydirx);
+			all->ray.perpwalldist = (double)(((double)all->ray.map_x - all->player.posx + (double)(1 - all->ray.step_x) / 2) / all->player.raydirx);
 		else
-			all->ray.perpwalldist = ((double)all->ray.map_y - all->player.posy + (1 - (double)all->ray.step_y) / 2) / (all->player.raydiry);
-		if (all->ray.perpwalldist == 0)
-			all->ray.perpwalldist = 1;
+			all->ray.perpwalldist = (double)(((double)all->ray.map_y - all->player.posy + (double)(1 - all->ray.step_y) / 2) / all->player.raydiry);
 		all->ray.lineheight = (int)((double)all->ry / all->ray.perpwalldist);
 		all->ray.drawstart = -(all->ray.lineheight) / 2 + all->ry / 2;
 		if (all->ray.drawstart < 0)
@@ -265,9 +264,9 @@ int		raycast(t_all *all)
 		all->texture.tex_x = (int)(all->texture.wall_x * (double)TEXTURE_WIDTH);
 		
 		if (all->ray.side == 0 && all->player.raydirx > 0)
-			all->texture.tex_x = (double)TEXTURE_WIDTH - all->texture.tex_x - 1;
+			all->texture.tex_x = TEXTURE_WIDTH - all->texture.tex_x - 1;
 		if (all->ray.side == 1 && all->player.raydiry > 0)
-			all->texture.tex_x = (double)TEXTURE_WIDTH - all->texture.tex_x - 1;
+			all->texture.tex_x = TEXTURE_WIDTH - all->texture.tex_x - 1;
 
 		all->ray.step = 1.0 * (double)TEXTURE_HEIGHT / (double)all->ray.lineheight;
 		all->texture.tex_pos = ((double)all->ray.drawstart - (double)all->ry / 2 + (double)all->ray.lineheight / 2) * all->ray.step;
