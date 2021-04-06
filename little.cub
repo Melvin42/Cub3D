@@ -1,9 +1,9 @@
-R 800 600
+R 1920 1080
 
-NO ./path_to_the_north_texture
-SO ./wall.xpm
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO ./textures/icestone.xpm
+SO ./textures/hearthstone.xpm
+WE ./textures/iron.xpm
+EA ./textures/wood.xpm
 S ./path_to_the_sprite_texture
 
 F 220,100,0

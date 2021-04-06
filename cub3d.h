@@ -18,8 +18,8 @@
 # define GREY_PIXEL 0x808080
 # define WHITE_PIXEL 0xFFFFFF
 # define BLACK_PIXEL 0x0
-# define TEXTURE_WIDTH 64
-# define TEXTURE_HEIGHT 64
+# define TEXTURE_WIDTH 256
+# define TEXTURE_HEIGHT 256
 
 # include "libft/libft.h"
 # include <mlx.h>
@@ -112,6 +112,7 @@ typedef struct	s_all
 	t_raycast	raycast;
 	t_texture	texture;
 	t_img	img;
+	t_img	menu;
 	t_img	tex_n;
 	t_img	tex_s;
 	t_img	tex_e;
