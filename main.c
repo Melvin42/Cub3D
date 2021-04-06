@@ -4,8 +4,9 @@ void	set_all(t_all *all)
 {
 	*all = (t_all){NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL,
 			(t_player){0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-			(t_raycast){0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+			(t_ray){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			(t_texture){0, 0, 0, 0, 0, 0},
+			(t_img){NULL, NULL, 0, 0, 0},
 			(t_img){NULL, NULL, 0, 0, 0},
 			(t_img){NULL, NULL, 0, 0, 0},
 			(t_img){NULL, NULL, 0, 0, 0},
@@ -22,6 +23,8 @@ int	main(int ac, char **av)
 	int			n;
 	int			texture_width = TEXTURE_WIDTH;
 	int			texture_height = TEXTURE_HEIGHT;
+	int			sprite_width = SPRITE_WIDTH;
+	int			sprite_height = SPRITE_HEIGHT;
 	int			menu_width;
 	int			menu_height;
 	t_all		all;
@@ -78,6 +81,9 @@ int	main(int ac, char **av)
 	all.tex_w.mlx_img = mlx_xpm_file_to_image(all.mlx_ptr, all.west, &texture_width, &texture_height);
 	all.tex_w.addr = mlx_get_data_addr(all.tex_w.mlx_img, &all.tex_w.bpp,
 					&all.tex_w.line_len, &all.tex_w.endian);
+	all.sprite.mlx_img = mlx_xpm_file_to_image(all.mlx_ptr, all.path_sprite, &sprite_width, &sprite_height);
+	all.sprite.addr = mlx_get_data_addr(all.sprite.mlx_img, &all.sprite.bpp,
+					&all.sprite.line_len, &all.sprite.endian);
 	render_background(&all.img, &all, BLACK_PIXEL);
 	mlx_hook(all.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &all);
 	mlx_loop(all.mlx_ptr);

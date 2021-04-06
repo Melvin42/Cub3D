@@ -4,7 +4,7 @@ NO ./textures/icestone.xpm
 SO ./textures/hearthstone.xpm
 WE ./textures/iron.xpm
 EA ./textures/wood.xpm
-S ./path_to_the_sprite_texture
+S ./sprites1024/lichking1024.xpm
 
 F 220,100,0
 C 225,30,0
