@@ -6,6 +6,7 @@ void	set_all(t_all *all)
 			(t_player){0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			(t_ray){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			(t_texture){0, 0, 0, 0, 0, 0},
+			(t_sprite){0, 0, 0},
 			(t_img){NULL, NULL, 0, 0, 0},
 			(t_img){NULL, NULL, 0, 0, 0},
 			(t_img){NULL, NULL, 0, 0, 0},
@@ -29,6 +30,7 @@ int	main(int ac, char **av)
 	int			menu_height;
 	t_all		all;
 
+	//mlx_get_screen_size taille de la fenetre  get_screen_size taille de l'ecran
 	set_all(&all);
 	if (ac != 2)
 		return (check_error(ARG_ERROR));
@@ -50,6 +52,23 @@ int	main(int ac, char **av)
 		free_all(&all);
 		return (0);
 	}
+	int	x, y;
+	y = -1;
+	while (all.map[++y])
+	{
+		x = -1;
+		while (all.map[y][++x])
+		{
+			if (all.map[y][x] == '2')
+			{
+				all.sprite.x = (double)x;
+				all.sprite.y = (double)y;
+				//all.map[y][x] = '0';
+			}
+		}
+	}
+	printf("x = %f\n", all.sprite.x);
+	printf("y = %f\n", all.sprite.y);
 	all.mlx_ptr = mlx_init();
 	if (all.mlx_ptr == NULL)
 		return (check_error(MLX_ERROR));
@@ -81,9 +100,9 @@ int	main(int ac, char **av)
 	all.tex_w.mlx_img = mlx_xpm_file_to_image(all.mlx_ptr, all.west, &texture_width, &texture_height);
 	all.tex_w.addr = mlx_get_data_addr(all.tex_w.mlx_img, &all.tex_w.bpp,
 					&all.tex_w.line_len, &all.tex_w.endian);
-	all.sprite.mlx_img = mlx_xpm_file_to_image(all.mlx_ptr, all.path_sprite, &sprite_width, &sprite_height);
-	all.sprite.addr = mlx_get_data_addr(all.sprite.mlx_img, &all.sprite.bpp,
-					&all.sprite.line_len, &all.sprite.endian);
+	all.sprite_img.mlx_img = mlx_xpm_file_to_image(all.mlx_ptr, all.path_sprite, &sprite_width, &sprite_height);
+	all.sprite_img.addr = mlx_get_data_addr(all.sprite_img.mlx_img, &all.sprite_img.bpp,
+					&all.sprite_img.line_len, &all.sprite_img.endian);
 	render_background(&all.img, &all, BLACK_PIXEL);
 	mlx_hook(all.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &all);
 	mlx_loop(all.mlx_ptr);

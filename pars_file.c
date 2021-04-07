@@ -205,7 +205,7 @@ int	read_file(int n, int fd, t_all *all)
 				return (-1);
 		}
 		n--;
-	//	free(line);
+		free(line);
 	}
 	return (0);
 }
@@ -219,7 +219,7 @@ int	count_line(int fd)
 	while (get_next_line(fd, &line) > 0)
 	{
 		i++;
-//		free(line);
+		free(line);
 	}
 	return (i);
 }

@@ -54,9 +54,12 @@ int	check_map(t_all *all)
 		j = 0;
 		while (all->map[i][j])
 		{
-			if (all->map[i][j] == '0' || all->map[i][j] == '1'
-				|| all->map[i][j] == '2')
+			if (all->map[i][j] == '0' || all->map[i][j] == '1')
 				j++;
+			else if (all->map[i][j] == '2')
+			{
+				j++;
+			}
 			else if (all->map[i][j] == ' ')
 			{
 				all->map[i][j] = '1';

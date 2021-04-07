@@ -1,3 +1,4 @@
+#include "../cub3d.h"
 
 int		render_life(t_all *all)
 {

@@ -37,96 +37,104 @@
 
 typedef struct	s_img
 {
-	void	*mlx_img;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
+	void		*mlx_img;
+	char		*addr;
+	int			bpp;
+	int			line_len;
+	int			endian;
 }				t_img;
 
 typedef struct	s_rect
 {
-	int		x;
-	int		y;
-	int		width;
-	int		height;
+	int			x;
+	int			y;
+	int			width;
+	int			height;
 	uint32_t		color;
 }				t_rect;
 
 typedef struct	s_rgb
 {
-	int	red;
-	int	green;
-	int	blue;
+	int			red;
+	int			green;
+	int			blue;
 }				t_rgb;
 
 typedef struct	s_player
 {
-	int 	flag;
-	double	posx;
-	double	posy;
-	double	dirx;
-	double	diry;
-	double	planx;
-	double	plany;
-	double	camerax;
-	double	raydirx;
-	double	raydiry;
+	int 		flag;
+	double		posx;
+	double		posy;
+	double		dirx;
+	double		diry;
+	double		planx;
+	double		plany;
+	double		camerax;
+	double		raydirx;
+	double		raydiry;
 }				t_player;
 
 typedef struct	s_ray
 {
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	side_dist_x;
-	double	side_dist_y; 
-	double	perpwalldist;
-	double	step;
-	int		step_x;
-	int		step_y;
-	int		map_x;
-	int		map_y;
-	int		drawstart;
-	int		drawend;
-	int		lineheight;
-	int		hit;
-	int		side;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		side_dist_x;
+	double		side_dist_y; 
+	double		perpwalldist;
+	double		step;
+	int			step_x;
+	int			step_y;
+	int			map_x;
+	int			map_y;
+	int			drawstart;
+	int			drawend;
+	int			lineheight;
+	int			hit;
+	int			side;
 }				t_ray;
 
 typedef struct	s_texture
 {
 	double		wall_x;
-	int		tex_x;
-	int		tex_y;
-	double	step;
-	double	tex_pos;
-	int		color;
+	int			tex_x;
+	int			tex_y;
+	double		step;
+	double		tex_pos;
+	int			color;
 }				t_texture;
+
+typedef struct	s_sprite
+{
+	double		x;
+	double		y;
+	int			texture;
+}				t_sprite;
 
 typedef struct	s_all
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	int		rx;
-	int 	ry;
-	char	*north;
-	char	*south;
-	char	*west;
-	char	*east;
-	char	*path_sprite;
-	char	**map;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	int			rx;
+	int 		ry;
+	char		*north;
+	char		*south;
+	char		*west;
+	char		*east;
+	char		*path_sprite;
+	char		**map;
 	t_player	player;
 	t_ray		ray;
 	t_texture	texture;
-	t_img	menu;
-	t_img	img;
-	t_img	tex_n;
-	t_img	tex_s;
-	t_img	tex_e;
-	t_img	tex_w;
-	t_img	sprite;
-	t_rgb	floor;
-	t_rgb	ceiling;
+	t_sprite	sprite;
+	t_img		menu;
+	t_img		img;
+	t_img		tex_n;
+	t_img		tex_s;
+	t_img		tex_e;
+	t_img		tex_w;
+	t_img		sprite_img;
+	t_rgb		floor;
+	t_rgb		ceiling;
 }				t_all;
 
 /*******************************************************************************
