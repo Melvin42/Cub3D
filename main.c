@@ -67,11 +67,19 @@ int	main(int ac, char **av)
 			}
 		}
 	}
-	printf("x = %f\n", all.sprite.x);
-	printf("y = %f\n", all.sprite.y);
+//	printf("x = %f\n", all.sprite.x);
+//	printf("y = %f\n", all.sprite.y);
 	all.mlx_ptr = mlx_init();
 	if (all.mlx_ptr == NULL)
 		return (check_error(MLX_ERROR));
+	int	resx;
+	int	resy;
+	mlx_get_screen_size(all.mlx_ptr, &resx, &resy);
+	if (all.rx > resx)
+		all.rx = resx;
+	if (all.ry > resy)
+		all.ry = resy;
+
 	all.win_ptr = mlx_new_window(all.mlx_ptr, all.rx, all.ry, "Cub3D");
 	if (all.win_ptr == NULL)
 	{

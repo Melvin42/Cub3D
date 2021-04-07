@@ -182,7 +182,7 @@ int	render(t_all *all)
 	raycast(all);
 	render_life(all);
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img.mlx_img, 0, 0);
-	mlx_string_put(al->mlx_ptr, all->win_ptr, all->rx / 2, 25, WHITE_PIXEL, "100%");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, all->rx / 2, 25, WHITE_PIXEL, "100%");
 	return (0);
 }
 
