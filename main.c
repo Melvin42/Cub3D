@@ -30,7 +30,6 @@ int	main(int ac, char **av)
 	int			menu_height;
 	t_all		all;
 
-	//mlx_get_screen_size taille de la fenetre  get_screen_size taille de l'ecran
 	set_all(&all);
 	if (ac != 2)
 		return (check_error(ARG_ERROR));
@@ -53,8 +52,6 @@ int	main(int ac, char **av)
 		return (0);
 	}
 	pos_sprites(&all);
-//	printf("x = %f\n", all.sprite.x);
-//	printf("y = %f\n", all.sprite.y);
 	all.mlx_ptr = mlx_init();
 	if (all.mlx_ptr == NULL)
 		return (check_error(MLX_ERROR));
@@ -79,17 +76,42 @@ int	main(int ac, char **av)
 					&all.menu.line_len, &all.menu.endian);
 	menu(&all);
 	all.img.mlx_img = mlx_new_image(all.mlx_ptr, all.rx, all.ry);
+	if (all.img.mlx_img == NULL)
+		return (0);
 	all.img.addr = mlx_get_data_addr(all.img.mlx_img, &all.img.bpp, &all.img.line_len, &all.img.endian);
+	if (all.img.addr == NULL)
+		return (0);
 	all.tex_n.mlx_img = mlx_xpm_file_to_image(all.mlx_ptr, all.north, &texture_width, &texture_height);
+	if (all.tex_n.mlx_img == NULL)
+		return (0);
 	all.tex_n.addr = mlx_get_data_addr(all.tex_n.mlx_img, &all.tex_n.bpp, &all.tex_n.line_len, &all.tex_n.endian);
+	if (all.tex_n.addr == NULL)
+		return (0);
 	all.tex_s.mlx_img = mlx_xpm_file_to_image(all.mlx_ptr, all.south, &texture_width, &texture_height);
+	if (all.tex_s.mlx_img == NULL)
+		return (0);
 	all.tex_s.addr = mlx_get_data_addr(all.tex_s.mlx_img, &all.tex_s.bpp, &all.tex_s.line_len, &all.tex_s.endian);
+	if (all.tex_s.addr == NULL)
+		return (0);
 	all.tex_e.mlx_img = mlx_xpm_file_to_image(all.mlx_ptr, all.east, &texture_width, &texture_height);
+	if (all.tex_e.mlx_img == NULL)
+		return (0);
 	all.tex_e.addr = mlx_get_data_addr(all.tex_e.mlx_img, &all.tex_e.bpp, &all.tex_e.line_len, &all.tex_e.endian);
+	if (all.tex_e.addr == NULL)
+		return (0);
 	all.tex_w.mlx_img = mlx_xpm_file_to_image(all.mlx_ptr, all.west, &texture_width, &texture_height);
+	if (all.tex_w.mlx_img == NULL)
+		return (0);
 	all.tex_w.addr = mlx_get_data_addr(all.tex_w.mlx_img, &all.tex_w.bpp, &all.tex_w.line_len, &all.tex_w.endian);
+	if (all.tex_w.addr == NULL)
+		return (0);
 	all.sprite_img.mlx_img = mlx_xpm_file_to_image(all.mlx_ptr, all.path_sprite, &sprite_width, &sprite_height);
+	if (all.sprite_img.mlx_img == NULL)
+		return (0);
 	all.sprite_img.addr = mlx_get_data_addr(all.sprite_img.mlx_img, &all.sprite_img.bpp, &all.sprite_img.line_len, &all.sprite_img.endian);
+	if (all.sprite_img.addr == NULL)
+		return (0);
+//	mlx_mouse_hide(all.mlx_ptr, all.win_ptr);
 	render_background(&all.img, &all, BLACK_PIXEL);
 	mlx_hook(all.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &all);
 	mlx_loop(all.mlx_ptr);

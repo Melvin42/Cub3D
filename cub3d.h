@@ -166,9 +166,7 @@ void			free_all(t_all *all);
 **=============================>   MLX   <====================================**
 *******************************************************************************/
 
-int				handle_no_event(void *all);
 int				handle_keypress(int keysym, t_all *all);
-int				handle_keyrelease(int keysym, void *all);
 int				encode_rgb(uint8_t red, uint8_t green, uint8_t blue);
 void			img_pix_put(t_img *img, int x, int y, int color);
 
