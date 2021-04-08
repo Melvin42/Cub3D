@@ -3,6 +3,7 @@
 void	ft_debug(t_all *all)
 {
 	//printf("\n\n\nplayer struc pos x = %f\n", all->player.posx);
+	//printf("player struc pos x  = %f\n", all->player.posx);
 	//printf("player struc pos y  = %f\n", all->player.posy);
 	printf("player struc dir x = %f\n", all->player.dirx);
 	printf("player struc dir y = %f\n", all->player.diry);
@@ -76,12 +77,12 @@ int	handle_keypress(int keysym, t_all *all)
 			all->player.posx += all->player.diry * movespeed * 1.1;
 		if (all->map[(int)(all->player.posy - all->player.dirx * movespeed)][(int)all->player.posx] == '0')
 			all->player.posy -= all->player.dirx * movespeed * 1.1;
-	
-	/*	if (all->map[(int)(all->player.posy)][(int)(all->player.posx - all->player.planx * movespeed)] == '0')
+
+		/*	if (all->map[(int)(all->player.posy)][(int)(all->player.posx - all->player.planx * movespeed)] == '0')
 			all->player.posx -= all->player.planx * movespeed * 1.1;
-		if (all->map[(int)(all->player.posy - all->player.plany * movespeed)][(int)all->player.posx] == '0')
+			if (all->map[(int)(all->player.posy - all->player.plany * movespeed)][(int)all->player.posx] == '0')
 			all->player.posy -= all->player.plany * movespeed * 1.1;
-	*/
+		 */
 	}
 	else if (keysym == XK_d)
 	{
@@ -89,12 +90,12 @@ int	handle_keypress(int keysym, t_all *all)
 			all->player.posx -= all->player.diry * movespeed * 1.1;
 		if (all->map[(int)(all->player.posy - all->player.dirx * movespeed)][(int)all->player.posx] == '0')
 			all->player.posy += all->player.dirx * movespeed * 1.1;
-	
-	/*	if (all->map[(int)(all->player.posy)][(int)(all->player.posx + all->player.planx * movespeed)] == '0')
+
+		/*	if (all->map[(int)(all->player.posy)][(int)(all->player.posx + all->player.planx * movespeed)] == '0')
 			all->player.posx += all->player.planx * movespeed * 1.1;
-		if (all->map[(int)(all->player.posy + all->player.plany * movespeed)][(int)all->player.posx] == '0')
+			if (all->map[(int)(all->player.posy + all->player.plany * movespeed)][(int)all->player.posx] == '0')
 			all->player.posy += all->player.plany * movespeed * 1.1;
-	*/
+		 */
 	}
 	else if (keysym == XK_Left || keysym == XK_q)
 	{
@@ -164,9 +165,9 @@ int	menu(t_all *all)
 		return (1);
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->menu.mlx_img, ((all->rx / 2) - (418 / 2)), 0);
 	mlx_string_put(all->mlx_ptr, all->win_ptr, ((all->rx / 2 - (all->rx / 2) / 10)),
-		all->ry / 2, WHITE_PIXEL, "WELCOME TO THE WORLD OF WARCUB!!!");
+			all->ry / 2, WHITE_PIXEL, "WELCOME TO THE WORLD OF WARCUB!!!");
 	mlx_string_put(all->mlx_ptr, all->win_ptr, ((all->rx / 2 - (all->rx / 8) / 10)),
-		(all->ry / 2 + ((all->ry / 2) / 8)), WHITE_PIXEL, "PRESS ENTER");
+			(all->ry / 2 + ((all->ry / 2) / 8)), WHITE_PIXEL, "PRESS ENTER");
 	return (0);
 }
 
@@ -177,13 +178,36 @@ int	render(t_all *all)
 	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
 	all->img.mlx_img = mlx_new_image(all->mlx_ptr, all->rx, all->ry);
 	all->img.addr = mlx_get_data_addr(all->img.mlx_img, &all->img.bpp,
-					&all->img.line_len, &all->img.endian);
+			&all->img.line_len, &all->img.endian);
 	render_background(&all->img, all, BLACK_PIXEL);
 	raycast(all);
-	render_life(all);
+//	render_life(all);
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img.mlx_img, 0, 0);
-	mlx_string_put(all->mlx_ptr, all->win_ptr, all->rx / 2, 25, WHITE_PIXEL, "100%");
+//	mlx_string_put(all->mlx_ptr, all->win_ptr, all->rx / 2, 25, WHITE_PIXEL, "100%");
 	return (0);
+}
+
+void	sort_sprites(t_all *all)
+{
+	int	i;
+	int	j;
+	t_sprite	swap;
+	i = -1;
+	if (all->numsprites < 2)
+		return ;
+	while (++i < all->numsprites)
+	{
+		j = i + 1;
+		if (all->sprite[i].dist < all->sprite[j].dist)
+		{
+			swap = all->sprite[i];
+			all->sprite[i] = all->sprite[j];
+			all->sprite[j] = swap;
+			i = -1;
+		}
+		else
+			j++;
+	}
 }
 
 int		raycast(t_all *all)
@@ -197,7 +221,6 @@ int		raycast(t_all *all)
 	double	transformy;
 	double	spritex;
 	double	spritey;
-//	int		vmovescreen;
 	int		stripe;
 	int		spritescreenx;
 	int		spritewidth;
@@ -206,6 +229,9 @@ int		raycast(t_all *all)
 	int		drawstarty;
 	int		drawendx;
 	int		drawendy;
+	int		i;
+	//int		spriteorder[all->numsprites];
+//	double	spritedistance[all->numsprites];
 
 	x = -1;
 	while (++x < all->rx)
@@ -216,25 +242,25 @@ int		raycast(t_all *all)
 		all->player.raydiry = all->player.diry + all->player.plany * all->player.camerax;
 		all->ray.map_x = (int)(all->player.posx);
 		all->ray.map_y = (int)(all->player.posy);
-/*		if (all->player.raydiry == 0)
-			all->ray.delta_dist_x = 0;
-		else
-		{
-			if (all->player.raydirx == 0)
+		/*		if (all->player.raydiry == 0)
+				all->ray.delta_dist_x = 0;
+				else
+				{
+				if (all->player.raydirx == 0)
 				all->ray.delta_dist_x = 1;
-			else
+				else
 				all->ray.delta_dist_x = fabs(1.0 / all->player.raydirx);
-		}
-		if (all->player.raydirx == 0)
-			all->ray.delta_dist_y = 0;
-		else
-		{
-			if (all->player.raydiry == 0)
+				}
+				if (all->player.raydirx == 0)
+				all->ray.delta_dist_y = 0;
+				else
+				{
+				if (all->player.raydiry == 0)
 				all->ray.delta_dist_y = 1;
-			else
+				else
 				all->ray.delta_dist_y = fabs(1.0 / all->player.raydiry);
-		}
-*/
+				}
+		 */
 		all->ray.delta_dist_x = fabs(1.0 / all->player.raydirx);
 		all->ray.delta_dist_y = fabs(1.0 / all->player.raydiry);
 		//all->ray.delta_dist_x = sqrt(1.0 + (all->player.raydiry * all->player.raydiry) / (all->player.raydirx * all->player.raydirx));
@@ -295,7 +321,7 @@ int		raycast(t_all *all)
 			all->texture.wall_x = all->player.posx + all->ray.perpwalldist * all->player.raydirx;
 		all->texture.wall_x -= floor(all->texture.wall_x);
 		all->texture.tex_x = (int)(all->texture.wall_x * (double)TEXTURE_WIDTH);
-		
+
 		if (all->ray.side == 0 && all->player.raydirx > 0)
 			all->texture.tex_x = TEXTURE_WIDTH - all->texture.tex_x - 1;
 		if (all->ray.side == 1 && all->player.raydiry > 0)
@@ -324,47 +350,56 @@ int		raycast(t_all *all)
 /*******************************************************************************
 ******************************   SPRITE   **************************************
 *******************************************************************************/
-	spritex = all->sprite.x - all->player.posx + 0.5;
-	spritey = all->sprite.y - all->player.posy + 0.5;
-	invdet = 1.0 / (all->player.planx * all->player.diry - all->player.dirx * all->player.plany);
-	transformx = invdet * (all->player.diry * spritex - all->player.dirx * spritey);
-	transformy = invdet * (-all->player.plany * spritex + all->player.planx * spritey);
-	spritescreenx = (int)(all->rx / 2) * (1 + transformx / transformy);
-	spriteheight = abs((int)(all->ry / transformy));
-	drawstarty = -spriteheight / 2 + all->ry / 2;
-	if (drawstarty < 0)
-		drawstarty = 0;
-	drawendy = spriteheight / 2 + all->ry / 2;
-	if (drawendy >= all->ry)
-		drawendy = all->ry - 1;
-	spritewidth = abs((int)(all->ry / transformy));
-	drawstartx = -spritewidth / 2 + spritescreenx;
-	if (drawstartx < 0)
-		drawstartx = 0;
-	drawendx = spritewidth / 2 + spritescreenx;
-	if (drawendx >= all->rx)
-		drawendx= all->rx - 1;
-	stripe = drawstartx;
-	while (stripe < drawendx)
+	i = -1;
+	while (++i < all->numsprites)
 	{
-		all->texture.tex_x = (int)(256 * (stripe - (-spritewidth / 2 + spritescreenx)) * SPRITE_WIDTH / spritewidth) / 256; // cast
-		if (transformy > 0 && stripe > 0 && stripe < all->rx && transformy < Zbuffer[stripe])
-		{
-			y = drawstarty;
-			while (y < drawendy)
-			{
-				d = y * 256 - all->ry * 128 + spriteheight * 128;
-				all->texture.tex_y = ((d * SPRITE_HEIGHT) / spriteheight) / 256;
-				all->texture.color = *((int *)all->sprite_img.addr + (SPRITE_WIDTH * all->texture.tex_y + all->texture.tex_x));
-				if ((all->texture.color & 0x00FFFFFF) != 0)
-					img_pix_put(&all->img, stripe, y, all->texture.color);
-				y++;
-			}
-		}
-		stripe++;
+		all->sprite[i].dist = ((all->player.posx - all->sprite[i].x) * (all->player.posx - all->sprite[i].x)
+				+ (all->player.posy - all->sprite[i].y) * (all->player.posy - all->sprite[i].y));
 	}
-
-
-
+	i = -1;
+	sort_sprites(all);
+	i = -1;
+	while (++i < all->numsprites)
+	{
+		spritex = all->sprite[i].x - all->player.posx + 0.5;
+		spritey = all->sprite[i].y - all->player.posy + 0.5;
+		invdet = 1.0 / (all->player.planx * all->player.diry - all->player.dirx * all->player.plany);
+		transformx = invdet * (all->player.diry * spritex - all->player.dirx * spritey);
+		transformy = invdet * (-all->player.plany * spritex + all->player.planx * spritey);
+		spritescreenx = (int)(all->rx / 2) * (1 + transformx / transformy);
+		spriteheight = abs((int)(all->ry / transformy));
+		drawstarty = -spriteheight / 2 + all->ry / 2;
+		if (drawstarty < 0)
+			drawstarty = 0;
+		drawendy = spriteheight / 2 + all->ry / 2;
+		if (drawendy >= all->ry)
+			drawendy = all->ry - 1;
+		spritewidth = abs((int)(all->ry / transformy));
+		drawstartx = -spritewidth / 2 + spritescreenx;
+		if (drawstartx < 0)
+			drawstartx = 0;
+		drawendx = spritewidth / 2 + spritescreenx;
+		if (drawendx >= all->rx)
+			drawendx= all->rx - 1;
+		stripe = drawstartx;
+		while (stripe < drawendx)
+		{
+			all->texture.tex_x = (int)(256 * (stripe - (-spritewidth / 2 + spritescreenx)) * SPRITE_WIDTH / spritewidth) / 256; // cast
+			if (transformy > 0 && stripe > 0 && stripe < all->rx && transformy < Zbuffer[stripe])
+			{
+				y = drawstarty;
+				while (y < drawendy)
+				{
+					d = y * 256 - all->ry * 128 + spriteheight * 128;
+					all->texture.tex_y = ((d * SPRITE_HEIGHT) / spriteheight) / 256;
+					all->texture.color = *((int *)all->sprite_img.addr + (SPRITE_WIDTH * all->texture.tex_y + all->texture.tex_x));
+					if ((all->texture.color & 0x00FFFFFF) != 0)
+						img_pix_put(&all->img, stripe, y, all->texture.color);
+					y++;
+				}
+			}
+			stripe++;
+		}
+	}
 	return (0);
 }

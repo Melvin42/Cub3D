@@ -107,6 +107,7 @@ typedef struct	s_sprite
 {
 	double		x;
 	double		y;
+	double		dist;
 	int			texture;
 }				t_sprite;
 
@@ -121,11 +122,12 @@ typedef struct	s_all
 	char		*west;
 	char		*east;
 	char		*path_sprite;
+	int			numsprites;
 	char		**map;
 	t_player	player;
 	t_ray		ray;
 	t_texture	texture;
-	t_sprite	sprite;
+	t_sprite	*sprite;
 	t_img		menu;
 	t_img		img;
 	t_img		tex_n;
@@ -157,6 +159,7 @@ int				dispatcher(char *line, t_all *all, int n);
 int 			only_space(char *line);
 int				read_file(int n, int fd, t_all *all);
 int				count_line(int fd);
+int				pos_sprites(t_all *all);
 void			free_all(t_all *all);
 
 /*******************************************************************************

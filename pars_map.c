@@ -43,6 +43,34 @@ void	set_player(t_all *all, int x, int y)
 	all->map[y][x] = '0';
 }
 
+int	pos_sprites(t_all *all)
+{
+	int	x;
+	int	y;
+	int	i;
+
+	if (!(all->sprite = malloc(sizeof(t_sprite) * (all->numsprites + 1))))
+		return (check_error(MALLOC_ERROR));
+	all->sprite[all->numsprites] = (t_sprite){0, 0, 0, 0};
+	y = -1;
+	i = 0;
+	while (all->map[++y])
+	{
+		x = -1;
+		while (all->map[y][++x])
+		{
+			if (all->map[y][x] == '2')
+			{
+				all->sprite[i].x = (double)x;
+				all->sprite[i].y = (double)y;
+				i++;
+				//all.map[y][x] = '0';
+			}
+		}
+	}
+	return (0);
+}
+
 int	check_map(t_all *all)
 {
 	int	i;
@@ -58,6 +86,7 @@ int	check_map(t_all *all)
 				j++;
 			else if (all->map[i][j] == '2')
 			{
+				all->numsprites++;
 				j++;
 			}
 			else if (all->map[i][j] == ' ')
