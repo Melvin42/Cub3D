@@ -1,5 +1,6 @@
 #ifndef CUB3D_H
 # define CUB3D_H
+# define FOLDER_ERROR -6
 # define MLX_ERROR -5
 # define PARS_ERROR -4
 # define MALLOC_ERROR -3
@@ -7,6 +8,7 @@
 # define FD_ERROR -1
 # define STR_MLX_ERROR "Error\nmlx error.\n"
 # define STR_PARS_ERROR "Error\nFile .cub isn't well formated.\n"
+# define STR_FOLDER_ERROR "Error\n.cub is a folder.\n"
 # define STR_MALLOC_ERROR "Error\nA malloc doesn't work fine.\n"
 # define STR_ARG_ERROR "Error\nBad number of arguments.\n"
 # define STR_FD_ERROR "Error\nFile descriptor = -1.\n"
@@ -124,6 +126,9 @@ typedef struct	s_all
 	char		*path_sprite;
 	int			numsprites;
 	char		**map;
+	int			map_malloc_size;
+	int			map_height;
+	int			map_width_max;
 	t_player	player;
 	t_ray		ray;
 	t_texture	texture;
@@ -152,13 +157,13 @@ int				check_east_path(char *line, t_all *all);
 int				check_sprite_path(char *line, t_all *all);
 int				check_floor_color(char *line, t_all *all);
 int				check_ceiling_color(char *line, t_all *all);
-int				extract_map(char *line, t_all *all, int n);
+int				extract_map(char *line, t_all *all);
 int				check_map(t_all *all);
-void			set_player(t_all *all, int x, int y);
-int				dispatcher(char *line, t_all *all, int n);
+int				set_player(t_all *all, int x, int y);
+int				dispatcher(char *line, t_all *all);
 int 			only_space(char *line);
-int				read_file(int n, int fd, t_all *all);
-int				count_line(int fd);
+int				read_file(int fd, t_all *all);
+int				count_line(int fd, t_all *all);
 int				pos_sprites(t_all *all);
 void			free_all(t_all *all);
 

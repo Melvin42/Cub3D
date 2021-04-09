@@ -2,7 +2,7 @@
 
 void	set_all(t_all *all)
 {
-	*all = (t_all){NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL,
+	*all = (t_all){NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 0, 0,
 			(t_player){0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			(t_ray){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			(t_texture){0, 0, 0, 0, 0, 0},
@@ -21,7 +21,6 @@ void	set_all(t_all *all)
 int	main(int ac, char **av)
 {
 	int			fd;
-	int			n;
 	int			texture_width = TEXTURE_WIDTH;
 	int			texture_height = TEXTURE_HEIGHT;
 	int			sprite_width = SPRITE_WIDTH;
@@ -36,10 +35,10 @@ int	main(int ac, char **av)
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		return (check_error(fd));
-	n = count_line(fd);
+	all.map_malloc_size = count_line(fd, &all);
 	close(fd);
 	fd = open(av[1], O_RDONLY);
-	if (read_file(n, fd, &all) < 0)
+	if (read_file(fd, &all) < 0)
 	{
 		close(fd);
 		free_all(&all);
@@ -52,17 +51,32 @@ int	main(int ac, char **av)
 		return (0);
 	}
 	pos_sprites(&all);
+	int y = -1;
+	int x;
+	while (all.map[++y])
+	{
+		x = -1;
+		while (all.map[y][++x])
+		{
+			printf("%c", all.map[y][x]);
+		}
+		printf("\n");
+	}
+	if (all.rx > INT_MAX || all.rx < 0)
+			all.rx = INT_MAX;
+	if (all.ry > INT_MAX || all.ry < 0)
+			all.ry = INT_MAX;
 	all.mlx_ptr = mlx_init();
 	if (all.mlx_ptr == NULL)
 		return (check_error(MLX_ERROR));
-/*	int	resx;
+	int	resx;
 	int	resy;
 	mlx_get_screen_size(all.mlx_ptr, &resx, &resy);
 	if (all.rx > resx)
 		all.rx = resx;
 	if (all.ry > resy)
 		all.ry = resy;
-*/
+
 	all.win_ptr = mlx_new_window(all.mlx_ptr, all.rx, all.ry, "Cub3D");
 	if (all.win_ptr == NULL)
 	{
@@ -71,10 +85,10 @@ int	main(int ac, char **av)
 	}
 	menu_width = 418;
 	menu_height = 402;
-	all.menu.mlx_img = mlx_xpm_file_to_image(all.mlx_ptr, "./worldofwarcub.xpm", &menu_width, &menu_height);
-	all.menu.addr = mlx_get_data_addr(all.menu.mlx_img, &all.menu.bpp,
-					&all.menu.line_len, &all.menu.endian);
-	menu(&all);
+//	all.menu.mlx_img = mlx_xpm_file_to_image(all.mlx_ptr, "./worldofwarcub.xpm", &menu_width, &menu_height);
+//	all.menu.addr = mlx_get_data_addr(all.menu.mlx_img, &all.menu.bpp,
+//					&all.menu.line_len, &all.menu.endian);
+//	menu(&all);
 	all.img.mlx_img = mlx_new_image(all.mlx_ptr, all.rx, all.ry);
 	if (all.img.mlx_img == NULL)
 		return (0);
@@ -112,8 +126,12 @@ int	main(int ac, char **av)
 	if (all.sprite_img.addr == NULL)
 		return (0);
 //	mlx_mouse_hide(all.mlx_ptr, all.win_ptr);
-	render_background(&all.img, &all, BLACK_PIXEL);
+//	render_background(&all.img, &all, BLACK_PIXEL);
 	mlx_hook(all.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &all);
 	mlx_loop(all.mlx_ptr);
-	return (0);
+/*	mlx_destroy_display(all.mlx_ptr);
+	mlx_destroy_window(all.mlx_ptr, all.win_ptr);
+	free(all.win_ptr);
+	free(all.mlx_ptr);
+*/	return (0);
 }

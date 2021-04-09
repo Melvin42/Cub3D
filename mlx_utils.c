@@ -5,8 +5,8 @@ void	ft_debug(t_all *all)
 	//printf("\n\n\nplayer struc pos x = %f\n", all->player.posx);
 	//printf("player struc pos x  = %f\n", all->player.posx);
 	//printf("player struc pos y  = %f\n", all->player.posy);
-	printf("player struc dir x = %f\n", all->player.dirx);
-	printf("player struc dir y = %f\n", all->player.diry);
+	//printf("player struc dir x = %f\n", all->player.dirx);
+	//printf("player struc dir y = %f\n", all->player.diry);
 	//printf("player struc plan x = %f\n", all->player.planx);
 	//printf("player struc plan y = %f\n", all->player.plany);
 	//printf("player struc camera = %f\n", all->player.camerax);
@@ -20,8 +20,9 @@ void	ft_debug(t_all *all)
 	//printf("ray struc step = %f\n", all->ray.step);
 	//printf("ray struc step x = %d\n", all->ray.step_y);
 	//printf("ray struc step y = %d\n", all->ray.step_x);
-	//printf("ray struc map x = %d\n", all->ray.map_x);
-	//printf("ray struc map y = %d\n", all->ray.map_y);
+	printf("map[y][x] = %c\n", all->map[all->ray.map_y][all->ray.map_x]);
+	printf("ray struc map x = %d\n", all->ray.map_x);
+	printf("ray struc map y = %d\n", all->ray.map_y);
 	//printf("ray struc drawstart = %d\n", all->ray.drawstart);
 	//printf("ray struc drawend = %d\n", all->ray.drawend);
 	//printf("ray struc lineheight = %d\n", all->ray.lineheight);
@@ -38,13 +39,18 @@ int	handle_keypress(int keysym, t_all *all)
 
 	if (keysym == XK_Escape)
 	{
-		mlx_destroy_image(all->mlx_ptr,all->img.mlx_img);
-		mlx_destroy_display(all->mlx_ptr);
-		mlx_destroy_window(all->mlx_ptr, all->win_ptr);
-		free(all->win_ptr);
-		free(all->mlx_ptr);
-		free_all(all);
-		exit(1);
+		//	mlx_destroy_image(all->mlx_ptr,all->tex_n.mlx_img);
+		//	mlx_destroy_image(all->mlx_ptr,all->tex_s.mlx_img);
+		//	mlx_destroy_image(all->mlx_ptr,all->tex_e.mlx_img);
+		//	mlx_destroy_image(all->mlx_ptr,all->tex_w.mlx_img);
+		//	mlx_destroy_image(all->mlx_ptr,all->sprite_img.mlx_img);
+		//	mlx_destroy_image(all->mlx_ptr,all->img.mlx_img);
+			mlx_destroy_window(all->mlx_ptr, all->win_ptr);
+			mlx_destroy_display(all->mlx_ptr);
+			free(all->win_ptr);
+			free(all->mlx_ptr);
+			free_all(all);
+		//exit(1);
 	}
 	else if (keysym == XK_Return)
 	{
@@ -53,7 +59,7 @@ int	handle_keypress(int keysym, t_all *all)
 	else if (keysym == XK_1)
 	{
 		mlx_clear_window(all->mlx_ptr, all->win_ptr);
-		menu(all);
+//		menu(all);
 		return (0);
 	}
 	else if (keysym == XK_Up || keysym == XK_w)
@@ -175,10 +181,10 @@ int	render(t_all *all)
 {
 	if (all->win_ptr == NULL)
 		return (1);
-	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
-	all->img.mlx_img = mlx_new_image(all->mlx_ptr, all->rx, all->ry);
-	all->img.addr = mlx_get_data_addr(all->img.mlx_img, &all->img.bpp,
-			&all->img.line_len, &all->img.endian);
+//	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
+//	all->img.mlx_img = mlx_new_image(all->mlx_ptr, all->rx, all->ry);
+//	all->img.addr = mlx_get_data_addr(all->img.mlx_img, &all->img.bpp,
+//			&all->img.line_len, &all->img.endian);
 	render_background(&all->img, all, BLACK_PIXEL);
 	raycast(all);
 //	render_life(all);
@@ -230,8 +236,6 @@ int		raycast(t_all *all)
 	int		drawendx;
 	int		drawendy;
 	int		i;
-	//int		spriteorder[all->numsprites];
-//	double	spritedistance[all->numsprites];
 
 	x = -1;
 	while (++x < all->rx)
@@ -242,30 +246,8 @@ int		raycast(t_all *all)
 		all->player.raydiry = all->player.diry + all->player.plany * all->player.camerax;
 		all->ray.map_x = (int)(all->player.posx);
 		all->ray.map_y = (int)(all->player.posy);
-		/*		if (all->player.raydiry == 0)
-				all->ray.delta_dist_x = 0;
-				else
-				{
-				if (all->player.raydirx == 0)
-				all->ray.delta_dist_x = 1;
-				else
-				all->ray.delta_dist_x = fabs(1.0 / all->player.raydirx);
-				}
-				if (all->player.raydirx == 0)
-				all->ray.delta_dist_y = 0;
-				else
-				{
-				if (all->player.raydiry == 0)
-				all->ray.delta_dist_y = 1;
-				else
-				all->ray.delta_dist_y = fabs(1.0 / all->player.raydiry);
-				}
-		 */
 		all->ray.delta_dist_x = fabs(1.0 / all->player.raydirx);
 		all->ray.delta_dist_y = fabs(1.0 / all->player.raydiry);
-		//all->ray.delta_dist_x = sqrt(1.0 + (all->player.raydiry * all->player.raydiry) / (all->player.raydirx * all->player.raydirx));
-		//all->ray.delta_dist_y = sqrt(1.0 + (all->player.raydirx * all->player.raydirx) / (all->player.raydiry * all->player.raydiry));
-
 		all->ray.hit = 0;
 		if (all->player.raydirx < 0)
 		{
@@ -301,8 +283,11 @@ int		raycast(t_all *all)
 				all->ray.map_y += all->ray.step_y;
 				all->ray.side = 1;
 			}
-			if (all->map[all->ray.map_y][all->ray.map_x] == '1')
-				all->ray.hit = 1;
+			if ((all->ray.map_y < all->map_height && all->ray.map_x < all->map_width_max) || (all->ray.map_y >= 0 && all->ray.map_x >= 0))
+			{
+				if (all->map[all->ray.map_y][all->ray.map_x] == '1')
+					all->ray.hit = 1;
+			}
 		}
 		if (all->ray.side == 0)
 			all->ray.perpwalldist = (double)(((double)all->ray.map_x - all->player.posx + (double)(1 - all->ray.step_x) / 2) / all->player.raydirx);

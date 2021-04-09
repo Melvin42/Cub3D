@@ -39,6 +39,11 @@ int	check_error(int i)
 		write(1, STR_MLX_ERROR, ft_strlen(STR_MLX_ERROR)); 
 		return (-1);
 	}
+	else if (i == FOLDER_ERROR)
+	{
+		write(1, STR_FOLDER_ERROR, ft_strlen(STR_FOLDER_ERROR)); 
+		return (-1);
+	}
 	return (0);
 }
 
@@ -155,7 +160,7 @@ int	check_ceiling_color(char *line, t_all *all)
 	return (0);
 }
 
-int	dispatcher(char *line, t_all *all, int n)
+int	dispatcher(char *line, t_all *all)
 {
 	if (*line == 'R')
 		return(check_resolution(line, all));
@@ -174,7 +179,7 @@ int	dispatcher(char *line, t_all *all, int n)
 	else if (*line == 'C')
 		return(check_ceiling_color(line, all));
 	else if (*line == ' ' || *line == '1')
-		return(extract_map(line, all, n)); 
+		return(extract_map(line, all)); 
 	else
 		return (PARS_ERROR);
 	return (0);
@@ -193,7 +198,7 @@ int only_space(char *line)
 	return (1);
 }
 
-int	read_file(int n, int fd, t_all *all)
+int	read_file(int fd, t_all *all)
 {
 	char	*line;
 
@@ -201,31 +206,43 @@ int	read_file(int n, int fd, t_all *all)
 	{
 		if (!only_space(line))
 		{
-			if (dispatcher(line, all, n) < 0)
+			if (dispatcher(line, all) < 0)
 				return (-1);
 		}
-		n--;
-		free(line);
+		all->map_malloc_size--;
+		if (line)
+			free(line);
 	}
+	if (line)
+		free(line);
 	return (0);
 }
 
-int	count_line(int fd)
+int	count_line(int fd, t_all *all)
 {
 	int		i;
 	char	*line;
+	int		tmp;
 
 	i = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
 		i++;
-		free(line);
+		tmp = ft_strlen(line);
+		if (all->map_width_max < tmp)
+			all->map_width_max = tmp;
+		if (line)
+			free(line);
 	}
+	if (line)
+		free(line);
 	return (i);
 }
 
 void	free_all(t_all *all)
 {
+	int	i;
+
 	if (all->north)
 		free(all->north);
 	if (all->south)
@@ -236,5 +253,16 @@ void	free_all(t_all *all)
 		free(all->east);
 	if (all->path_sprite)
 		free(all->path_sprite);
-	//free > char **map
+	if (all->map)
+	{
+		i = -1;
+		while (all->map[++i])
+		{
+			if (all->map[i])
+				free(all->map[i]);
+		}
+		free(all->map);
+	}
+	if (all->sprite)
+		free(all->sprite);
 }

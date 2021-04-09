@@ -1,0 +1,16 @@
+R 800 600
+
+NO ./textures/icestone.xpm
+SO ./textures/hearthstone.xpm
+WE ./textures/iron.xpm
+EA ./textures/wood.xpm
+S ./sprites1024/lichking1024.xpm
+
+F 220,100,0
+C 225,30,0
+
+11111
+10001
+10N02   1
+12001
+11211
