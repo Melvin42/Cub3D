@@ -39,18 +39,18 @@ int	handle_keypress(int keysym, t_all *all)
 
 	if (keysym == XK_Escape)
 	{
-		//	mlx_destroy_image(all->mlx_ptr,all->tex_n.mlx_img);
-		//	mlx_destroy_image(all->mlx_ptr,all->tex_s.mlx_img);
-		//	mlx_destroy_image(all->mlx_ptr,all->tex_e.mlx_img);
-		//	mlx_destroy_image(all->mlx_ptr,all->tex_w.mlx_img);
-		//	mlx_destroy_image(all->mlx_ptr,all->sprite_img.mlx_img);
-		//	mlx_destroy_image(all->mlx_ptr,all->img.mlx_img);
+			mlx_destroy_image(all->mlx_ptr,all->tex_n.mlx_img);
+			mlx_destroy_image(all->mlx_ptr,all->tex_s.mlx_img);
+			mlx_destroy_image(all->mlx_ptr,all->tex_e.mlx_img);
+			mlx_destroy_image(all->mlx_ptr,all->tex_w.mlx_img);
+			mlx_destroy_image(all->mlx_ptr,all->sprite_img.mlx_img);
+			mlx_destroy_image(all->mlx_ptr,all->img.mlx_img);
 			mlx_destroy_window(all->mlx_ptr, all->win_ptr);
 			mlx_destroy_display(all->mlx_ptr);
-			free(all->win_ptr);
+			//free(all->win_ptr);
 			free(all->mlx_ptr);
 			free_all(all);
-		//exit(1);
+			exit(1);
 	}
 	else if (keysym == XK_Return)
 	{
@@ -181,10 +181,10 @@ int	render(t_all *all)
 {
 	if (all->win_ptr == NULL)
 		return (1);
-//	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
-//	all->img.mlx_img = mlx_new_image(all->mlx_ptr, all->rx, all->ry);
-//	all->img.addr = mlx_get_data_addr(all->img.mlx_img, &all->img.bpp,
-//			&all->img.line_len, &all->img.endian);
+	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
+	all->img.mlx_img = mlx_new_image(all->mlx_ptr, all->rx, all->ry);
+	all->img.addr = mlx_get_data_addr(all->img.mlx_img, &all->img.bpp,
+			&all->img.line_len, &all->img.endian);
 	render_background(&all->img, all, BLACK_PIXEL);
 	raycast(all);
 //	render_life(all);

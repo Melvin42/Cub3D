@@ -129,9 +129,5 @@ int	main(int ac, char **av)
 //	render_background(&all.img, &all, BLACK_PIXEL);
 	mlx_hook(all.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &all);
 	mlx_loop(all.mlx_ptr);
-/*	mlx_destroy_display(all.mlx_ptr);
-	mlx_destroy_window(all.mlx_ptr, all.win_ptr);
-	free(all.win_ptr);
-	free(all.mlx_ptr);
-*/	return (0);
+	return (0);
 }

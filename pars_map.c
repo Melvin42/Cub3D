@@ -23,12 +23,12 @@ int	extract_map(char *line, t_all *all)
 	static int	i = 0;
 	if (!all->map)
 	{
-		if (!(all->map = (char **)malloc(sizeof(char *) * all->map_malloc_size)))
+		if (!(all->map = (char **)malloc(sizeof(char *) * (all->map_malloc_size + 1))))
 			return (check_error(MALLOC_ERROR));
 		all->map_height = all->map_malloc_size;
 		all->map[all->map_height] = NULL;
 	}
-	if (!(all->map[i] = malloc(sizeof(char) * all->map_width_max)))
+	if (!(all->map[i] = malloc(sizeof(char) * (all->map_width_max + 1))))
 		return (check_error(MALLOC_ERROR));
 	all->map[i] = ft_strcpy_cub_line(all, all->map[i], line);
 	i++;
