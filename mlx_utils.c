@@ -50,7 +50,7 @@ int	handle_keypress(int keysym, t_all *all)
 			//free(all->win_ptr);
 			free(all->mlx_ptr);
 			free_all(all);
-			exit(1);
+			exit(SUCCESS);
 	}
 	else if (keysym == XK_Return)
 	{
@@ -79,6 +79,7 @@ int	handle_keypress(int keysym, t_all *all)
 	else if (keysym == XK_a)
 	{
 		//voir avec plan
+		
 		if (all->map[(int)(all->player.posy)][(int)(all->player.posx + all->player.diry * movespeed)] == '0')
 			all->player.posx += all->player.diry * movespeed * 1.1;
 		if (all->map[(int)(all->player.posy - all->player.dirx * movespeed)][(int)all->player.posx] == '0')
@@ -92,6 +93,7 @@ int	handle_keypress(int keysym, t_all *all)
 	}
 	else if (keysym == XK_d)
 	{
+		
 		if (all->map[(int)(all->player.posy)][(int)(all->player.posx - all->player.diry * movespeed)] == '0')
 			all->player.posx -= all->player.diry * movespeed * 1.1;
 		if (all->map[(int)(all->player.posy - all->player.dirx * movespeed)][(int)all->player.posx] == '0')
@@ -314,6 +316,7 @@ int		raycast(t_all *all)
 
 		all->ray.step = 1.0 * (double)TEXTURE_HEIGHT / (double)all->ray.lineheight;
 		all->texture.tex_pos = ((double)all->ray.drawstart - (double)all->ry / 2 + (double)all->ray.lineheight / 2) * all->ray.step;
+	/*
 		if (all->ray.side == 0 && all->ray.step_x == -1)
 		{
 			render_tex_e(all, x, all->ray.drawstart);
@@ -326,7 +329,24 @@ int		raycast(t_all *all)
 		{
 			render_tex_s(all, x, all->ray.drawstart);
 		}
-		else
+		else if (all->ray.side == 1 && all->ray.step_y == 1)
+		{
+			render_tex_n(all, x, all->ray.drawstart);
+		}
+	*/
+		if (all->ray.side == 0)// && all->ray.step_x == -1)
+		{
+			render_tex_e(all, x, all->ray.drawstart);
+		}
+		else if (all->ray.side == 0)// && all->ray.step_x == 1)
+		{
+			render_tex_w(all, x, all->ray.drawstart);
+		}
+		else if (all->ray.side == 1)// && all->ray.step_y == -1)
+		{
+			render_tex_s(all, x, all->ray.drawstart);
+		}
+		else if (all->ray.side == 1)// && all->ray.step_y == 1)
 		{
 			render_tex_n(all, x, all->ray.drawstart);
 		}

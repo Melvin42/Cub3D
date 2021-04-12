@@ -1,17 +1,22 @@
 #ifndef CUB3D_H
 # define CUB3D_H
+# define RES_ERROR -8
+# define MAP_ERROR -7
 # define FOLDER_ERROR -6
 # define MLX_ERROR -5
 # define PARS_ERROR -4
 # define MALLOC_ERROR -3
 # define ARG_ERROR -2 
 # define FD_ERROR -1
+# define SUCCESS 1
 # define STR_MLX_ERROR "Error\nmlx error.\n"
 # define STR_PARS_ERROR "Error\nFile .cub isn't well formated.\n"
 # define STR_FOLDER_ERROR "Error\n.cub is a folder.\n"
 # define STR_MALLOC_ERROR "Error\nA malloc doesn't work fine.\n"
 # define STR_ARG_ERROR "Error\nBad number of arguments.\n"
 # define STR_FD_ERROR "Error\nFile descriptor = -1.\n"
+# define STR_MAP_ERROR "Error\nThere is a problem in the map.\n"
+# define STR_RES_ERROR "Error\nBad resolution.\n"
 # define RED_PIXEL 0xFF0000
 # define GREEN_PIXEL 0xFF00
 # define BLUE_PIXEL 0xFF
@@ -158,6 +163,7 @@ int				check_sprite_path(char *line, t_all *all);
 int				check_floor_color(char *line, t_all *all);
 int				check_ceiling_color(char *line, t_all *all);
 int				extract_map(char *line, t_all *all);
+int				is_map_open(t_all *all);
 int				check_map(t_all *all);
 int				set_player(t_all *all, int x, int y);
 int				dispatcher(char *line, t_all *all);

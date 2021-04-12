@@ -51,17 +51,8 @@ int	main(int ac, char **av)
 		return (0);
 	}
 	pos_sprites(&all);
-	int y = -1;
-	int x;
-	while (all.map[++y])
-	{
-		x = -1;
-		while (all.map[y][++x])
-		{
-			printf("%c", all.map[y][x]);
-		}
-		printf("\n");
-	}
+	if (all.rx == 0 || all.ry == 0)
+		return (check_error(RES_ERROR));
 	if (all.rx > INT_MAX || all.rx < 0)
 			all.rx = INT_MAX;
 	if (all.ry > INT_MAX || all.ry < 0)
@@ -72,9 +63,9 @@ int	main(int ac, char **av)
 	int	resx;
 	int	resy;
 	mlx_get_screen_size(all.mlx_ptr, &resx, &resy);
-	if (all.rx > resx)
+	if (all.rx >= resx)
 		all.rx = resx;
-	if (all.ry > resy)
+	if (all.ry >= resy)
 		all.ry = resy;
 
 	all.win_ptr = mlx_new_window(all.mlx_ptr, all.rx, all.ry, "Cub3D");

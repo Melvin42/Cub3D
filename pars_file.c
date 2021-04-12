@@ -44,13 +44,23 @@ int	check_error(int i)
 		write(1, STR_FOLDER_ERROR, ft_strlen(STR_FOLDER_ERROR)); 
 		return (-1);
 	}
+	else if (i == MAP_ERROR)
+	{
+		write(1, STR_MAP_ERROR, ft_strlen(STR_MAP_ERROR)); 
+		return (-1);
+	}
+	else if (i == RES_ERROR)
+	{
+		write(1, STR_RES_ERROR, ft_strlen(STR_RES_ERROR)); 
+		return (-1);
+	}
 	return (0);
 }
 
 int	check_resolution(char *line, t_all *all)
 {
 	if (all->rx != 0 || all->ry != 0)
-		return (check_error(PARS_ERROR));
+		return (check_error(RES_ERROR));
 	line++;
 	while (*line)
 	{
@@ -59,7 +69,7 @@ int	check_resolution(char *line, t_all *all)
 		if (ft_isdigit(*line))
 			all->rx = ft_atoi(line);
 		else
-			return (PARS_ERROR);
+			return (check_error(RES_ERROR));
 		while (ft_isdigit(*line))
 			line++;
 		while (*line == ' ')
@@ -67,7 +77,7 @@ int	check_resolution(char *line, t_all *all)
 		if (ft_isdigit(*line))
 			all->ry = ft_atoi(line);
 		else
-			return (PARS_ERROR);
+			return (check_error(RES_ERROR));
 		while (ft_isdigit(*line))
 			line++;
 	}
@@ -178,10 +188,10 @@ int	dispatcher(char *line, t_all *all)
 		return(check_floor_color(line, all));
 	else if (*line == 'C')
 		return(check_ceiling_color(line, all));
-	else if (*line == ' ' || *line == '1')
+	else if (*line == ' ' || *line == '1' || *line == '2')
 		return(extract_map(line, all)); 
 	else
-		return (PARS_ERROR);
+		return (check_error(PARS_ERROR));
 	return (0);
 }
 
@@ -221,6 +231,8 @@ int	read_file(int fd, t_all *all)
 int	count_line(int fd, t_all *all)
 {
 	int		i;
+	int		j;
+	int		map_line;
 	char	*line;
 	int		tmp;
 
@@ -228,9 +240,14 @@ int	count_line(int fd, t_all *all)
 	while (get_next_line(fd, &line) > 0)
 	{
 		i++;
+		j = -1;
+		map_line = 0;
 		tmp = ft_strlen(line);
-		if (all->map_width_max < tmp)
-			all->map_width_max = tmp;
+		while ((line[++j] == ' ' || line[j] == '1' || line[j] == '2') && !only_space(line))
+				map_line = 1;
+		if (map_line == 1)
+			if (all->map_width_max < tmp)
+				all->map_width_max = tmp;
 		if (line)
 			free(line);
 	}
