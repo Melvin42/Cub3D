@@ -152,11 +152,27 @@ int	pos_sprites(t_all *all)
 				all->sprite[i].x = (double)x;
 				all->sprite[i].y = (double)y;
 				i++;
-				//all.map[y][x] = '0';
 			}
 		}
 	}
 	return (0);
+}
+
+void	replace_space_by_one(t_all *all)
+{
+	int	x;
+	int	y;
+
+	y = -1;
+	while (all->map[++y])
+	{
+		x = -1;
+		while (all->map[y][++x])
+		{
+			if (all->map[y][x] == ' ')
+				all->map[y][x] = '1';
+		}
+	}
 }
 
 int	check_map(t_all *all)
@@ -181,7 +197,6 @@ int	check_map(t_all *all)
 			}
 			else if (all->map[i][j] == ' ')
 			{
-	//			all->map[i][j] = '1';
 				j++;
 			}
 			else if (all->map[i][j] == 'N' || all->map[i][j] == 'S'
@@ -200,18 +215,6 @@ int	check_map(t_all *all)
 	}
 	if (is_map_open(all) < 0)
 		return (-1);
-	int	x;
-	int	y;
-
-	y = -1;
-	while (all->map[++y])
-	{
-		x = -1;
-		while (all->map[y][++x])
-		{
-			if (all->map[y][x] == ' ')
-				all->map[y][x] = '1';
-		}
-	}
+	replace_space_by_one(all);
 	return (0);
 }

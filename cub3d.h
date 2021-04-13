@@ -29,6 +29,8 @@
 # define TEXTURE_HEIGHT 256
 # define SPRITE_WIDTH 1024
 # define SPRITE_HEIGHT 1024
+# define MOVESPEED 0.1
+# define ROTSPEED 0.1
 
 # include "libft/libft.h"
 # include <mlx.h>
@@ -134,6 +136,19 @@ typedef struct	s_all
 	int			map_malloc_size;
 	int			map_height;
 	int			map_width_max;
+	double		invdet;
+	double		transformx;
+	double		transformy;
+	double		spritex;
+	double		spritey;
+	int			stripe;
+	int			spritescreenx;
+	int			spritewidth;
+	int			spriteheight;
+	int			drawstartx;
+	int			drawstarty;
+	int			drawendx;
+	int			drawendy;
 	t_player	player;
 	t_ray		ray;
 	t_texture	texture;
@@ -153,8 +168,11 @@ typedef struct	s_all
 **=============================> PARSING <====================================**
 *******************************************************************************/
 
+int				ft_pars(t_all *all, char **av);
 int				check_error(int i);
-int				check_resolution(char *line, t_all *all);
+int				check_resolution_path(char *line, t_all *all);
+int				check_resolution_value(t_all *all);
+void			rectify_resolution_value(t_all *all);
 int				check_north_path(char *line, t_all *all);
 int				check_south_path(char *line, t_all *all);
 int				check_west_path(char *line, t_all *all);
@@ -177,9 +195,12 @@ void			free_all(t_all *all);
 **=============================>   MLX   <====================================**
 *******************************************************************************/
 
-int				handle_keypress(int keysym, t_all *all);
 int				encode_rgb(uint8_t red, uint8_t green, uint8_t blue);
 void			img_pix_put(t_img *img, int x, int y, int color);
+int				ft_new_mlx_img(t_all *all, t_img *img, int res_x, int res_y);
+int				ft_mlx_xpm_to_img(t_all *all, t_img *tex, char *path,
+									int res_x, int res_y);
+int				ft_load_all_img(t_all *all);
 
 /*******************************************************************************
 **=============================>   RENDER  <==================================**
@@ -192,6 +213,19 @@ int				render_tex_e(t_all *all, int x, int y);
 int				render_tex_w(t_all *all, int x, int y);
 int				render(t_all *all);
 int				menu(t_all *all);
-int				raycast(t_all *all);
+void				raycast(t_all *all);
+
+/*******************************************************************************
+**==============================>   GAME   <==================================**
+*******************************************************************************/
+
+int				handle_keypress(int keysym, t_all *all);
+void			move_up(t_all *all);
+void			move_down(t_all *all);
+void			move_left(t_all *all);
+void			move_right(t_all *all);
+void			rotate_left(t_all *all);
+void			rotate_right(t_all *all);
+void			ft_escape(t_all *all);
 
 #endif

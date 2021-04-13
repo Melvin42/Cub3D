@@ -57,7 +57,7 @@ int	check_error(int i)
 	return (0);
 }
 
-int	check_resolution(char *line, t_all *all)
+int	check_resolution_path(char *line, t_all *all)
 {
 	if (all->rx != 0 || all->ry != 0)
 		return (check_error(RES_ERROR));
@@ -173,7 +173,7 @@ int	check_ceiling_color(char *line, t_all *all)
 int	dispatcher(char *line, t_all *all)
 {
 	if (*line == 'R')
-		return(check_resolution(line, all));
+		return(check_resolution_path(line, all));
 	else if (*line == 'N')
 		return(check_north_path(line, all));
 	else if (*line == 'S' && line[1] == 'O')
