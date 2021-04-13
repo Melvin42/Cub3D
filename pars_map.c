@@ -158,23 +158,6 @@ int	pos_sprites(t_all *all)
 	return (0);
 }
 
-void	replace_space_by_one(t_all *all)
-{
-	int	x;
-	int	y;
-
-	y = -1;
-	while (all->map[++y])
-	{
-		x = -1;
-		while (all->map[y][++x])
-		{
-			if (all->map[y][x] == ' ')
-				all->map[y][x] = '1';
-		}
-	}
-}
-
 int	check_map(t_all *all)
 {
 	int	i;

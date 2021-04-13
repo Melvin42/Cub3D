@@ -8,8 +8,7 @@ int	check_north_path(char *line, t_all *all)
 	line++;
 	while (*line == ' ')
 		line++;
-	all->north = ft_strdup(line);	
-	
+	all->north = ft_strdup(line);
 	return (0);
 }
 
@@ -21,8 +20,7 @@ int	check_south_path(char *line, t_all *all)
 	line++;
 	while (*line == ' ')
 		line++;
-	all->south = ft_strdup(line);	
-	
+	all->south = ft_strdup(line);
 	return (0);
 }
 
@@ -34,8 +32,7 @@ int	check_west_path(char *line, t_all *all)
 	line++;
 	while (*line == ' ')
 		line++;
-	all->west = ft_strdup(line);	
-	
+	all->west = ft_strdup(line);
 	return (0);
 }
 
@@ -47,8 +44,7 @@ int	check_east_path(char *line, t_all *all)
 	line++;
 	while (*line == ' ')
 		line++;
-	all->east = ft_strdup(line);	
-	
+	all->east = ft_strdup(line);
 	return (0);
 }
 
@@ -60,6 +56,6 @@ int	check_sprite_path(char *line, t_all *all)
 	line++;
 	while (*line == ' ')
 		line++;
-	all->path_sprite = ft_strdup(line);	
+	all->path_sprite = ft_strdup(line);
 	return (0);
 }

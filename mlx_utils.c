@@ -1,11 +1,11 @@
 #include "cub3d.h"
 
-int	encode_rgb(uint8_t red, uint8_t green, uint8_t blue)
+int		encode_rgb(uint8_t red, uint8_t green, uint8_t blue)
 {
 	return (red << 16 | green << 8 | blue);
 }
 
-void	img_pix_put( t_img *img, int x, int y, int color)
+void	img_pix_put(t_img *img, int x, int y, int color)
 {
 	char	*pixel;
 
@@ -36,9 +36,9 @@ void	render_background(t_img *img, t_all *all, int color)
 	}
 }
 
-int	render(t_all *all)
+int		render(t_all *all)
 {
-	if (all->win_ptr == NULL) // mettre le bon retour d'erreur
+	if (all->win_ptr == NULL)// mettre le bon retour d'erreur
 		return (1);
 	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
 	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)

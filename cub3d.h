@@ -169,7 +169,7 @@ typedef struct	s_all
 *******************************************************************************/
 
 int				ft_pars(t_all *all, char **av);
-int				check_error(int i);
+int				check_error(int error);
 int				check_resolution_path(char *line, t_all *all);
 int				check_resolution_value(t_all *all);
 void			rectify_resolution_value(t_all *all);
@@ -185,7 +185,8 @@ int				is_map_open(t_all *all);
 int				check_map(t_all *all);
 int				set_player(t_all *all, int x, int y);
 int				dispatcher(char *line, t_all *all);
-int 			only_space(char *line);
+void			replace_space_by_one(t_all *all);
+int 			ft_only_space(char *line);
 int				read_file(int fd, t_all *all);
 int				count_line(int fd, t_all *all);
 int				pos_sprites(t_all *all);
@@ -216,6 +217,13 @@ int				menu(t_all *all);
 void				raycast(t_all *all);
 
 /*******************************************************************************
+**==============================>  SPRITE  <==================================**
+*******************************************************************************/
+
+void			sort_sprites(t_all *all);
+void			render_sprite(t_all *all, double *zbuffer);
+
+/*******************************************************************************
 **==============================>   GAME   <==================================**
 *******************************************************************************/
 
@@ -226,6 +234,5 @@ void			move_left(t_all *all);
 void			move_right(t_all *all);
 void			rotate_left(t_all *all);
 void			rotate_right(t_all *all);
-void			ft_escape(t_all *all);
 
 #endif
