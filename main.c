@@ -79,14 +79,14 @@ int	ft_pars(t_all *all, char **av)
 	if (read_file(fd, all) < 0)
 	{
 		close(fd);
-		free_all(all);
-		return (0);
+//		free(all);
+		return (-1);
 	}
 	close(fd);
 	if (check_map(all) < 0)
 	{
-		free_all(all);
-		return (0);
+//		free(all);
+		return (-1);
 	}
 	return (0);
 }
@@ -128,11 +128,14 @@ int		ft_init_game(t_all *all)
 	all->win_ptr = mlx_new_window(all->mlx_ptr, all->rx, all->ry, "Cub3D");
 	if (all->win_ptr == NULL)
 	{
-		free(all->win_ptr);
+//		free(all->win_ptr);
 		return (check_error(MLX_ERROR));
 	}
 	if (ft_load_all_img(all) < 0)
+	{
+//		free(all);
 		return (-1);
+	}
 	return (0);
 }
 
@@ -153,9 +156,7 @@ int		main(int ac, char **av)
 		check_resolution_value(&all);
 		if (ft_init_game(&all) < 0)
 			return (0);
-		printf("%d\n", all.rx);
-		printf("%d\n", all.ry);
-	//	system("aplay -c 2 -t wav -r 48000 ./bonus/trap.wav &");
+		//system("aplay -c 2 -t wav -r 48000 ./bonus/trap.wav &");
 		ft_loop(all);
 	}
 	return (0);

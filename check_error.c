@@ -2,6 +2,7 @@
 
 int	check_error(int error)
 {
+	//free(all);  enlever tous les free et en laisser un seul ici!
 	if (error == MALLOC_ERROR)
 	{
 		write(1, STR_MALLOC_ERROR, ft_strlen(STR_MALLOC_ERROR));

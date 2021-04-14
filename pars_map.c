@@ -4,7 +4,7 @@ int	is_map_open(t_all *all)
 {
 	int	y;
 	int	x;
-
+	// penses a check '2' sur tous les cote!
 	x = -1;
 	while (all->map[0][++x] == ' ' || all->map[0][x] == '1' || all->map[0][x] == '2')
 		;
