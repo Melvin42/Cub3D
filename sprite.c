@@ -21,7 +21,7 @@ static void	ft_set_sprite_vars(t_all *all, int i)
 	all->invdet = 1.0 / (all->player.planx * all->player.diry - all->player.dirx * all->player.plany);
 	all->transformx = all->invdet * (all->player.diry * all->spritex - all->player.dirx * all->spritey);
 	all->transformy = all->invdet * (-all->player.plany * all->spritex + all->player.planx * all->spritey);
-	all->spritescreenx = (int)(all->rx / 2) * (1 + all->transformx / all->transformy);
+	all->spritescreenx = (int)((all->rx / 2) * (1 + all->transformx / all->transformy));
 	all->spriteheight = abs((int)(all->ry / all->transformy));
 	all->drawstarty = -all->spriteheight / 2 + all->ry / 2;
 }
@@ -42,7 +42,7 @@ static void	ft_calc_sprite_ray(t_all *all)
 		all->drawendx= all->rx - 1;
 }
 
-static void	ft_search_pix_in_sprite(t_all *all, double *zbuffer)
+void	ft_search_pix_in_sprite(t_all *all)
 {
 	int		d;
 	int		y;
@@ -51,15 +51,15 @@ static void	ft_search_pix_in_sprite(t_all *all, double *zbuffer)
 	stripe = all->drawstartx;
 	while (stripe < all->drawendx)
 	{
-		all->texture.tex_x = (int)(256 * (stripe - (-all->spritewidth / 2 + all->spritescreenx)) * SPRITE_WIDTH / all->spritewidth) / 256;
-		if (all->transformy > 0 && stripe > 0 && stripe < all->rx && all->transformy < zbuffer[stripe])
+		all->texture.tex_x = abs((int)(256 * (stripe - (-all->spritewidth / 2 + all->spritescreenx)) * SPRITE_WIDTH / all->spritewidth) / 256);
+		if (all->transformy > 0 && stripe > 0 && stripe < all->rx && all->transformy < all->zbuffer[stripe])
 		{
 			y = all->drawstarty;
 			while (y < all->drawendy)
 			{
 				d = y * 256 - all->ry * 128 + all->spriteheight * 128;
-				all->texture.tex_y = ((d * SPRITE_HEIGHT) / all->spriteheight) / 256;
-				all->texture.color = *((int *)all->sprite_img.addr + (SPRITE_WIDTH * all->texture.tex_y + all->texture.tex_x));
+				all->texture.tex_y = abs(((d * SPRITE_HEIGHT) / all->spriteheight) / 256);
+				all->texture.color = *((int *)all->sprite_img.addr + SPRITE_WIDTH * all->texture.tex_y + all->texture.tex_x);
 				if ((all->texture.color & 0x00FFFFFF) != 0)
 					img_pix_put(&all->img, stripe, y, all->texture.color);
 				y++;
@@ -69,7 +69,7 @@ static void	ft_search_pix_in_sprite(t_all *all, double *zbuffer)
 	}
 }
 
-void	render_sprite(t_all *all, double *zbuffer)
+void	render_sprite(t_all *all)
 {
 	int	i;
 
@@ -80,6 +80,6 @@ void	render_sprite(t_all *all, double *zbuffer)
 	{
 		ft_set_sprite_vars(all, i);
 		ft_calc_sprite_ray(all);
-		ft_search_pix_in_sprite(all, zbuffer);
+		ft_search_pix_in_sprite(all);
 	}
 }

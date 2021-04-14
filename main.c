@@ -3,7 +3,7 @@
 static void	set_all(t_all *all)
 {
 	*all = (t_all){NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL,
 			(t_player){0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			(t_ray){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			(t_texture){0, 0, 0, 0, 0, 0},
@@ -153,6 +153,9 @@ int		main(int ac, char **av)
 		check_resolution_value(&all);
 		if (ft_init_game(&all) < 0)
 			return (0);
+		printf("%d\n", all.rx);
+		printf("%d\n", all.ry);
+	//	system("aplay -c 2 -t wav -r 48000 ./bonus/trap.wav &");
 		ft_loop(all);
 	}
 	return (0);

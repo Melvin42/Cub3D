@@ -44,6 +44,8 @@ void	free_all(t_all *all)
 		free(all->east);
 	if (all->path_sprite)
 		free(all->path_sprite);
+	if (all->zbuffer)
+		free(all->zbuffer);
 	if (all->map)
 	{
 		i = -1;

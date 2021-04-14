@@ -6,7 +6,7 @@
 # define MLX_ERROR -5
 # define PARS_ERROR -4
 # define MALLOC_ERROR -3
-# define ARG_ERROR -2 
+# define ARG_ERROR -2
 # define FD_ERROR -1
 # define SUCCESS 1
 # define STR_MLX_ERROR "Error\nmlx error.\n"
@@ -40,9 +40,11 @@
 # include <stdint.h>
 # include <math.h>
 
-/*******************************************************************************
+/*
+********************************************************************************
 **==============================> STRUCT <====================================**
-*******************************************************************************/
+********************************************************************************
+*/
 
 typedef struct	s_img
 {
@@ -53,15 +55,6 @@ typedef struct	s_img
 	int			endian;
 }				t_img;
 
-typedef struct	s_rect
-{
-	int			x;
-	int			y;
-	int			width;
-	int			height;
-	uint32_t		color;
-}				t_rect;
-
 typedef struct	s_rgb
 {
 	int			red;
@@ -71,7 +64,7 @@ typedef struct	s_rgb
 
 typedef struct	s_player
 {
-	int 		flag;
+	int			flag;
 	double		posx;
 	double		posy;
 	double		dirx;
@@ -88,7 +81,7 @@ typedef struct	s_ray
 	double		delta_dist_x;
 	double		delta_dist_y;
 	double		side_dist_x;
-	double		side_dist_y; 
+	double		side_dist_y;
 	double		perpwalldist;
 	double		step;
 	int			step_x;
@@ -125,7 +118,7 @@ typedef struct	s_all
 	void		*mlx_ptr;
 	void		*win_ptr;
 	int			rx;
-	int 		ry;
+	int			ry;
 	char		*north;
 	char		*south;
 	char		*west;
@@ -149,6 +142,7 @@ typedef struct	s_all
 	int			drawstarty;
 	int			drawendx;
 	int			drawendy;
+	double		*zbuffer;
 	t_player	player;
 	t_ray		ray;
 	t_texture	texture;
@@ -164,9 +158,11 @@ typedef struct	s_all
 	t_rgb		ceiling;
 }				t_all;
 
-/*******************************************************************************
+/*
+********************************************************************************
 **=============================> PARSING <====================================**
-*******************************************************************************/
+********************************************************************************
+*/
 
 int				ft_pars(t_all *all, char **av);
 int				check_error(int error);
@@ -186,16 +182,17 @@ int				check_map(t_all *all);
 int				set_player(t_all *all, int x, int y);
 int				dispatcher(char *line, t_all *all);
 void			replace_space_by_one(t_all *all);
-int 			ft_only_space(char *line);
+int				ft_only_space(char *line);
 int				read_file(int fd, t_all *all);
 int				count_line(int fd, t_all *all);
 int				pos_sprites(t_all *all);
 void			free_all(t_all *all);
 
-/*******************************************************************************
+/*
+********************************************************************************
 **=============================>   MLX   <====================================**
-*******************************************************************************/
-
+********************************************************************************
+*/
 int				encode_rgb(uint8_t red, uint8_t green, uint8_t blue);
 void			img_pix_put(t_img *img, int x, int y, int color);
 int				ft_new_mlx_img(t_all *all, t_img *img, int res_x, int res_y);
@@ -203,9 +200,11 @@ int				ft_mlx_xpm_to_img(t_all *all, t_img *tex, char *path,
 									int res_x, int res_y);
 int				ft_load_all_img(t_all *all);
 
-/*******************************************************************************
+/*
+********************************************************************************
 **=============================>   RENDER  <==================================**
-*******************************************************************************/
+********************************************************************************
+*/
 
 void			render_background(t_img *img, t_all *all, int color);
 int				render_tex_n(t_all *all, int x, int y);
@@ -214,18 +213,22 @@ int				render_tex_e(t_all *all, int x, int y);
 int				render_tex_w(t_all *all, int x, int y);
 int				render(t_all *all);
 int				menu(t_all *all);
-void				raycast(t_all *all);
+void			raycast(t_all *all);
 
-/*******************************************************************************
+/*
+********************************************************************************
 **==============================>  SPRITE  <==================================**
-*******************************************************************************/
+********************************************************************************
+*/
 
 void			sort_sprites(t_all *all);
-void			render_sprite(t_all *all, double *zbuffer);
+void			render_sprite(t_all *all);
 
-/*******************************************************************************
+/*
+********************************************************************************
 **==============================>   GAME   <==================================**
-*******************************************************************************/
+********************************************************************************
+*/
 
 int				handle_keypress(int keysym, t_all *all);
 void			move_up(t_all *all);

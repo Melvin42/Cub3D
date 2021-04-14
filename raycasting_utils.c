@@ -6,20 +6,20 @@ void	sort_sprites(t_all *all)
 	int			j;
 	t_sprite	swap;
 
-	i = -1;
-	if (all->numsprites < 2) // utile?
-		return ;
-	while (++i < all->numsprites)
+	i = 0;
+	while (i < all->numsprites)
 	{
 		j = i + 1;
-		if (all->sprite[i].dist < all->sprite[j].dist)
+		while (j < all->numsprites)
 		{
-			swap = all->sprite[i];
-			all->sprite[i] = all->sprite[j];
-			all->sprite[j] = swap;
-			i = -1;
-		}
-		else
+			if (all->sprite[i].dist < all->sprite[j].dist)
+			{
+				swap = all->sprite[i];
+				all->sprite[i] = all->sprite[j];
+				all->sprite[j] = swap;
+			}
 			j++;
+		}
+		i++;
 	}
 }

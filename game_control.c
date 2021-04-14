@@ -2,6 +2,7 @@
 
 static void	ft_escape(t_all *all)
 {
+	system("pkill -9 aplay");
 	mlx_destroy_image(all->mlx_ptr, all->tex_n.mlx_img);
 	mlx_destroy_image(all->mlx_ptr, all->tex_s.mlx_img);
 	mlx_destroy_image(all->mlx_ptr, all->tex_e.mlx_img);

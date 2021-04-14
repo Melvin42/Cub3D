@@ -129,10 +129,14 @@ void	ft_render_side(t_all *all, int x)
 void	raycast(t_all *all)
 {
 	int		x;
-	double	*zbuffer;
 
-	if (!(zbuffer = malloc(sizeof(double) * (all->rx))))
+	if (all->zbuffer)
+		free(all->zbuffer);
+	if (!(all->zbuffer = (double *)malloc(sizeof(double) * (all->rx))))
 		return ;
+	int	i = -1;
+	while (++i < all->rx - 1)
+		all->zbuffer[i] = 0;
 	x = -1;
 	while (++x < all->rx)
 	{
@@ -143,7 +147,7 @@ void	raycast(t_all *all)
 		ft_calc_ray(all);
 		ft_search_pix_in_img(all);
 		ft_render_side(all, x);
-		zbuffer[x] = all->ray.perpwalldist;
+		all->zbuffer[x] = all->ray.perpwalldist;
 	}
-	render_sprite(all, zbuffer);
+	render_sprite(all);
 }
