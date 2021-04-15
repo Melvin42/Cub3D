@@ -1,8 +1,8 @@
 #include "cub3d.h"
 
-int	check_error(int error)
+int	check_error(t_all *all, int error)
 {
-	//free(all);  enlever tous les free et en laisser un seul ici!
+	ft_free_all(all);
 	if (error == MALLOC_ERROR)
 	{
 		write(1, STR_MALLOC_ERROR, ft_strlen(STR_MALLOC_ERROR));

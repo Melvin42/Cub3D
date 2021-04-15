@@ -3,7 +3,7 @@
 int	check_resolution_path(char *line, t_all *all)
 {
 	if (all->rx != 0 || all->ry != 0)
-		return (check_error(RES_ERROR));
+		return (check_error(all, RES_ERROR));
 	line++;
 	while (*line)
 	{
@@ -12,7 +12,7 @@ int	check_resolution_path(char *line, t_all *all)
 		if (ft_isdigit(*line))
 			all->rx = ft_atoi(line);
 		else
-			return (check_error(RES_ERROR));
+			return (check_error(all, RES_ERROR));
 		while (ft_isdigit(*line))
 			line++;
 		while (*line == ' ')
@@ -20,7 +20,7 @@ int	check_resolution_path(char *line, t_all *all)
 		if (ft_isdigit(*line))
 			all->ry = ft_atoi(line);
 		else
-			return (check_error(RES_ERROR));
+			return (check_error(all, RES_ERROR));
 		while (ft_isdigit(*line))
 			line++;
 	}
@@ -48,7 +48,7 @@ int	dispatcher(char *line, t_all *all)
 	else if (*line == ' ' || *line == '1' || *line == '2')
 		return(extract_map(line, all)); 
 	else
-		return (check_error(PARS_ERROR));
+		return (check_error(all, PARS_ERROR));
 }
 
 int	read_file(int fd, t_all *all)

@@ -11,8 +11,7 @@ static void	ft_escape(t_all *all)
 	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
 	mlx_destroy_window(all->mlx_ptr, all->win_ptr);
 	mlx_destroy_display(all->mlx_ptr);
-	free(all->mlx_ptr);
-	free_all(all);
+	ft_free_all(all);
 	exit(SUCCESS);
 }
 

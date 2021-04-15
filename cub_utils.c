@@ -30,7 +30,7 @@ void	replace_space_by_one(t_all *all)
 	}
 }
 
-void	free_all(t_all *all)
+void	ft_free_all(t_all *all)
 {
 	int	i;
 
@@ -52,10 +52,12 @@ void	free_all(t_all *all)
 		while (all->map[++i])
 		{
 			if (all->map[i])
-				free(all->map[i]);
+  				free(all->map[i]);
 		}
 		free(all->map);
 	}
 	if (all->sprite)
 		free(all->sprite);
+	if (all->mlx_ptr)
+		free(all->mlx_ptr);
 }

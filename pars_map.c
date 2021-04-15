@@ -6,24 +6,23 @@ int	is_map_open(t_all *all)
 	int	x;
 	// penses a check '2' sur tous les cote!
 	x = -1;
-	while (all->map[0][++x] == ' ' || all->map[0][x] == '1' || all->map[0][x] == '2')
+	while (all->map[0][++x] == ' ' || all->map[0][x] == '1')
 		;
-	if (x != all->map_width_max)
-		return (check_error(MAP_ERROR));
+	if (x < all->map_width_max)
+		return (check_error(all, MAP_ERROR));
 	x = -1;
 	while (all->map[all->map_height - 1][++x] == ' '
-			|| all->map[all->map_height - 1][x] == '1'
-			|| all->map[all->map_height - 1][x] == '2')
+			|| all->map[all->map_height - 1][x] == '1')
 		;
 	if (x != all->map_width_max)
-		return (check_error(MAP_ERROR));
+		return (check_error(all, MAP_ERROR));
 	y = -1;
 	while ((all->map[++y][all->map_width_max - 1] == ' '
-			|| all->map[y][all->map_width_max - 1] == '1'
-			|| all->map[y][all->map_width_max - 1] == '2') && y < all->map_height - 1)
+			|| all->map[y][all->map_width_max - 1] == '1')
+			&& y < all->map_height - 1)
 		;
 	if (y != all->map_height - 1)
-		return (check_error(MAP_ERROR));
+		return (check_error(all, MAP_ERROR));
 	y = 0;
 	int	flag;
 	while (++y < all->map_height - 1)
@@ -61,7 +60,7 @@ int	is_map_open(t_all *all)
 				|| all->map[y - 1][x - 1] == '0'))
 				flag = 1;
 			if (flag == 0)
-				return (check_error(MAP_ERROR));
+				return (check_error(all, MAP_ERROR));
 		}
 	}
 	return (0);
@@ -92,12 +91,12 @@ int	extract_map(char *line, t_all *all)
 	if (!all->map)
 	{
 		if (!(all->map = malloc(sizeof(char *) * (all->map_malloc_size + 1))))
-			return (check_error(MALLOC_ERROR));
+			return (check_error(all, MALLOC_ERROR));
 		all->map_height = all->map_malloc_size;
 		all->map[all->map_height] = NULL;
 	}
 	if (!(all->map[i] = malloc(sizeof(char) * (all->map_width_max + 1))))
-		return (check_error(MALLOC_ERROR));
+		return (check_error(all,  MALLOC_ERROR));
 	if (i < all->map_height)
 		all->map[i] = ft_strcpy_cub_line(all, all->map[i], line);
 	i++;
@@ -138,7 +137,7 @@ int	pos_sprites(t_all *all)
 	int	i;
 
 	if (!(all->sprite = malloc(sizeof(t_sprite) * (all->numsprites + 1))))
-		return (check_error(MALLOC_ERROR));
+		return (check_error(all, MALLOC_ERROR));
 	all->sprite[all->numsprites] = (t_sprite){0, 0, 0, 0};
 	y = -1;
 	i = 0;
@@ -165,35 +164,31 @@ int	check_map(t_all *all)
 
 	i = -1;
 	if (!all->map)
-			return (check_error(FOLDER_ERROR));
+			return (check_error(all, FOLDER_ERROR));
 	while (all->map[++i])
 	{
 		j = 0;
 		while (all->map[i][j])
 		{
-			if (all->map[i][j] == '0' || all->map[i][j] == '1')
+			if (all->map[i][j] == '0' || all->map[i][j] == '1' || all->map[i][j] == ' ')
 				j++;
 			else if (all->map[i][j] == '2')
 			{
 				all->numsprites++;
 				j++;
 			}
-			else if (all->map[i][j] == ' ')
-			{
-				j++;
-			}
 			else if (all->map[i][j] == 'N' || all->map[i][j] == 'S'
 				|| all->map[i][j] == 'E' || all->map[i][j] == 'W')
 			{
 				if (all->player.flag == 1)
-					return (check_error(PARS_ERROR));
+					return (check_error(all, PARS_ERROR));
 				set_player(all, j, i);
 				all->player.posx = j + 0.5;
 				all->player.posy = i + 0.5;
 				j++;
 			}
 			else
-				return (check_error(PARS_ERROR));
+				return (check_error(all, PARS_ERROR));
 		}
 	}
 	if (is_map_open(all) < 0)

@@ -4,7 +4,7 @@ int	check_north_path(char *line, t_all *all)
 {
 	line++;
 	if (*line != 'O' || all->north)
-		return (check_error(PARS_ERROR));
+		return (check_error(all, PARS_ERROR));
 	line++;
 	while (*line == ' ')
 		line++;
@@ -16,7 +16,7 @@ int	check_south_path(char *line, t_all *all)
 {
 	line++;
 	if (*line != 'O' || all->south)
-		return (check_error(PARS_ERROR));
+		return (check_error(all, PARS_ERROR));
 	line++;
 	while (*line == ' ')
 		line++;
@@ -28,7 +28,7 @@ int	check_west_path(char *line, t_all *all)
 {
 	line++;
 	if (*line != 'E' || all->west)
-		return (check_error(PARS_ERROR));
+		return (check_error(all, PARS_ERROR));
 	line++;
 	while (*line == ' ')
 		line++;
@@ -40,7 +40,7 @@ int	check_east_path(char *line, t_all *all)
 {
 	line++;
 	if (*line != 'A' || all->east)
-		return (check_error(PARS_ERROR));
+		return (check_error(all, PARS_ERROR));
 	line++;
 	while (*line == ' ')
 		line++;
@@ -52,7 +52,7 @@ int	check_sprite_path(char *line, t_all *all)
 {
 	line++;
 	if (*line != ' ' || all->path_sprite)
-		return (check_error(PARS_ERROR));
+		return (check_error(all, PARS_ERROR));
 	line++;
 	while (*line == ' ')
 		line++;
