@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../inc/cub3d.h"
 
 void	ft_set_raycast_vars(t_all *all)
 {

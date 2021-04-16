@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../inc/cub3d.h"
 
 int	render_tex_n(t_all *all, int x, int y)
 {

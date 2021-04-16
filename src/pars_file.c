@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../inc/cub3d.h"
 
 int	check_resolution_path(char *line, t_all *all)
 {

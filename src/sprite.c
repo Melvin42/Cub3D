@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../inc/cub3d.h"
 
 static void	ft_calc_sprite_dist(t_all *all)
 {

@@ -86,18 +86,18 @@ AR = ar rc
 OBJS = $(SRCS:.c=.o)
 
 .c.o:
-	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) 
+	@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) 
 
 all: ${NAME}
 
 $(NAME): $(OBJS)
-	$(AR) $(NAME) $(OBJS)
+	@$(AR) $(NAME) $(OBJS)
 
 clean:
-	$(RM) $(OBJS)
+	@$(RM) $(OBJS)
 
 fclean:	clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re:	fclean all
 

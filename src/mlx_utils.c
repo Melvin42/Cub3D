@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../inc/cub3d.h"
 
 int		encode_rgb(uint8_t red, uint8_t green, uint8_t blue)
 {

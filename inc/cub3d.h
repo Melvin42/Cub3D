@@ -32,7 +32,7 @@
 # define MOVESPEED 0.1
 # define ROTSPEED 0.1
 
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <mlx.h>
 # include <X11/keysym.h>
 # include <X11/keysymdef.h>
