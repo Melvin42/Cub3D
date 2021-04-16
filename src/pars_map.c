@@ -4,16 +4,16 @@ int	is_map_open(t_all *all)
 {
 	int	y;
 	int	x;
-	// penses a check '2' sur tous les cote!
+
 	x = -1;
 	while (all->map[0][++x] == ' ' || all->map[0][x] == '1')
 		;
 	if (x < all->map_width_max)
 		return (check_error(all, MAP_ERROR));
 	y = -1;
-	while (all->map[++y][0] == ' ' || all->map[y][0] == '1')
+	while ((all->map[++y][0] == ' ' || all->map[y][0] == '1') && y < all->map_height - 1)
 		;
-	if (y < all->map_height)
+	if (y < all->map_height - 1)
 		return (check_error(all, MAP_ERROR));
 	x = -1;
 	while (all->map[all->map_height - 1][++x] == ' '

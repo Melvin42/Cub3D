@@ -11,7 +11,7 @@
 # define SUCCESS 0
 # define STR_MLX_ERROR "Error\nmlx error.\n"
 # define STR_PARS_ERROR "Error\nFile .cub isn't well formated.\n"
-# define STR_FOLDER_ERROR "Error\n.cub is a folder.\n"
+# define STR_FOLDER_ERROR "Error\nBad path, or .cub is a folder or empty.\n"
 # define STR_MALLOC_ERROR "Error\nA malloc doesn't work fine.\n"
 # define STR_ARG_ERROR "Error\nBad number of arguments.\n"
 # define STR_FD_ERROR "Error\nFile descriptor = -1.\n"

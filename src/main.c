@@ -106,7 +106,6 @@ int	ft_load_all_img(t_all *all)
 	return (0);
 }
 
-
 void	ft_loop(t_all all)
 {
 	mlx_hook(all.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &all);
