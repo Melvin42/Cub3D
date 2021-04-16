@@ -2,6 +2,8 @@
 
 NAME = cub3D
 
+MAP = maps/map.cub
+
 ## Color for compilating (pink)
 
 COLOR = \0033[1;35m
@@ -18,13 +20,13 @@ TEMPLATE_DIR = template_dir
 
 ## Compilating Utilities
 
-FAST = -Ofast
+#FAST = -Ofast
 
 #DEBUG = -g3 -fsanitize=address
 
-FLAGS = -Wall -Wextra -Werror #$(FAST) $(DEBUG) -D_REENTRANT 
+FLAGS = -Wall -Wextra -Werror $(FAST) $(DEBUG) -D_REENTRANT
 
-INC = $(./$(INC_DIR)/%.h)
+INC = $(./$(INC_DIR)/-I%.h)
 
 CC = clang $(FLAGS) $(INC)
 
@@ -71,10 +73,12 @@ $(NAME): $(OBJ_DIRS) $(SRC) $(INC)
 
 clean:
 	@rm -rf $(OBJ_DIR)
+	@make clean -s -C $(LIB_DIR)
 	@echo "$(COLOR)Objects \033[100D\033[40C\0033[1;31m[Removed]\0033[1;37m"
 
 fclean: clean
 	@rm -f $(NAME)
+	@make fclean -s -C $(LIB_DIR)
 	@echo "$(COLOR)$(NAME) \033[100D\033[40C\0033[1;31m[Removed]\0033[1;37m"
 
 re: fclean all
@@ -144,6 +148,6 @@ play: coffee
 	@echo "                         \0033[0;41m \0033[0m"         
 	@echo ""
 	@echo ""
-	./$(NAME) maps/map.cub
+	./$(NAME) $(MAP)
 
 .PHONY: all clean fclean re coffee play

@@ -1,6 +1,6 @@
 #include "../inc/cub3d.h"
 
-int		encode_rgb(uint8_t red, uint8_t green, uint8_t blue)
+int		encode_rgb(int red, int green, int blue)
 {
 	return (red << 16 | green << 8 | blue);
 }
@@ -13,25 +13,24 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)pixel = color;
 }
 
-void	render_background(t_img *img, t_all *all, int color)
+void	render_background(t_all *all)
 {
 	int	i;
 	int	j;
 
-	(void)color;
 	i = 0;
 	while (i < all->ry / 2)
 	{
 		j = 0;
 		while (j < all->rx)
-			img_pix_put(img, j++, i, BLACK_PIXEL);
+			img_pix_put(&all->img, j++, i, all->ceiling_color);
 		++i;
 	}
 	while (i < all->ry)
 	{
 		j = 0;
 		while (j < all->rx)
-			img_pix_put(img, j++, i, GREY_PIXEL);
+			img_pix_put(&all->img, j++, i, all->floor_color);
 		++i;
 	}
 }

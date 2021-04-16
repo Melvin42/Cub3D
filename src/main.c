@@ -3,7 +3,7 @@
 static void	set_all(t_all *all)
 {
 	*all = (t_all){NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0, 0,
 			(t_player){0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			(t_ray){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			(t_texture){0, 0, 0, 0, 0, 0},
@@ -140,11 +140,17 @@ int		main(int ac, char **av)
 	{
 		if (ft_pars(&all, av) < 0)
 			return (0);
-		pos_sprites(&all);
-		check_resolution_value(&all);
+		if (pos_sprites(&all) < 0)
+			return (0);
+		if (check_rgb(&all) < 0)
+			return (0);
+		all.floor_color = encode_rgb(all.floor.red, all.floor.green, all.floor.blue);
+		all.ceiling_color = encode_rgb(all.ceiling.red, all.ceiling.green, all.ceiling.blue);
+		if (check_resolution_value(&all) < 0)
+			return (0);
 		if (ft_init_game(&all) < 0)
 			return (0);
-		//system("aplay -c 2 -t wav -r 48000 ./bonus/trap.wav &");
+	//	system("aplay -c 2 -t wav -r 48000 ./bonus/trap.wav &");
 		ft_loop(all);
 	}
 	return (0);

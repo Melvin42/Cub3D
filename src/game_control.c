@@ -3,14 +3,6 @@
 static void	ft_escape(t_all *all)
 {
 	system("pkill -9 aplay");
-	mlx_destroy_image(all->mlx_ptr, all->tex_n.mlx_img);
-	mlx_destroy_image(all->mlx_ptr, all->tex_s.mlx_img);
-	mlx_destroy_image(all->mlx_ptr, all->tex_e.mlx_img);
-	mlx_destroy_image(all->mlx_ptr, all->tex_w.mlx_img);
-	mlx_destroy_image(all->mlx_ptr, all->sprite_img.mlx_img);
-	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
-	mlx_destroy_window(all->mlx_ptr, all->win_ptr);
-	mlx_destroy_display(all->mlx_ptr);
 	ft_free_all(all);
 	exit(SUCCESS);
 }

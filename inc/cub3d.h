@@ -8,7 +8,7 @@
 # define MALLOC_ERROR -3
 # define ARG_ERROR -2
 # define FD_ERROR -1
-# define SUCCESS 1
+# define SUCCESS 0
 # define STR_MLX_ERROR "Error\nmlx error.\n"
 # define STR_PARS_ERROR "Error\nFile .cub isn't well formated.\n"
 # define STR_FOLDER_ERROR "Error\n.cub is a folder.\n"
@@ -143,6 +143,8 @@ typedef struct	s_all
 	int			drawendx;
 	int			drawendy;
 	double		*zbuffer;
+	int			ceiling_color;
+	int			floor_color;
 	t_player	player;
 	t_ray		ray;
 	t_texture	texture;
@@ -176,6 +178,8 @@ int				check_east_path(char *line, t_all *all);
 int				check_sprite_path(char *line, t_all *all);
 int				check_floor_color(char *line, t_all *all);
 int				check_ceiling_color(char *line, t_all *all);
+int				check_rgb(t_all *all);
+int				check_color_value(t_all *all, int color);
 int				extract_map(char *line, t_all *all);
 int				is_map_open(t_all *all);
 int				check_map(t_all *all);
@@ -193,7 +197,7 @@ void			ft_free_all(t_all *all);
 **=============================>   MLX   <====================================**
 ********************************************************************************
 */
-int				encode_rgb(uint8_t red, uint8_t green, uint8_t blue);
+int				encode_rgb(int red, int green, int blue);
 void			img_pix_put(t_img *img, int x, int y, int color);
 int				ft_new_mlx_img(t_all *all, t_img *img, int res_x, int res_y);
 int				ft_mlx_xpm_to_img(t_all *all, t_img *tex, char *path,
@@ -206,7 +210,7 @@ int				ft_load_all_img(t_all *all);
 ********************************************************************************
 */
 
-void			render_background(t_img *img, t_all *all, int color);
+void			render_background(t_all *all);
 int				render_tex_n(t_all *all, int x, int y);
 int				render_tex_s(t_all *all, int x, int y);
 int				render_tex_e(t_all *all, int x, int y);

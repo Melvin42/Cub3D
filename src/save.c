@@ -17,7 +17,7 @@ int		ft_render_save(t_all *all)
 //	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
 	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
 		return (-1);
-	render_background(&all->img, all, BLACK_PIXEL);
+	render_background(all);
 	raycast(all);
 	return (0);
 }

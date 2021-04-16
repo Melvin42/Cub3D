@@ -31,7 +31,7 @@ int		render(t_all *all)
 	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
 	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
 		return (1);
-	render_background(&all->img, all, BLACK_PIXEL);
+	render_background(all);
 	raycast(all);
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img.mlx_img, 0, 0);
 	return (0);

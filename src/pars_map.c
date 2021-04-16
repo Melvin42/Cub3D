@@ -10,6 +10,11 @@ int	is_map_open(t_all *all)
 		;
 	if (x < all->map_width_max)
 		return (check_error(all, MAP_ERROR));
+	y = -1;
+	while (all->map[++y][0] == ' ' || all->map[y][0] == '1')
+		;
+	if (y < all->map_height)
+		return (check_error(all, MAP_ERROR));
 	x = -1;
 	while (all->map[all->map_height - 1][++x] == ' '
 			|| all->map[all->map_height - 1][x] == '1')
@@ -24,6 +29,7 @@ int	is_map_open(t_all *all)
 	if (y != all->map_height - 1)
 		return (check_error(all, MAP_ERROR));
 	y = 0;
+
 	int	flag;
 	while (++y < all->map_height - 1)
 	{
@@ -45,19 +51,7 @@ int	is_map_open(t_all *all)
 				|| all->map[y + 1][x] == '2') &&
 				(all->map[y - 1][x] == '0'
 				|| all->map[y - 1][x] == '1'
-				|| all->map[y - 1][x] == '2') &&
-				(all->map[y + 1][x + 1] == '0'
-				|| all->map[y + 1][x + 1] == '1'
-				|| all->map[y + 1][x + 1] == '2') &&
-				(all->map[y + 1][x - 1] == '0'
-				|| all->map[y + 1][x - 1] == '1'
-				|| all->map[y + 1][x - 1] == '2') &&
-				(all->map[y - 1][x + 1] == '0'
-				|| all->map[y - 1][x + 1] == '1'
-				|| all->map[y - 1][x + 1] == '2') &&
-				(all->map[y - 1][x - 1] == '1'
-				|| all->map[y - 1][x - 1] == '2'
-				|| all->map[y - 1][x - 1] == '0'))
+				|| all->map[y - 1][x] == '2'))
 				flag = 1;
 			if (flag == 0)
 				return (check_error(all, MAP_ERROR));
@@ -96,7 +90,7 @@ int	extract_map(char *line, t_all *all)
 		all->map[all->map_height] = NULL;
 	}
 	if (!(all->map[i] = malloc(sizeof(char) * (all->map_width_max + 1))))
-		return (check_error(all,  MALLOC_ERROR));
+		return (check_error(all, MALLOC_ERROR));
 	if (i < all->map_height)
 		all->map[i] = ft_strcpy_cub_line(all, all->map[i], line);
 	i++;
