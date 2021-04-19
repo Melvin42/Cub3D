@@ -43,6 +43,16 @@ int	check_error(t_all *all, int error)
 		write(1, STR_RES_ERROR, ft_strlen(STR_RES_ERROR)); 
 		return (-1);
 	}
+	else if (error == NAME_ERROR)
+	{
+		write(1, STR_NAME_ERROR, ft_strlen(STR_NAME_ERROR)); 
+		return (-1);
+	}
+	else if (error == SAVE_ERROR)
+	{
+		write(1, STR_SAVE_ERROR, ft_strlen(STR_SAVE_ERROR)); 
+		return (-1);
+	}
 	else
 		return (0);
 }

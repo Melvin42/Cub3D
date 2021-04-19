@@ -1,5 +1,7 @@
 #ifndef CUB3D_H
 # define CUB3D_H
+# define SAVE_ERROR -10
+# define NAME_ERROR -9
 # define RES_ERROR -8
 # define MAP_ERROR -7
 # define FOLDER_ERROR -6
@@ -17,6 +19,8 @@
 # define STR_FD_ERROR "Error\nFile descriptor = -1.\n"
 # define STR_MAP_ERROR "Error\nThere is a problem in the map.\n"
 # define STR_RES_ERROR "Error\nBad resolution.\n"
+# define STR_NAME_ERROR "Error\nmap isn't a .cub.\n"
+# define STR_SAVE_ERROR "Error\nthird argument isn't --save.\n"
 # define RED_PIXEL 0xFF0000
 # define GREEN_PIXEL 0xFF00
 # define BLUE_PIXEL 0xFF

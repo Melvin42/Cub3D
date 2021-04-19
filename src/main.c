@@ -126,6 +126,24 @@ int		ft_init_game(t_all *all)
 	return (0);
 }
 
+int		check_map_name(t_all *all, char *arg)
+{
+	size_t	i;
+
+	i = ft_strlen((const char *)arg);
+	if (i < 4)
+		return (check_error(all, NAME_ERROR));
+	if (arg[--i] != 'b')
+		return (check_error(all, NAME_ERROR));
+	if (arg[--i] != 'u')
+		return (check_error(all, NAME_ERROR));
+	if (arg[--i] != 'c')
+		return (check_error(all, NAME_ERROR));
+	if (arg[--i] != '.')
+		return (check_error(all, NAME_ERROR));
+	return (0);
+}
+
 int		main(int ac, char **av)
 {
 	t_all	all;
@@ -133,6 +151,8 @@ int		main(int ac, char **av)
 	set_all(&all);
 	if (ac < 2 && ac > 3)
 		return (check_error(&all, ARG_ERROR));
+	if (check_map_name(&all, av[1]) < 0)
+		return (0);
 	if (ac == 3)
 		return (ft_save(&all, av));
 	else
@@ -141,6 +161,7 @@ int		main(int ac, char **av)
 			return (0);
 		if (pos_sprites(&all) < 0)
 			return (0);
+		write(1, "1", 1);
 		if (check_rgb(&all) < 0)
 			return (0);
 		all.floor_color = encode_rgb(all.floor.red, all.floor.green, all.floor.blue);

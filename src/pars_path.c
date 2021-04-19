@@ -107,7 +107,6 @@ int	check_sprite_path(char *line, t_all *all)
 	line++;
 	if (*line != ' ' || all->path_sprite)
 		return (check_error(all, PARS_ERROR));
-	line++;
 	while (*line == ' ')
 		line++;
 	all->path_sprite = ft_strdup((const char *)line);
