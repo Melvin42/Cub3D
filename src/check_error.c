@@ -2,6 +2,7 @@
 
 int	check_error(t_all *all, int error)
 {
+	(void)all;
 	ft_free_all(all);
 	if (error == MALLOC_ERROR)
 	{
@@ -51,6 +52,11 @@ int	check_error(t_all *all, int error)
 	else if (error == SAVE_ERROR)
 	{
 		write(1, STR_SAVE_ERROR, ft_strlen(STR_SAVE_ERROR)); 
+		return (-1);
+	}
+	else if (error == PATH_ERROR)
+	{
+		write(1, STR_PATH_ERROR, ft_strlen(STR_PATH_ERROR)); 
 		return (-1);
 	}
 	else

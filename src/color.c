@@ -72,6 +72,13 @@ int	check_floor_color(char *line, t_all *all)
 		while (ft_isdigit(*line))
 			line++;
 	}
+	if (*line == ' ' || *line == '\0')
+		while (*line == ' ')
+			line++;
+	else
+		return (check_error(all, PARS_ERROR));
+	if (*line != '\0')
+		return (check_error(all, PARS_ERROR));
 	return (0);
 }
 
@@ -123,5 +130,12 @@ int	check_ceiling_color(char *line, t_all *all)
 		while (ft_isdigit(*line))
 			line++;
 	}
+	if (*line == ' ' || *line == '\0')
+		while (*line == ' ')
+			line++;
+	else
+		return (check_error(all, PARS_ERROR));
+	if (*line != '\0')
+		return (check_error(all, PARS_ERROR));
 	return (0);
 }

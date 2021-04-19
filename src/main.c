@@ -3,7 +3,7 @@
 static void	set_all(t_all *all)
 {
 	*all = (t_all){NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0,
 			(t_player){0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			(t_ray){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			(t_texture){0, 0, 0, 0, 0, 0},
@@ -144,10 +144,28 @@ int		check_map_name(t_all *all, char *arg)
 	return (0);
 }
 
+int		check_xpm_path(t_all *all, char *path)
+{
+	size_t	i;
+
+	i = ft_strlen((const char *)path);
+	if (i < 4)
+		return (check_error(all, PATH_ERROR));
+	if (path[--i] != 'm')
+		return (check_error(all, PATH_ERROR));
+	if (path[--i] != 'p')
+		return (check_error(all, PATH_ERROR));
+	if (path[--i] != 'x')
+		return (check_error(all, PATH_ERROR));
+	if (path[--i] != '.')
+		return (check_error(all, PATH_ERROR));
+	return (0);
+}
+
 int		main(int ac, char **av)
 {
 	t_all	all;
-
+//free la copie de strtrim
 	set_all(&all);
 	if (ac < 2 && ac > 3)
 		return (check_error(&all, ARG_ERROR));
@@ -161,7 +179,6 @@ int		main(int ac, char **av)
 			return (0);
 		if (pos_sprites(&all) < 0)
 			return (0);
-		write(1, "1", 1);
 		if (check_rgb(&all) < 0)
 			return (0);
 		all.floor_color = encode_rgb(all.floor.red, all.floor.green, all.floor.blue);

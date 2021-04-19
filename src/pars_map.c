@@ -89,6 +89,8 @@ int	extract_map(char *line, t_all *all)
 		all->map_height = all->map_malloc_size;
 		all->map[all->map_height] = NULL;
 	}
+	if (!(ft_only_space(line) == 0 && *line == '\0'))
+		all->flag_map = 1;
 	if (!(all->map[i] = malloc(sizeof(char) * (all->map_width_max + 1))))
 		return (check_error(all, MALLOC_ERROR));
 	if (i < all->map_height)

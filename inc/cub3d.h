@@ -1,5 +1,6 @@
 #ifndef CUB3D_H
 # define CUB3D_H
+# define PATH_ERROR -11
 # define SAVE_ERROR -10
 # define NAME_ERROR -9
 # define RES_ERROR -8
@@ -21,6 +22,7 @@
 # define STR_RES_ERROR "Error\nBad resolution.\n"
 # define STR_NAME_ERROR "Error\nmap isn't a .cub.\n"
 # define STR_SAVE_ERROR "Error\nthird argument isn't --save.\n"
+# define STR_PATH_ERROR "Error\nBad texture or sprite path.\n"
 # define RED_PIXEL 0xFF0000
 # define GREEN_PIXEL 0xFF00
 # define BLUE_PIXEL 0xFF
@@ -149,6 +151,7 @@ typedef struct	s_all
 	double		*zbuffer;
 	int			ceiling_color;
 	int			floor_color;
+	int			flag_map;
 	t_player	player;
 	t_ray		ray;
 	t_texture	texture;
@@ -195,6 +198,8 @@ int				read_file(int fd, t_all *all);
 int				count_line(int fd, t_all *all);
 int				pos_sprites(t_all *all);
 void			ft_free_all(t_all *all);
+int				check_xpm_path(t_all *all, char *path);
+int				check_map_name(t_all *all, char *arg);
 
 /*
 ********************************************************************************
