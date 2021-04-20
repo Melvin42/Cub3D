@@ -52,7 +52,7 @@ int	dispatcher(char *line, t_all *all)
 		return(check_floor_color(line, all));
 	else if (*line == 'C')
 		return(check_ceiling_color(line, all));
-	else if ((*line == ' ' || *line == '1' || *line == '2') && !ft_only_space(line))
+	else if ((*line == ' ' || *line == '1' || *line == '2'))
 		return(extract_map(line, all)); 
 	else
 		return (check_error(all, PARS_ERROR));
@@ -64,9 +64,8 @@ int	read_file(int fd, t_all *all)
 
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (ft_only_space(line) && all->flag_map == 0)
+		if (ft_only_space(line))
 		{
-			all->map_malloc_size--;
 			free(line);
 			line = NULL;
 			continue;
@@ -76,7 +75,6 @@ int	read_file(int fd, t_all *all)
 		{
 			if (dispatcher(line, all) < 0)
 				return (-1);
-			all->map_malloc_size--;
 		}
 		if (line)
 		{
@@ -103,25 +101,23 @@ int	count_line(int fd, t_all *all)
 	i = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (ft_only_space(line) && all->flag_map == 0)
+		if (ft_only_space(line))
 		{
 			free(line);
 			line = NULL;
 			continue;
-
 		}
-	//	if (*line != '\0')
-	//	{
-			i++;
 			j = -1;
 			map_line = 0;
 			tmp = ft_strlen(line);
-			while ((line[++j] == ' ' || line[j] == '1' || line[j] == '2') && !ft_only_space(line) && *line != '\0')
+			while (line[++j] == ' ' || line[j] == '1' || line[j] == '2')
 					map_line = 1;
 			if (map_line == 1)
+			{
 				if (all->map_width_max < tmp)
 					all->map_width_max = tmp;
-	//	}
+				i++;
+			}
 		if (line)
 		{
 			free(line);
@@ -133,6 +129,5 @@ int	count_line(int fd, t_all *all)
 		free(line);
 		line = NULL;
 	}
-
 	return (i);
 }
