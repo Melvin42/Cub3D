@@ -10,7 +10,12 @@ int	ft_empty_line_error(t_all *all)
 int	check_error(t_all *all, int error)
 {
 	ft_free_all(all);
-	if (error == MALLOC_ERROR)
+	if (error == NO_PLAYER_ERROR)
+	{
+		write(1, STR_NO_PLAYER_ERROR, ft_strlen(STR_NO_PLAYER_ERROR));
+		return (0);
+	}
+	else if (error == MALLOC_ERROR)
 	{
 		write(1, STR_MALLOC_ERROR, ft_strlen(STR_MALLOC_ERROR));
 		return (-1);

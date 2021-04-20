@@ -185,6 +185,8 @@ int		main(int ac, char **av)
 		all.ceiling_color = encode_rgb(all.ceiling.red, all.ceiling.green, all.ceiling.blue);
 		if (check_resolution_value(&all) < 0)
 			return (0);
+		if (all.player.flag == 0)
+			return (check_error(&all, NO_PLAYER_ERROR));
 		if (ft_init_game(&all) < 0)
 			return (0);
 	//	system("aplay -c 2 -t wav -r 48000 ./bonus/trap.wav &");
