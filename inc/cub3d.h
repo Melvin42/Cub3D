@@ -1,5 +1,6 @@
 #ifndef CUB3D_H
 # define CUB3D_H
+# define EMPTY_LINE_ERROR -12
 # define PATH_ERROR -11
 # define SAVE_ERROR -10
 # define NAME_ERROR -9
@@ -23,6 +24,7 @@
 # define STR_NAME_ERROR "Error\nmap isn't a .cub.\n"
 # define STR_SAVE_ERROR "Error\nthird argument isn't --save.\n"
 # define STR_PATH_ERROR "Error\nBad texture or sprite path.\n"
+# define STR_EMPTY_LINE_ERROR "Error\nEmpty line in the map.\n"
 # define RED_PIXEL 0xFF0000
 # define GREEN_PIXEL 0xFF00
 # define BLUE_PIXEL 0xFF
@@ -152,6 +154,7 @@ typedef struct	s_all
 	int			ceiling_color;
 	int			floor_color;
 	int			flag_map;
+	int			index;
 	t_player	player;
 	t_ray		ray;
 	t_texture	texture;
@@ -174,6 +177,7 @@ typedef struct	s_all
 */
 
 int				ft_pars(t_all *all, char **av);
+int				ft_empty_line_error(t_all *all);
 int				check_error(t_all *all, int error);
 int				check_resolution_path(char *line, t_all *all);
 int				check_resolution_value(t_all *all);

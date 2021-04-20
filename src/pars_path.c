@@ -2,7 +2,8 @@
 
 int	check_north_path(char *line, t_all *all)
 {
-	int fd;
+	int 	fd;
+	char	*to_free;
 
 	line++;
 	if (*line != 'O' || all->north)
@@ -13,7 +14,10 @@ int	check_north_path(char *line, t_all *all)
 	all->north = ft_strdup((const char *)line);
 	if (all->north == NULL)
 		return (check_error(all, PARS_ERROR));
+	to_free = all->north;
 	all->north = ft_strtrim((const char *)all->north, " ");
+	free(to_free);
+	to_free = NULL;
 	if (check_xpm_path(all, all->north) < 0)
 		return (-1);
 	fd = open(all->north, O_RDONLY);
@@ -30,7 +34,8 @@ int	check_north_path(char *line, t_all *all)
 
 int	check_south_path(char *line, t_all *all)
 {
-	int fd;
+	int 	fd;
+	char	*to_free;
 
 	line++;
 	if (*line != 'O' || all->south)
@@ -41,7 +46,10 @@ int	check_south_path(char *line, t_all *all)
 	all->south = ft_strdup((const char *)line);
 	if (all->south == NULL)
 		return (check_error(all, PARS_ERROR));
+	to_free = all->south;
 	all->south = ft_strtrim((const char *)all->south, " ");
+	free(to_free);
+	to_free = NULL;
 	if (check_xpm_path(all, all->south) < 0)
 		return (-1);
 	fd = open(all->south, O_RDONLY);
@@ -58,7 +66,8 @@ int	check_south_path(char *line, t_all *all)
 
 int	check_west_path(char *line, t_all *all)
 {
-	int fd;
+	int 	fd;
+	char	*to_free;
 
 	line++;
 	if (*line != 'E' || all->west)
@@ -69,7 +78,10 @@ int	check_west_path(char *line, t_all *all)
 	all->west = ft_strdup((const char *)line);
 	if (all->west == NULL)
 		return (check_error(all, PARS_ERROR));
+	to_free = all->west;
 	all->west = ft_strtrim((const char *)all->west, " ");
+	free(to_free);
+	to_free = NULL;
 	if (check_xpm_path(all, all->west) < 0)
 		return (-1);
 	fd = open(all->west, O_RDONLY);
@@ -86,7 +98,8 @@ int	check_west_path(char *line, t_all *all)
 
 int	check_east_path(char *line, t_all *all)
 {
-	int fd;
+	int 	fd;
+	char	*to_free;
 
 	line++;
 	if (*line != 'A' || all->east)
@@ -97,7 +110,10 @@ int	check_east_path(char *line, t_all *all)
 	all->east = ft_strdup((const char *)line);
 	if (all->east == NULL)
 		return (check_error(all, PARS_ERROR));
+	to_free = all->east;
 	all->east = ft_strtrim((const char *)all->east, " ");
+	free(to_free);
+	to_free = NULL;
 	if (check_xpm_path(all, all->east) < 0)
 		return (-1);
 	fd = open(all->east, O_RDONLY);
@@ -114,7 +130,8 @@ int	check_east_path(char *line, t_all *all)
 
 int	check_sprite_path(char *line, t_all *all)
 {
-	int fd;
+	int 	fd;
+	char	*to_free;
 
 	line++;
 	if (*line != ' ' || all->path_sprite)
@@ -124,7 +141,10 @@ int	check_sprite_path(char *line, t_all *all)
 	all->path_sprite = ft_strdup((const char *)line);
 	if (all->path_sprite == NULL)
 		return (check_error(all, PARS_ERROR));
+	to_free = all->path_sprite;
 	all->path_sprite = ft_strtrim((const char *)all->path_sprite, " ");
+	free(to_free);
+	to_free = NULL;
 	if (check_xpm_path(all, all->path_sprite) < 0)
 		return (-1);
 	fd = open(all->path_sprite, O_RDONLY);

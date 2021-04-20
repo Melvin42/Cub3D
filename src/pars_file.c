@@ -64,12 +64,18 @@ int	read_file(int fd, t_all *all)
 
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (ft_only_space(line))
+		if (ft_only_space(line) && all->flag_map == 0)
 		{
 			free(line);
 			line = NULL;
 			continue;
 
+		}
+		else if (ft_only_space(line) && all->flag_map == 1)
+		{
+			free(line);
+			line = NULL;
+			return (check_error(all, EMPTY_LINE_ERROR));
 		}
 		if (*line != '\0')
 		{

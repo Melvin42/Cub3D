@@ -1,8 +1,14 @@
 #include "../inc/cub3d.h"
 
-int	check_error(t_all *all, int error)
+int	ft_empty_line_error(t_all *all)
 {
 	(void)all;
+	write(1, STR_EMPTY_LINE_ERROR, ft_strlen(STR_EMPTY_LINE_ERROR)); 
+	return (-1);
+}
+
+int	check_error(t_all *all, int error)
+{
 	ft_free_all(all);
 	if (error == MALLOC_ERROR)
 	{
@@ -59,6 +65,60 @@ int	check_error(t_all *all, int error)
 		write(1, STR_PATH_ERROR, ft_strlen(STR_PATH_ERROR)); 
 		return (-1);
 	}
+	else if (error == EMPTY_LINE_ERROR)
+	{
+		write(1, STR_EMPTY_LINE_ERROR, ft_strlen(STR_EMPTY_LINE_ERROR)); 
+		return (-1);
+	}
 	else
 		return (0);
+}
+
+void	ft_free_all(t_all *all)
+{
+	if (all->north)
+		free(all->north);
+	if (all->south)
+		free(all->south);
+	if (all->west)
+		free(all->west);
+	if (all->east)
+		free(all->east);
+	if (all->path_sprite)
+		free(all->path_sprite);
+	if (all->zbuffer)
+		free(all->zbuffer);
+	if (all->map)
+	{
+		all->index--;
+		while (all->index >= 0)
+		{
+			free(all->map[all->index]);
+			all->index--;
+		}
+		free(all->map);
+	}
+	if (all->sprite)
+		free(all->sprite);
+	if (all->mlx_ptr)
+	{
+		if (all->win_ptr)
+		{
+			if (all->tex_n.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->tex_n.mlx_img);
+			if (all->tex_s.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->tex_s.mlx_img);
+			if (all->tex_e.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->tex_e.mlx_img);
+			if (all->tex_w.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->tex_w.mlx_img);
+			if (all->sprite_img.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_img.mlx_img);
+			if (all->img.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
+			mlx_destroy_window(all->mlx_ptr, all->win_ptr);
+		}
+		mlx_destroy_display(all->mlx_ptr);
+		free(all->mlx_ptr);
+	}
 }

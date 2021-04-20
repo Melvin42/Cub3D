@@ -80,9 +80,7 @@ char *ft_strcpy_cub_line(t_all *all, char *dst, char *src)
 
 int	extract_map(char *line, t_all *all)
 {
-	static int	i = 0;
-
-	if (ft_only_space(line))
+	if (ft_only_space(line) && all->flag_map == 0)
 		return (0);
 	if (!all->map)
 	{
@@ -91,11 +89,12 @@ int	extract_map(char *line, t_all *all)
 		all->map_height = all->map_malloc_size;
 		all->map[all->map_height] = NULL;
 	}
-	if (!(all->map[i] = malloc(sizeof(char) * (all->map_width_max + 1))))
+	all->flag_map = 1;
+	if (!(all->map[all->index] = malloc(sizeof(char) * (all->map_width_max + 1))))
 		return (check_error(all, MALLOC_ERROR));
-	if (i < all->map_height)
-		all->map[i] = ft_strcpy_cub_line(all, all->map[i], line);
-	i++;
+	if (all->index < all->map_height)
+		all->map[all->index] = ft_strcpy_cub_line(all, all->map[all->index], line);
+	all->index++;
 	return (0);
 }
 

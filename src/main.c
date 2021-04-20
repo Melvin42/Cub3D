@@ -3,7 +3,7 @@
 static void	set_all(t_all *all)
 {
 	*all = (t_all){NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0, 0,
 			(t_player){0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			(t_ray){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			(t_texture){0, 0, 0, 0, 0, 0},
