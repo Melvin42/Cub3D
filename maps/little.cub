@@ -1,4 +1,4 @@
-R 800 600
+R 6 6
 
 NO ./textures/icestone.xpm
 SO ./textures/hearthstone.xpm
@@ -13,4 +13,4 @@ C 225,30,0
 101
 1N1
 101
-111  
+111

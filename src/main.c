@@ -165,31 +165,32 @@ int		check_xpm_path(t_all *all, char *path)
 int		main(int ac, char **av)
 {
 	t_all	all;
-//free la copie de strtrim
+
 	set_all(&all);
 	if (ac < 2 && ac > 3)
 		return (check_error(&all, ARG_ERROR));
 	if (check_map_name(&all, av[1]) < 0)
 		return (0);
+	if (ft_pars(&all, av) < 0)
+		return (0);
+	if (pos_sprites(&all) < 0)
+		return (0);
+	if (check_rgb(&all) < 0)
+		return (0);
+	all.floor_color = encode_rgb(all.floor.red, all.floor.green, all.floor.blue);
+	all.ceiling_color = encode_rgb(all.ceiling.red, all.ceiling.green, all.ceiling.blue);
+	if (check_resolution_value(&all) < 0)
+		return (0);
+	if (all.player.flag == 0)
+		return (check_error(&all, NO_PLAYER_ERROR));
 	if (ac == 3)
 		return (ft_save(&all, av));
 	else
 	{
-		if (ft_pars(&all, av) < 0)
-			return (0);
-		if (pos_sprites(&all) < 0)
-			return (0);
-		if (check_rgb(&all) < 0)
-			return (0);
-		all.floor_color = encode_rgb(all.floor.red, all.floor.green, all.floor.blue);
-		all.ceiling_color = encode_rgb(all.ceiling.red, all.ceiling.green, all.ceiling.blue);
-		if (check_resolution_value(&all) < 0)
-			return (0);
-		if (all.player.flag == 0)
-			return (check_error(&all, NO_PLAYER_ERROR));
 		if (ft_init_game(&all) < 0)
 			return (0);
 	//	system("aplay -c 2 -t wav -r 48000 ./bonus/trap.wav &");
+		render(&all);
 		ft_loop(all);
 	}
 	return (0);

@@ -101,6 +101,10 @@ void	ft_search_pix_in_img(t_all *all)
 		all->texture.wall_x = all->player.posx + all->ray.perpwalldist
 							* all->player.raydirx;
 	all->texture.wall_x -= floor(all->texture.wall_x);
+	if (all->texture.wall_x < 0)	//regler le segfault dans les coins;
+		all->texture.wall_x = 0;	
+//	else if (all->texture.wall_x > all->map_width_max - 1)
+//		all->texture.wall_x = all->map_width_max - 1;
 	all->texture.tex_x = (int)(all->texture.wall_x * (double)TEXTURE_WIDTH);
 	if (all->ray.side == 0 && all->player.raydirx > 0)
 		all->texture.tex_x = TEXTURE_WIDTH - all->texture.tex_x - 1;

@@ -3,3 +3,4 @@ cub3D
 save.bmp
 obj/*.o
 libft/*.o
+libft/libft.a

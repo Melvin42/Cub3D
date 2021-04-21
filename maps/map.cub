@@ -1,4 +1,5 @@
 R 800 600 
+
 NO ./textures/icestone.xpm   
 SO ./textures/hearthstone.xpm
 WE ./textures/iron.xpm
