@@ -37,7 +37,7 @@ int	ft_save(t_all *all, char **av)
 	bmp.dib_header_size = 40;
 	bmp.width_px= all->rx;
 	bmp.height_px = all->ry;
-	bmp.num_planes = 256;
+	bmp.num_planes = 1;
 	bmp.bits_per_pixel = 32;
 	bmp.compression = 0;
 	bmp.image_size_bytes = all->rx * all->ry * 4;
@@ -101,22 +101,14 @@ int	ft_save(t_all *all, char **av)
 	header[52] = (unsigned char)(bmp.important_colors >> 16);
 	header[53] = (unsigned char)(bmp.important_colors >> 24);
 
-	write(fd, header, sizeof(header));
+//	write(fd, header, sizeof(header));
+	write(fd, header, 54);
 
 	int	i;
-	int j;
 
-	j = all->ry;
-	while (j > 0)
-	{
-		i = -1;
-		while (++i < all->rx)
-		{
-			write(fd, &all->img.addr[i], 1);//sizeof(all->img.addr[i]));
-		}
-		j--;
-	}
+	i = all->ry;
+	while (--i >= 0)
+		write(fd, &(all->img.addr[i * all->rx * 4]), all->rx * 4);
 	close(fd);
 	return (0);
-
 }

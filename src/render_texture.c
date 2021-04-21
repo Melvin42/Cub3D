@@ -2,8 +2,8 @@
 
 int	render_tex_n(t_all *all, int x, int y)
 {
-	if (all->win_ptr == NULL)
-		return (1);
+//	if (all->win_ptr == NULL)
+//		return (1);
 	while (y < all->ray.drawend)
 	{
 		all->texture.tex_y = (int)all->texture.tex_pos & (TEXTURE_HEIGHT - 1);
@@ -16,8 +16,8 @@ int	render_tex_n(t_all *all, int x, int y)
 
 int	render_tex_s(t_all *all, int x, int y)
 {
-	if (all->win_ptr == NULL)
-		return (1);
+//	if (all->win_ptr == NULL)
+//		return (1);
 	while (y < all->ray.drawend)
 	{
 		all->texture.tex_y = (int)all->texture.tex_pos & (TEXTURE_HEIGHT - 1);
@@ -30,8 +30,8 @@ int	render_tex_s(t_all *all, int x, int y)
 
 int	render_tex_e(t_all *all, int x, int y)
 {
-	if (all->win_ptr == NULL)
-		return (1);
+//	if (all->win_ptr == NULL)
+//		return (1);
 	while (y < all->ray.drawend)
 	{
 		all->texture.tex_y = (int)all->texture.tex_pos & (TEXTURE_HEIGHT - 1);
@@ -44,8 +44,8 @@ int	render_tex_e(t_all *all, int x, int y)
 
 int	render_tex_w(t_all *all, int x, int y)
 {
-	if (all->win_ptr == NULL)
-		return (1);
+//	if (all->win_ptr == NULL)
+//		return (1);
 	while (y < all->ray.drawend)
 	{
 		all->texture.tex_y = (int)all->texture.tex_pos & (TEXTURE_HEIGHT - 1);
