@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/22 19:30:41 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/22 20:36:49 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,21 @@ void	sort_sprites(t_all *all)
 			j++;
 		}
 		i++;
+	}
+}
+
+void	render_sprite(t_all *all)
+{
+	int	i;
+
+	ft_calc_sprite_dist(all);
+	sort_sprites(all);
+	i = -1;
+	while (++i < all->numsprites)
+	{
+		ft_set_sprite_vars(all, i);
+		ft_calc_sprite_ray(all);
+		ft_search_pix_in_sprite(all);
 	}
 }
 

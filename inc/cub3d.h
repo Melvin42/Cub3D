@@ -269,6 +269,11 @@ void			raycast(t_all *all);
 
 void			sort_sprites(t_all *all);
 void			render_sprite(t_all *all);
+void			ft_calc_sprite_dist(t_all *all);
+void			ft_set_sprite_vars(t_all *all, int i);
+void			ft_calc_sprite_ray(t_all *all);
+void			ft_put_sprite_pix(t_all *all, int stripe);
+void			ft_search_pix_in_sprite(t_all *all);
 
 /*
 ********************************************************************************
