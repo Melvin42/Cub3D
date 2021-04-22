@@ -216,6 +216,7 @@ int				check_color_value(t_all *all, int color);
 int				extract_map(char *line, t_all *all);
 int				is_map_open(t_all *all);
 int				check_map(t_all *all);
+int				check_fd(t_all *all, int fd);
 int				dispatcher(char *line, t_all *all);
 void			replace_space_by_one(t_all *all);
 int				ft_only_space(char *line);
@@ -276,6 +277,7 @@ void			render_sprite(t_all *all);
 */
 
 int				handle_keypress(int keysym, t_all *all);
+int				ft_exit_cross(t_all *all);
 void			move_up(t_all *all);
 void			move_down(t_all *all);
 void			move_left(t_all *all);

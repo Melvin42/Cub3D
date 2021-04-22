@@ -1,4 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pars_file.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/22 19:30:15 by melperri          #+#    #+#             */
+/*   Updated: 2021/04/22 20:19:21 by melperri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/cub3d.h"
+
+int			check_fd(t_all *all, int fd)
+{
+	if (fd == -1)
+		return (check_error(all, PARS_ERROR));
+	if (read(fd, 0, 0))
+	{
+		close(fd);
+		return (check_error(all, FOLDER_ERROR));
+	}
+	return (0);
+}
 
 int			dispatcher(char *line, t_all *all)
 {

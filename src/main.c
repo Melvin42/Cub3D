@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/22 19:29:51 by melperri          #+#    #+#             */
+/*   Updated: 2021/04/22 20:06:41 by melperri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/cub3d.h"
 
 static void	set_all(t_all *all)
@@ -19,7 +31,7 @@ static void	set_all(t_all *all)
 			(t_rgb){-1, -1, -1}};
 }
 
-int	ft_pars(t_all *all, char **av)
+int			ft_pars(t_all *all, char **av)
 {
 	int	fd;
 
@@ -45,21 +57,16 @@ int	ft_pars(t_all *all, char **av)
 	return (0);
 }
 
-int	ft_exit_cross(t_all *all)
+static void	ft_loop(t_all all)
 {
-	ft_free_all(all);
-	exit(0);
-	return (0);
-}
-void	ft_loop(t_all all)
-{
-	mlx_hook(all.win_ptr, ClientMessage, StructureNotifyMask, &ft_exit_cross, &all);
+	mlx_hook(all.win_ptr, ClientMessage, StructureNotifyMask,
+			&ft_exit_cross, &all);
 	mlx_hook(all.win_ptr, FocusIn, FocusChangeMask, &render, &all);
 	mlx_hook(all.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &all);
 	mlx_loop(all.mlx_ptr);
 }
 
-int		ft_init_game(t_all *all)
+int			ft_init_game(t_all *all)
 {
 	all->mlx_ptr = mlx_init();
 	if (all->mlx_ptr == NULL)
@@ -73,43 +80,7 @@ int		ft_init_game(t_all *all)
 	return (0);
 }
 
-int		check_map_name(t_all *all, char *arg)
-{
-	size_t	i;
-
-	i = ft_strlen((const char *)arg);
-	if (i < 4)
-		return (check_error(all, NAME_ERROR));
-	if (arg[--i] != 'b')
-		return (check_error(all, NAME_ERROR));
-	if (arg[--i] != 'u')
-		return (check_error(all, NAME_ERROR));
-	if (arg[--i] != 'c')
-		return (check_error(all, NAME_ERROR));
-	if (arg[--i] != '.')
-		return (check_error(all, NAME_ERROR));
-	return (0);
-}
-
-int		check_xpm_path(t_all *all, char *path)
-{
-	size_t	i;
-
-	i = ft_strlen((const char *)path);
-	if (i < 4)
-		return (check_error(all, PATH_ERROR));
-	if (path[--i] != 'm')
-		return (check_error(all, PATH_ERROR));
-	if (path[--i] != 'p')
-		return (check_error(all, PATH_ERROR));
-	if (path[--i] != 'x')
-		return (check_error(all, PATH_ERROR));
-	if (path[--i] != '.')
-		return (check_error(all, PATH_ERROR));
-	return (0);
-}
-
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_all	all;
 
@@ -124,8 +95,10 @@ int		main(int ac, char **av)
 		return (0);
 	if (check_rgb(&all) < 0)
 		return (0);
-	all.floor_color = encode_rgb(all.floor.red, all.floor.green, all.floor.blue);
-	all.ceiling_color = encode_rgb(all.ceiling.red, all.ceiling.green, all.ceiling.blue);
+	all.floor_color = encode_rgb(all.floor.red,
+								all.floor.green, all.floor.blue);
+	all.ceiling_color = encode_rgb(all.ceiling.red,
+								all.ceiling.green, all.ceiling.blue);
 	if (check_resolution_value(&all) < 0)
 		return (0);
 	if (all.player.flag == 0)

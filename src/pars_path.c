@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pars_path.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/22 19:30:27 by melperri          #+#    #+#             */
+/*   Updated: 2021/04/22 20:23:08 by melperri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/cub3d.h"
 
 int	check_north_path(char *line, t_all *all)
 {
-	int 	fd;
+	int		fd;
 	char	*to_free;
 
 	line++;
@@ -21,20 +33,15 @@ int	check_north_path(char *line, t_all *all)
 	if (check_xpm_path(all, all->north) < 0)
 		return (-1);
 	fd = open(all->north, O_RDONLY);
-	if (read(fd, 0, 0))
-	{
-		close(fd);
-		return (check_error(all, FOLDER_ERROR));
-	}
+	if (check_fd(all, fd) < 0)
+		return (-1);
 	close(fd);
-	if (fd == -1)
-		return (check_error(all, PARS_ERROR));
 	return (0);
 }
 
 int	check_south_path(char *line, t_all *all)
 {
-	int 	fd;
+	int		fd;
 	char	*to_free;
 
 	line++;
@@ -53,20 +60,14 @@ int	check_south_path(char *line, t_all *all)
 	if (check_xpm_path(all, all->south) < 0)
 		return (-1);
 	fd = open(all->south, O_RDONLY);
-	if (read(fd, 0, 0))
-	{
-		close(fd);
-		return (check_error(all, FOLDER_ERROR));
-	}
-	close(fd);
-	if (fd == -1)
-		return (check_error(all, PARS_ERROR));
+	if (check_fd(all, fd) < 0)
+		return (-1);
 	return (0);
 }
 
 int	check_west_path(char *line, t_all *all)
 {
-	int 	fd;
+	int		fd;
 	char	*to_free;
 
 	line++;
@@ -85,20 +86,14 @@ int	check_west_path(char *line, t_all *all)
 	if (check_xpm_path(all, all->west) < 0)
 		return (-1);
 	fd = open(all->west, O_RDONLY);
-	if (read(fd, 0, 0))
-	{
-		close(fd);
-		return (check_error(all, FOLDER_ERROR));
-	}
-	close(fd);
-	if (fd == -1)
-		return (check_error(all, PARS_ERROR));
+	if (check_fd(all, fd) < 0)
+		return (-1);
 	return (0);
 }
 
 int	check_east_path(char *line, t_all *all)
 {
-	int 	fd;
+	int		fd;
 	char	*to_free;
 
 	line++;
@@ -117,20 +112,14 @@ int	check_east_path(char *line, t_all *all)
 	if (check_xpm_path(all, all->east) < 0)
 		return (-1);
 	fd = open(all->east, O_RDONLY);
-	if (read(fd, 0, 0))
-	{
-		close(fd);
-		return (check_error(all, FOLDER_ERROR));
-	}
-	close(fd);
-	if (fd == -1)
-		return (check_error(all, PARS_ERROR));
+	if (check_fd(all, fd) < 0)
+		return (-1);
 	return (0);
 }
 
 int	check_sprite_path(char *line, t_all *all)
 {
-	int 	fd;
+	int		fd;
 	char	*to_free;
 
 	line++;
@@ -148,13 +137,7 @@ int	check_sprite_path(char *line, t_all *all)
 	if (check_xpm_path(all, all->path_sprite) < 0)
 		return (-1);
 	fd = open(all->path_sprite, O_RDONLY);
-	if (read(fd, 0, 0))
-	{
-		close(fd);
-		return (check_error(all, FOLDER_ERROR));
-	}
-	close(fd);
-	if (fd == -1)
-		return (check_error(all, PARS_ERROR));
+	if (check_fd(all, fd) < 0)
+		return (-1);
 	return (0);
 }
