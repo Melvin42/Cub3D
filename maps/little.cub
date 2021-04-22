@@ -1,4 +1,4 @@
-R 20 20
+R 500000 1080
 
 NO ./textures/icestone.xpm
 SO ./textures/hearthstone.xpm

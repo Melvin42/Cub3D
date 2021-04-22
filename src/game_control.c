@@ -2,7 +2,7 @@
 
 static void	ft_escape(t_all *all)
 {
-	system("pkill -9 aplay");
+//	system("pkill -9 aplay");
 	ft_free_all(all);
 	exit(SUCCESS);
 }

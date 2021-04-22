@@ -1,66 +1,6 @@
 #include "../inc/cub3d.h"
 
-int	is_map_open(t_all *all)
-{
-	int	y;
-	int	x;
-
-	x = -1;
-	while (all->map[0][++x] == ' ' || all->map[0][x] == '1')
-		;
-	if (x < all->map_width_max)
-		return (check_error(all, MAP_ERROR));
-	y = -1;
-	while ((all->map[++y][0] == ' ' || all->map[y][0] == '1') && y < all->map_height - 1)
-		;
-	if (y < all->map_height - 1)
-		return (check_error(all, MAP_ERROR));
-	x = -1;
-	while (all->map[all->map_height - 1][++x] == ' '
-			|| all->map[all->map_height - 1][x] == '1')
-		;
-	if (x != all->map_width_max)
-		return (check_error(all, MAP_ERROR));
-	y = -1;
-	while ((all->map[++y][all->map_width_max - 1] == ' '
-			|| all->map[y][all->map_width_max - 1] == '1')
-			&& y < all->map_height - 1)
-		;
-	if (y != all->map_height - 1)
-		return (check_error(all, MAP_ERROR));
-	y = 0;
-
-	int	flag;
-	while (++y < all->map_height - 1)
-	{
-		x = 0;
-		while (++x < all->map_width_max - 1)
-		{
-			flag = 1;
-			if (all->map[y][x] == '0')
-				flag = 0;
-			if ((all->map[y][x] == '0') &&
-				(all->map[y][x + 1] == '0'
-				|| all->map[y][x + 1] == '1'
-				|| all->map[y][x + 1] == '2') &&
-				(all->map[y][x - 1] == '0'
-				|| all->map[y][x - 1] == '1'
-				|| all->map[y][x - 1] == '2') &&
-				(all->map[y + 1][x] == '0'
-				|| all->map[y + 1][x] == '1'
-				|| all->map[y + 1][x] == '2') &&
-				(all->map[y - 1][x] == '0'
-				|| all->map[y - 1][x] == '1'
-				|| all->map[y - 1][x] == '2'))
-				flag = 1;
-			if (flag == 0)
-				return (check_error(all, MAP_ERROR));
-		}
-	}
-	return (0);
-}
-
-char *ft_strcpy_cub_line(t_all *all, char *dst, char *src)
+char		*ft_strcpy_cub_line(t_all *all, char *dst, char *src)
 {
 	int	i;
 
@@ -78,7 +18,7 @@ char *ft_strcpy_cub_line(t_all *all, char *dst, char *src)
 	return (dst);
 }
 
-int	extract_map(char *line, t_all *all)
+int			extract_map(char *line, t_all *all)
 {
 	if (ft_only_space(line) && all->flag_map == 0)
 		return (0);
@@ -90,15 +30,17 @@ int	extract_map(char *line, t_all *all)
 		all->map[all->map_height] = NULL;
 	}
 	all->flag_map = 1;
-	if (!(all->map[all->index] = malloc(sizeof(char) * (all->map_width_max + 1))))
+	if (!(all->map[all->index] = malloc(sizeof(char)
+								* (all->map_width_max + 1))))
 		return (check_error(all, MALLOC_ERROR));
 	if (all->index < all->map_height)
-		all->map[all->index] = ft_strcpy_cub_line(all, all->map[all->index], line);
+		all->map[all->index] = ft_strcpy_cub_line(all,
+												all->map[all->index], line);
 	all->index++;
 	return (0);
 }
 
-int	set_player(t_all *all, int x, int y)
+static void	set_player(t_all *all, int x, int y)
 {
 	all->player.flag = 1;
 	if (all->map[y][x] == 'N')
@@ -122,10 +64,11 @@ int	set_player(t_all *all, int x, int y)
 		all->player.plany = 0.66;
 	}
 	all->map[y][x] = '0';
-	return (0);
+	all->player.posx = x + 0.5;
+	all->player.posy = y + 0.5;
 }
 
-int	pos_sprites(t_all *all)
+int			pos_sprites(t_all *all)
 {
 	int	x;
 	int	y;
@@ -152,42 +95,30 @@ int	pos_sprites(t_all *all)
 	return (0);
 }
 
-int	check_map(t_all *all)
+int			check_map(t_all *all)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	if (!all->map)
-			return (check_error(all, FOLDER_ERROR));
 	while (all->map[++i])
 	{
-		j = 0;
-		while (all->map[i][j])
-		{
-			if (all->map[i][j] == '0' || all->map[i][j] == '1' || all->map[i][j] == ' ')
-				j++;
+		j = -1;
+		while (all->map[i][++j])
+			if (all->map[i][j] == '0' || all->map[i][j] == '1'
+				|| all->map[i][j] == ' ')
+				;
 			else if (all->map[i][j] == '2')
-			{
 				all->numsprites++;
-				j++;
-			}
 			else if (all->map[i][j] == 'N' || all->map[i][j] == 'S'
 				|| all->map[i][j] == 'E' || all->map[i][j] == 'W')
 			{
 				if (all->player.flag == 1)
 					return (check_error(all, PARS_ERROR));
 				set_player(all, j, i);
-				all->player.posx = j + 0.5;
-				all->player.posy = i + 0.5;
-				j++;
 			}
 			else
 				return (check_error(all, PARS_ERROR));
-		}
 	}
-	if (is_map_open(all) < 0)
-		return (-1);
-	replace_space_by_one(all);
 	return (0);
 }

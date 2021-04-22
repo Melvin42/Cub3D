@@ -19,53 +19,6 @@ static void	set_all(t_all *all)
 			(t_rgb){-1, -1, -1}};
 }
 
-int			check_resolution_value(t_all *all)
-{
-	if (all->rx == 0 || all->ry == 0)
-		return (check_error(all, RES_ERROR));
-	if (all->rx > INT_MAX || all->rx < 0)
-			all->rx = INT_MAX;
-	if (all->ry > INT_MAX || all->ry < 0)
-			all->ry = INT_MAX;
-	return (0);
-}
-
-void		rectify_resolution_value(t_all *all)
-{
-	int	resx;
-	int	resy;
-
-	mlx_get_screen_size(all->mlx_ptr, &resx, &resy);
-	if (all->rx >= resx)
-		all->rx = resx;
-	if (all->ry >= resy)
-		all->ry = resy;
-}
-
-int			ft_new_mlx_img(t_all *all, t_img *img, int res_x, int res_y)
-{
-	img->mlx_img = mlx_new_image(all->mlx_ptr, res_x, res_y);
-	if (img->mlx_img == NULL)
-		return (check_error(all, MLX_ERROR));
-	img->addr = mlx_get_data_addr(img->mlx_img, &img->bpp,
-								&img->line_len, &img->endian);
-	if (img->addr == NULL)
-		return (check_error(all, MLX_ERROR));
-	return (0);
-}
-
-int			ft_mlx_xpm_to_img(t_all *all, t_img *tex, char *path, int res_x, int res_y)
-{
-	tex->mlx_img = mlx_xpm_file_to_image(all->mlx_ptr, path, &res_x, &res_y);
-	if (tex->mlx_img == NULL)
-		return (check_error(all, MLX_ERROR));
-	tex->addr = mlx_get_data_addr(tex->mlx_img, &tex->bpp,
-								&tex->line_len, &tex->endian);
-	if (tex->addr == NULL)
-		return (check_error(all, MLX_ERROR));
-	return (0);
-}
-
 int	ft_pars(t_all *all, char **av)
 {
 	int	fd;
@@ -82,32 +35,26 @@ int	ft_pars(t_all *all, char **av)
 		return (-1);
 	}
 	close(fd);
+	if (!all->map)
+		return (check_error(all, FOLDER_ERROR));
 	if (check_map(all) < 0)
-	{
 		return (-1);
-	}
+	if (is_map_open(all) < 0)
+		return (-1);
+	replace_space_by_one(all);
 	return (0);
 }
 
-int	ft_load_all_img(t_all *all)
+int	ft_exit_cross(t_all *all)
 {
-	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->tex_n, all->north, TEXTURE_WIDTH, TEXTURE_HEIGHT) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->tex_s, all->south, TEXTURE_WIDTH, TEXTURE_HEIGHT) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->tex_e, all->east, TEXTURE_WIDTH, TEXTURE_HEIGHT) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->tex_w, all->west, TEXTURE_WIDTH, TEXTURE_HEIGHT) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_img, all->path_sprite, SPRITE_WIDTH, SPRITE_HEIGHT) < 0)
-		return (check_error(all, MLX_ERROR));
+	ft_free_all(all);
+	exit(0);
 	return (0);
 }
-
 void	ft_loop(t_all all)
 {
+	mlx_hook(all.win_ptr, ClientMessage, StructureNotifyMask, &ft_exit_cross, &all);
+	mlx_hook(all.win_ptr, FocusIn, FocusChangeMask, &render, &all);
 	mlx_hook(all.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &all);
 	mlx_loop(all.mlx_ptr);
 }
@@ -184,7 +131,7 @@ int		main(int ac, char **av)
 	if (all.player.flag == 0)
 		return (check_error(&all, NO_PLAYER_ERROR));
 	if (ac == 3)
-		return (ft_save(&all, av));
+		return (ft_save(&all));
 	else
 	{
 		if (ft_init_game(&all) < 0)

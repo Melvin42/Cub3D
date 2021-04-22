@@ -1,12 +1,5 @@
 #include "../inc/cub3d.h"
 
-int	ft_empty_line_error(t_all *all)
-{
-	(void)all;
-	write(1, STR_EMPTY_LINE_ERROR, ft_strlen(STR_EMPTY_LINE_ERROR)); 
-	return (-1);
-}
-
 int	check_error(t_all *all, int error)
 {
 	ft_free_all(all);
@@ -32,47 +25,47 @@ int	check_error(t_all *all, int error)
 	}
 	else if (error == PARS_ERROR)
 	{
-		write(1, STR_PARS_ERROR, ft_strlen(STR_PARS_ERROR)); 
+		write(1, STR_PARS_ERROR, ft_strlen(STR_PARS_ERROR));
 		return (-1);
 	}
 	else if (error == MLX_ERROR)
 	{
-		write(1, STR_MLX_ERROR, ft_strlen(STR_MLX_ERROR)); 
+		write(1, STR_MLX_ERROR, ft_strlen(STR_MLX_ERROR));
 		return (-1);
 	}
 	else if (error == FOLDER_ERROR)
 	{
-		write(1, STR_FOLDER_ERROR, ft_strlen(STR_FOLDER_ERROR)); 
+		write(1, STR_FOLDER_ERROR, ft_strlen(STR_FOLDER_ERROR));
 		return (-1);
 	}
 	else if (error == MAP_ERROR)
 	{
-		write(1, STR_MAP_ERROR, ft_strlen(STR_MAP_ERROR)); 
+		write(1, STR_MAP_ERROR, ft_strlen(STR_MAP_ERROR));
 		return (-1);
 	}
 	else if (error == RES_ERROR)
 	{
-		write(1, STR_RES_ERROR, ft_strlen(STR_RES_ERROR)); 
+		write(1, STR_RES_ERROR, ft_strlen(STR_RES_ERROR));
 		return (-1);
 	}
 	else if (error == NAME_ERROR)
 	{
-		write(1, STR_NAME_ERROR, ft_strlen(STR_NAME_ERROR)); 
+		write(1, STR_NAME_ERROR, ft_strlen(STR_NAME_ERROR));
 		return (-1);
 	}
 	else if (error == SAVE_ERROR)
 	{
-		write(1, STR_SAVE_ERROR, ft_strlen(STR_SAVE_ERROR)); 
+		write(1, STR_SAVE_ERROR, ft_strlen(STR_SAVE_ERROR));
 		return (-1);
 	}
 	else if (error == PATH_ERROR)
 	{
-		write(1, STR_PATH_ERROR, ft_strlen(STR_PATH_ERROR)); 
+		write(1, STR_PATH_ERROR, ft_strlen(STR_PATH_ERROR));
 		return (-1);
 	}
 	else if (error == EMPTY_LINE_ERROR)
 	{
-		write(1, STR_EMPTY_LINE_ERROR, ft_strlen(STR_EMPTY_LINE_ERROR)); 
+		write(1, STR_EMPTY_LINE_ERROR, ft_strlen(STR_EMPTY_LINE_ERROR));
 		return (-1);
 	}
 	else

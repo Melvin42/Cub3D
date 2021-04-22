@@ -1,5 +1,10 @@
 #include "../inc/cub3d.h"
 
+int		encode_rgb(int red, int green, int blue)
+{
+	return (red << 16 | green << 8 | blue);
+}
+
 int	check_rgb(t_all *all)
 {
 	if (check_color_value(all, all->floor.red) < 0)
@@ -23,7 +28,12 @@ int	check_color_value(t_all *all, int color)
 		return (check_error(all, PARS_ERROR));
 	return (0);
 }
-
+/*
+int	check_floor_color_part_two(char *line, t_all *all)
+{
+	return (0);
+}
+*/
 int	check_floor_color(char *line, t_all *all)
 {
 	if (all->floor.red != -1 || all->floor.green != -1

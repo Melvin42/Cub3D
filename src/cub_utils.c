@@ -1,6 +1,6 @@
 #include "../inc/cub3d.h"
 
-int 	ft_only_space(char *line)
+int		ft_only_space(char *line)
 {
 	if (!line)
 		return (1);

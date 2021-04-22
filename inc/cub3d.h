@@ -200,7 +200,6 @@ typedef struct	s_all
 */
 
 int				ft_pars(t_all *all, char **av);
-int				ft_empty_line_error(t_all *all);
 int				check_error(t_all *all, int error);
 int				check_resolution_path(char *line, t_all *all);
 int				check_resolution_value(t_all *all);
@@ -217,7 +216,6 @@ int				check_color_value(t_all *all, int color);
 int				extract_map(char *line, t_all *all);
 int				is_map_open(t_all *all);
 int				check_map(t_all *all);
-int				set_player(t_all *all, int x, int y);
 int				dispatcher(char *line, t_all *all);
 void			replace_space_by_one(t_all *all);
 int				ft_only_space(char *line);
@@ -236,8 +234,7 @@ int				check_map_name(t_all *all, char *arg);
 int				encode_rgb(int red, int green, int blue);
 void			img_pix_put(t_img *img, int x, int y, int color);
 int				ft_new_mlx_img(t_all *all, t_img *img, int res_x, int res_y);
-int				ft_mlx_xpm_to_img(t_all *all, t_img *tex, char *path,
-									int res_x, int res_y);
+int				ft_mlx_xpm_to_img(t_all *all, t_img *tex, char *path);
 int				ft_load_all_img(t_all *all);
 
 /*
@@ -251,8 +248,16 @@ int				render_tex_n(t_all *all, int x, int y);
 int				render_tex_s(t_all *all, int x, int y);
 int				render_tex_e(t_all *all, int x, int y);
 int				render_tex_w(t_all *all, int x, int y);
+void			ft_render_side(t_all *all, int x);
 int				render(t_all *all);
-int				menu(t_all *all);
+
+/*
+********************************************************************************
+**============================>  RAYCASTING  <================================**
+********************************************************************************
+*/
+
+void			ft_set_raycast_vars(t_all *all);
 void			raycast(t_all *all);
 
 /*
@@ -278,6 +283,6 @@ void			move_right(t_all *all);
 void			rotate_left(t_all *all);
 void			rotate_right(t_all *all);
 
-int				ft_save(t_all *all, char **av);
+int				ft_save(t_all *all);
 
 #endif

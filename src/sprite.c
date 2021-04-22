@@ -18,10 +18,14 @@ static void	ft_set_sprite_vars(t_all *all, int i)
 {
 	all->spritex = all->sprite[i].x - all->player.posx + 0.5;
 	all->spritey = all->sprite[i].y - all->player.posy + 0.5;
-	all->invdet = 1.0 / (all->player.planx * all->player.diry - all->player.dirx * all->player.plany);
-	all->transformx = all->invdet * (all->player.diry * all->spritex - all->player.dirx * all->spritey);
-	all->transformy = all->invdet * (-all->player.plany * all->spritex + all->player.planx * all->spritey);
-	all->spritescreenx = (int)((all->rx / 2) * (1 + all->transformx / all->transformy));
+	all->invdet = 1.0 / (all->player.planx * all->player.diry
+						- all->player.dirx * all->player.plany);
+	all->transformx = all->invdet * (all->player.diry * all->spritex
+									- all->player.dirx * all->spritey);
+	all->transformy = all->invdet * (-all->player.plany * all->spritex
+									+ all->player.planx * all->spritey);
+	all->spritescreenx = (int)((all->rx / 2)
+						* (1 + all->transformx / all->transformy));
 	all->spriteheight = abs((int)(all->ry / all->transformy));
 	all->drawstarty = -all->spriteheight / 2 + all->ry / 2;
 }
@@ -39,10 +43,10 @@ static void	ft_calc_sprite_ray(t_all *all)
 		all->drawstartx = 0;
 	all->drawendx = all->spritewidth / 2 + all->spritescreenx;
 	if (all->drawendx >= all->rx)
-		all->drawendx= all->rx - 1;
+		all->drawendx = all->rx - 1;
 }
 
-void	ft_search_pix_in_sprite(t_all *all)
+void		ft_search_pix_in_sprite(t_all *all)
 {
 	int		d;
 	int		y;
@@ -69,7 +73,7 @@ void	ft_search_pix_in_sprite(t_all *all)
 	}
 }
 
-void	render_sprite(t_all *all)
+void		render_sprite(t_all *all)
 {
 	int	i;
 
