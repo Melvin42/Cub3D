@@ -33,9 +33,11 @@ INC = $(./$(INC_DIR)/-I%.h)
 
 CC = clang $(FLAGS) $(INC)
 
-LIB_NAME = libft/libft.a
-
 LIB_DIR = libft
+
+LIBX_DIR = minilibx
+
+INSTALL_LIBX = $(shell cd minilibx && sh configure && cd ..)
 
 GAME_FT			= game_control move_player rotate_player save
 
@@ -83,8 +85,9 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC)
 $(NAME): $(OBJ_DIRS) $(SRC) $(INC)
 	@$(MAKE) -j -s $(OBJ)
 	@echo "$(COLOR)Objects \033[100D\033[40C\0033[1;32m[Created]\0033[1;37m"
+	@echo $(INSTALL_LIBX)
 	@make -s -C $(LIB_DIR)
-	@$(CC) -lm $(OBJ) $(LIB_NAME) -lmlx -lXext -lX11 -o $@
+	@$(CC) $(OBJ) -Llibft -lft -Lminilibx -lmlx -lmlx_Linux -lXext -lX11 -lm -o $@
 	@echo "$(COLOR)$(NAME) \033[100D\033[40C\0033[1;32m[Created]\0033[1;37m"
 
 clean:
@@ -94,11 +97,11 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
+	@make clean -s -C $(LIBX_DIR)
 	@make fclean -s -C $(LIB_DIR)
 	@echo "$(COLOR)$(NAME) \033[100D\033[40C\0033[1;31m[Removed]\0033[1;37m"
 
 re: fclean all
-
 
 define print_aligned_coffee
     @t=$(NAME); \
