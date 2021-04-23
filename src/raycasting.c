@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:34 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/22 19:30:35 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/23 09:13:08 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	ft_calc_ray(t_all *all)
 
 void	ft_search_pix_in_img(t_all *all)
 {
+	ft_chose_tex(all);
 	if (all->ray.side == 0)
 		all->texture.wall_x = all->player.posy + all->ray.perpwalldist
 							* all->player.raydiry;
@@ -92,16 +93,14 @@ void	ft_search_pix_in_img(t_all *all)
 		all->texture.wall_x = all->player.posx + all->ray.perpwalldist
 							* all->player.raydirx;
 	all->texture.wall_x -= floor(all->texture.wall_x);
-	if (all->texture.wall_x < 0)	//regler le segfault dans les coins;
+	if (all->texture.wall_x < 0)
 		all->texture.wall_x = 0;
-//	else if (all->texture.wall_x > all->map_width_max - 1)
-//		all->texture.wall_x = all->map_width_max - 1;
-	all->texture.tex_x = (int)(all->texture.wall_x * (double)TEXTURE_WIDTH);
+	all->texture.tex_x = (int)(all->texture.wall_x * (double)all->tex_width);
 	if (all->ray.side == 0 && all->player.raydirx > 0)
-		all->texture.tex_x = TEXTURE_WIDTH - all->texture.tex_x - 1;
+		all->texture.tex_x = all->tex_width - all->texture.tex_x - 1;
 	if (all->ray.side == 1 && all->player.raydiry > 0)
-		all->texture.tex_x = TEXTURE_WIDTH - all->texture.tex_x - 1;
-	all->ray.step = 1.0 * (double)TEXTURE_HEIGHT / (double)all->ray.lineheight;
+		all->texture.tex_x = all->tex_width - all->texture.tex_x - 1;
+	all->ray.step = 1.0 * (double)all->tex_height / (double)all->ray.lineheight;
 	all->texture.tex_pos = ((double)all->ray.drawstart - (double)all->ry / 2
 						+ (double)all->ray.lineheight / 2) * all->ray.step;
 }

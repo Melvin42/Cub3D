@@ -6,74 +6,11 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:15 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/22 20:19:21 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/23 09:47:12 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-int			check_fd(t_all *all, int fd)
-{
-	if (fd == -1)
-		return (check_error(all, PARS_ERROR));
-	if (read(fd, 0, 0))
-	{
-		close(fd);
-		return (check_error(all, FOLDER_ERROR));
-	}
-	return (0);
-}
-
-int			dispatcher(char *line, t_all *all)
-{
-	if (*line == 'R')
-		return (check_resolution_path(line, all));
-	else if (*line == 'N')
-		return (check_north_path(line, all));
-	else if (*line == 'S' && line[1] == 'O')
-		return (check_south_path(line, all));
-	else if (*line == 'W')
-		return (check_west_path(line, all));
-	else if (*line == 'E')
-		return (check_east_path(line, all));
-	else if (*line == 'S' && line[1] != 'O')
-		return (check_sprite_path(line, all));
-	else if (*line == 'F')
-		return (check_floor_color(line, all));
-	else if (*line == 'C')
-		return (check_ceiling_color(line, all));
-	else if ((*line == ' ' || *line == '1' || *line == '2'))
-		return (extract_map(line, all));
-	else
-		return (check_error(all, PARS_ERROR));
-}
-
-int			read_file(int fd, t_all *all)
-{
-	char	*line;
-
-	while (get_next_line(fd, &line) > 0)
-	{
-		if (ft_only_space(line) && all->flag_map == 0)
-		{
-			free(line);
-			line = NULL;
-			continue;
-		}
-		else if (ft_only_space(line) && all->flag_map == 1)
-		{
-			free(line);
-			return (check_error(all, EMPTY_LINE_ERROR));
-		}
-		if (*line != '\0')
-			if (dispatcher(line, all) < 0)
-				return (-1);
-		free(line);
-		line = NULL;
-	}
-	free(line);
-	return (0);
-}
 
 static int	set_map_width_max(t_all *all, char *line, int i)
 {
@@ -115,4 +52,81 @@ int			count_line(int fd, t_all *all)
 	}
 	free(line);
 	return (i);
+}
+
+int			dispatcher(char *line, t_all *all)
+{
+	if (*line == 'R')
+		return (check_resolution_path(line, all));
+	else if (*line == 'N')
+		return (check_north_path(line, all));
+	else if (*line == 'S' && line[1] == 'O')
+		return (check_south_path(line, all));
+	else if (*line == 'W')
+		return (check_west_path(line, all));
+	else if (*line == 'E')
+		return (check_east_path(line, all));
+	else if (*line == 'S' && line[1] != 'O')
+		return (check_sprite_path(line, all));
+	else if (*line == 'F')
+		return (check_floor_color(line, all));
+	else if (*line == 'C')
+		return (check_ceiling_color(line, all));
+	else if ((*line == ' ' || *line == '1' || *line == '2'))
+		return (extract_map(line, all));
+	else
+		return (check_error(all, PARS_ERROR));
+}
+
+static int	read_file(int fd, t_all *all)
+{
+	char	*line;
+
+	while (get_next_line(fd, &line) > 0)
+	{
+		if (ft_only_space(line) && all->flag_map == 0)
+		{
+			free(line);
+			line = NULL;
+			continue;
+		}
+		else if (ft_only_space(line) && all->flag_map == 1)
+		{
+			free(line);
+			return (check_error(all, EMPTY_LINE_ERROR));
+		}
+		if (*line != '\0')
+			if (dispatcher(line, all) < 0)
+				return (-1);
+		free(line);
+		line = NULL;
+	}
+	free(line);
+	return (0);
+}
+
+int			ft_pars_file(t_all *all, char **av)
+{
+	int	fd;
+
+	fd = open(av[1], O_RDONLY);
+	if (fd == -1)
+		return (check_error(all, fd));
+	all->map_malloc_size = count_line(fd, all);
+	close(fd);
+	fd = open(av[1], O_RDONLY);
+	if (read_file(fd, all) < 0)
+	{
+		close(fd);
+		return (-1);
+	}
+	close(fd);
+	if (!all->map)
+		return (check_error(all, FOLDER_ERROR));
+	if (check_map(all) < 0)
+		return (-1);
+	if (is_map_open(all) < 0)
+		return (-1);
+	replace_space_by_one(all);
+	return (0);
 }

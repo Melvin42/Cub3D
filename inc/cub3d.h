@@ -1,19 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
+/*   Updated: 2021/04/23 09:54:43 by melperri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
+
+/*
+********************************************************************************
+**================================> DEFINE <==================================**
+********************************************************************************
+*/
+
 # define CUB3D_H
-# define NO_PLAYER_ERROR -13
-# define EMPTY_LINE_ERROR -12
-# define PATH_ERROR -11
-# define SAVE_ERROR -10
-# define NAME_ERROR -9
-# define RES_ERROR -8
-# define MAP_ERROR -7
-# define FOLDER_ERROR -6
-# define MLX_ERROR -5
-# define PARS_ERROR -4
-# define MALLOC_ERROR -3
-# define ARG_ERROR -2
-# define FD_ERROR -1
-# define SUCCESS 0
 # define STR_MLX_ERROR "Error\nmlx error.\n"
 # define STR_PARS_ERROR "Error\nFile .cub isn't well formated.\n"
 # define STR_FOLDER_ERROR "Error\nBad path, or .cub is a folder or empty.\n"
@@ -27,20 +32,14 @@
 # define STR_PATH_ERROR "Error\nBad texture or sprite path.\n"
 # define STR_EMPTY_LINE_ERROR "Error\nEmpty line in the map.\n"
 # define STR_NO_PLAYER_ERROR "Error\nThere is no player.\n"
-# define RED_PIXEL 0xFF0000
-# define GREEN_PIXEL 0xFF00
-# define BLUE_PIXEL 0xFF
-# define CYAN_PIXEL 0xFFFF
-# define YELLOW_PIXEL 0xFFFF00
-# define GREY_PIXEL 0x808080
-# define WHITE_PIXEL 0xFFFFFF
-# define BLACK_PIXEL 0x0
-# define TEXTURE_WIDTH 256
-# define TEXTURE_HEIGHT 256
-# define SPRITE_WIDTH 1024
-# define SPRITE_HEIGHT 1024
 # define MOVESPEED 0.1
 # define ROTSPEED 0.1
+
+/*
+********************************************************************************
+**===============================> INCLUDE <==================================**
+********************************************************************************
+*/
 
 # include "../libft/libft.h"
 # include <mlx.h>
@@ -49,6 +48,30 @@
 # include <X11/X.h>
 # include <stdint.h>
 # include <math.h>
+
+/*
+********************************************************************************
+**================================> ENUM <====================================**
+********************************************************************************
+*/
+
+enum	e_error
+{
+	NO_PLAYER_ERROR = -13,
+	EMPTY_LINE_ERROR,
+	PATH_ERROR,
+	SAVE_ERROR,
+	NAME_ERROR,
+	RES_ERROR,
+	MAP_ERROR,
+	FOLDER_ERROR,
+	MLX_ERROR,
+	PARS_ERROR,
+	MALLOC_ERROR,
+	ARG_ERROR,
+	FD_ERROR,
+	SUCCESS,
+};
 
 /*
 ********************************************************************************
@@ -76,7 +99,6 @@ typedef struct	s_bmp_header
 
 }				t_bmp_header;
 
-
 typedef struct	s_img
 {
 	void		*mlx_img;
@@ -84,6 +106,8 @@ typedef struct	s_img
 	int			bpp;
 	int			line_len;
 	int			endian;
+	int			res_x;
+	int			res_y;
 }				t_img;
 
 typedef struct	s_rgb
@@ -178,6 +202,8 @@ typedef struct	s_all
 	int			floor_color;
 	int			flag_map;
 	int			index;
+	int			tex_width;
+	int			tex_height;
 	t_player	player;
 	t_ray		ray;
 	t_texture	texture;
@@ -199,33 +225,36 @@ typedef struct	s_all
 ********************************************************************************
 */
 
-int				ft_pars(t_all *all, char **av);
-int				check_error(t_all *all, int error);
-int				check_resolution_path(char *line, t_all *all);
-int				check_resolution_value(t_all *all);
-void			rectify_resolution_value(t_all *all);
+int				check_map_name(t_all *all, char *arg);
+int				check_xpm_path(t_all *all, char *path);
+
+int				count_line(int fd, t_all *all);
+int				dispatcher(char *line, t_all *all);
+int				ft_pars_file(t_all *all, char **av);
+
 int				check_north_path(char *line, t_all *all);
 int				check_south_path(char *line, t_all *all);
 int				check_west_path(char *line, t_all *all);
 int				check_east_path(char *line, t_all *all);
 int				check_sprite_path(char *line, t_all *all);
+
 int				check_floor_color(char *line, t_all *all);
 int				check_ceiling_color(char *line, t_all *all);
 int				check_rgb(t_all *all);
 int				check_color_value(t_all *all, int color);
+
+int				check_resolution_path(char *line, t_all *all);
+int				check_resolution_value(t_all *all);
+void			rectify_resolution_value(t_all *all);
+
 int				extract_map(char *line, t_all *all);
-int				is_map_open(t_all *all);
 int				check_map(t_all *all);
-int				check_fd(t_all *all, int fd);
-int				dispatcher(char *line, t_all *all);
-void			replace_space_by_one(t_all *all);
-int				ft_only_space(char *line);
-int				read_file(int fd, t_all *all);
-int				count_line(int fd, t_all *all);
 int				pos_sprites(t_all *all);
-void			ft_free_all(t_all *all);
-int				check_xpm_path(t_all *all, char *path);
-int				check_map_name(t_all *all, char *arg);
+
+int				is_map_open(t_all *all);
+
+int				ft_only_space(char *line);
+void			replace_space_by_one(t_all *all);
 
 /*
 ********************************************************************************
@@ -260,6 +289,7 @@ int				render(t_all *all);
 
 void			ft_set_raycast_vars(t_all *all);
 void			raycast(t_all *all);
+void			ft_chose_tex(t_all *all);
 
 /*
 ********************************************************************************
@@ -268,7 +298,9 @@ void			raycast(t_all *all);
 */
 
 void			sort_sprites(t_all *all);
+
 void			render_sprite(t_all *all);
+
 void			ft_calc_sprite_dist(t_all *all);
 void			ft_set_sprite_vars(t_all *all, int i);
 void			ft_calc_sprite_ray(t_all *all);
@@ -281,15 +313,28 @@ void			ft_search_pix_in_sprite(t_all *all);
 ********************************************************************************
 */
 
-int				handle_keypress(int keysym, t_all *all);
 int				ft_exit_cross(t_all *all);
+int				handle_keypress(int keysym, t_all *all);
+
 void			move_up(t_all *all);
 void			move_down(t_all *all);
 void			move_left(t_all *all);
 void			move_right(t_all *all);
+
 void			rotate_left(t_all *all);
 void			rotate_right(t_all *all);
 
 int				ft_save(t_all *all);
+
+/*
+********************************************************************************
+**==============================>   ERROR   <=================================**
+********************************************************************************
+*/
+
+int				check_fd(t_all *all, int fd);
+int				check_error(t_all *all, int error);
+
+void			ft_free_all(t_all *all);
 
 #endif

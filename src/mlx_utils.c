@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:57 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/22 19:29:58 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/23 09:16:24 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,8 @@ int			ft_new_mlx_img(t_all *all, t_img *img, int res_x, int res_y)
 
 int			ft_mlx_xpm_to_img(t_all *all, t_img *tex, char *path)
 {
-	int	res_x;
-	int	res_y;
-
-	tex->mlx_img = mlx_xpm_file_to_image(all->mlx_ptr, path, &res_x, &res_y);
+	tex->mlx_img = mlx_xpm_file_to_image(all->mlx_ptr, path,
+										&tex->res_x, &tex->res_y);
 	if (tex->mlx_img == NULL)
 		return (check_error(all, MLX_ERROR));
 	tex->addr = mlx_get_data_addr(tex->mlx_img, &tex->bpp,

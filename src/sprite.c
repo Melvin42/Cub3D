@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:31:04 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/22 20:39:52 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/23 09:01:49 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ void	ft_put_sprite_pix(t_all *all, int stripe)
 	while (y < all->drawendy)
 	{
 		d = y * 256 - all->ry * 128 + all->spriteheight * 128;
-		all->texture.tex_y = abs(((d * SPRITE_HEIGHT) / all->spriteheight)
-								/ 256);
-		all->texture.color = *((int *)all->sprite_img.addr + SPRITE_WIDTH
-								* all->texture.tex_y + all->texture.tex_x);
+		all->texture.tex_y = abs(((d * all->sprite_img.res_y)
+								/ all->spriteheight) / 256);
+		all->texture.color = *((int *)all->sprite_img.addr
+								+ all->sprite_img.res_x * all->texture.tex_y
+								+ all->texture.tex_x);
 		if ((all->texture.color & 0x00FFFFFF) != 0)
 			img_pix_put(&all->img, stripe, y, all->texture.color);
 		y++;
@@ -86,7 +87,8 @@ void	ft_search_pix_in_sprite(t_all *all)
 	{
 		all->texture.tex_x = abs((int)(256 * (stripe
 								- (-all->spritewidth / 2 + all->spritescreenx))
-								* SPRITE_WIDTH / all->spritewidth) / 256);
+								* all->sprite_img.res_x / all->spritewidth)
+								/ 256);
 		if (all->transformy > 0 && stripe > 0
 				&& stripe < all->rx && all->transformy < all->zbuffer[stripe])
 			ft_put_sprite_pix(all, stripe);

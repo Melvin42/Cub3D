@@ -6,13 +6,13 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:21 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/22 19:30:22 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/23 09:36:54 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-char		*ft_strcpy_cub_line(t_all *all, char *dst, char *src)
+static char	*ft_strcpy_cub_line(t_all *all, char *dst, char *src)
 {
 	int	i;
 
@@ -80,33 +80,6 @@ static void	set_player(t_all *all, int x, int y)
 	all->player.posy = y + 0.5;
 }
 
-int			pos_sprites(t_all *all)
-{
-	int	x;
-	int	y;
-	int	i;
-
-	if (!(all->sprite = malloc(sizeof(t_sprite) * (all->numsprites + 1))))
-		return (check_error(all, MALLOC_ERROR));
-	all->sprite[all->numsprites] = (t_sprite){0, 0, 0, 0};
-	y = -1;
-	i = 0;
-	while (all->map[++y])
-	{
-		x = -1;
-		while (all->map[y][++x])
-		{
-			if (all->map[y][x] == '2')
-			{
-				all->sprite[i].x = (double)x;
-				all->sprite[i].y = (double)y;
-				i++;
-			}
-		}
-	}
-	return (0);
-}
-
 int			check_map(t_all *all)
 {
 	int	i;
@@ -131,6 +104,33 @@ int			check_map(t_all *all)
 			}
 			else
 				return (check_error(all, PARS_ERROR));
+	}
+	return (0);
+}
+
+int			pos_sprites(t_all *all)
+{
+	int	x;
+	int	y;
+	int	i;
+
+	if (!(all->sprite = malloc(sizeof(t_sprite) * (all->numsprites + 1))))
+		return (check_error(all, MALLOC_ERROR));
+	all->sprite[all->numsprites] = (t_sprite){0, 0, 0, 0};
+	y = -1;
+	i = 0;
+	while (all->map[++y])
+	{
+		x = -1;
+		while (all->map[y][++x])
+		{
+			if (all->map[y][x] == '2')
+			{
+				all->sprite[i].x = (double)x;
+				all->sprite[i].y = (double)y;
+				i++;
+			}
+		}
 	}
 	return (0);
 }

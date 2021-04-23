@@ -40,7 +40,7 @@ SRC_FT = main check_error cub_utils move_player pars_file pars_path \
 		raycasting_utils rotate_player sprite color game_control \
 		mlx_utils pars_map raycasting render_texture save \
 		check_resolution check_map_open check_ceiling_color check_floor_color \
-		check_file_format
+		check_file_format free
 
 ## List of Utilities
 

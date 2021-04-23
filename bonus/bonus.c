@@ -1,5 +1,8 @@
 #include "../cub3d.h"
 
+system("aplay -c 2 -t wav -r 48000 ./bonus/trap.wav &"); // dans le main avant render
+system("pkill -p aplay");// dans ft_escape et exit_cross
+
 int	menu(t_all *all)
 {
 	if (all->win_ptr == NULL)

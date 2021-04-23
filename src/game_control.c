@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:45 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/22 20:01:57 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/23 09:14:46 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int			ft_exit_cross(t_all *all)
 
 static void	ft_escape(t_all *all)
 {
-//	system("pkill -9 aplay");
 	ft_free_all(all);
 	exit(SUCCESS);
 }
