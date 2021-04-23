@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 09:54:43 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/23 14:19:04 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 ********************************************************************************
 */
 
-# include "../libft/libft.h"
+# include "../libft/inc/libft.h"
 # include <mlx.h>
 # include <X11/keysym.h>
 # include <X11/keysymdef.h>

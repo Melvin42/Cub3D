@@ -12,11 +12,14 @@ COLOR = \0033[1;35m
 
 INC_DIR = inc
 OBJ_DIR = obj
-SRC_DIR = src
+SRC_DIR	= src
 
 # Add dirs here
 
-TEMPLATE_DIR = template_dir
+GAME_DIR		= game
+PARSING_DIR		= parsing
+RAYCASTING_DIR	= raycasting
+UTILS_DIR		= utils
 
 ## Compilating Utilities
 
@@ -34,23 +37,34 @@ LIB_NAME = libft/libft.a
 
 LIB_DIR = libft
 
-#TEMPLATE_FT = template_file
+GAME_FT			= game_control move_player rotate_player save
 
-SRC_FT = main check_error cub_utils move_player pars_file pars_path \
-		raycasting_utils rotate_player sprite color game_control \
-		mlx_utils pars_map raycasting render_texture save \
-		check_resolution check_map_open check_ceiling_color check_floor_color \
-		check_file_format free
+PARSING_FT		= check_ceiling_color check_floor_color check_resolution \
+				  pars_map check_file_format check_map_open pars_file \
+				  pars_path
+
+RAYCASTING_FT	= raycasting render_texture sprite
+
+UTILS_FT		= check_error color_utils cub_utils free mlx_utils \
+				  raycasting_utils
+
+SRC_FT 			= main
 
 ## List of Utilities
 
-SRC = $(SRC_FT:%=$(SRC_DIR)/%.c) 
-	#$(TEMPLATE_FT:%=$(SRC_DIR)/$(TEMPLATE_DIR)/%.c)
+SRC = $(SRC_FT:%=$(SRC_DIR)/%.c) \
+	$(GAME_FT:%=$(SRC_DIR)/$(GAME_DIR)/%.c) \
+	$(PARSING_FT:%=$(SRC_DIR)/$(PARSING_DIR)/%.c) \
+	$(RAYCASTING_FT:%=$(SRC_DIR)/$(RAYCASTING_DIR)/%.c) \
+	$(UTILS_FT:%=$(SRC_DIR)/$(UTILS_DIR)/%.c)
 
 OBJ = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
-OBJ_DIRS = $(OBJ_DIR) 
-	#$(TEMPLATE_DIR:%=$(OBJ_DIR)/%)
+OBJ_DIRS = $(OBJ_DIR) \
+	$(GAME_DIR:%=$(OBJ_DIR)/%) \
+	$(PARSING_DIR:%=$(OBJ_DIR)/%) \
+	$(RAYCASTING_DIR:%=$(OBJ_DIR)/%) \
+	$(UTILS_DIR:%=$(OBJ_DIR)/%)
 
 ## Rules of Makefile
 
@@ -60,7 +74,7 @@ all: $(NAME)
 $(OBJ_DIRS):
 	@mkdir -p $@
 	@echo "$(COLOR)$@ \033[100D\033[40C\0033[1;32m[Created]\0033[1;37m"
-	@#@echo "$(COLOR)Creating :\t\0033[0;32m$@\0033[1;37m"
+	@echo "$(COLOR)Creating :\t\0033[0;32m$@\0033[1;37m"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC)
 	@$(CC) -c $< -o $@
@@ -115,42 +129,41 @@ coffee: all clean
 	$(call print_aligned_coffee)
 
 play: coffee
-	./$(NAME) $(MAP)
-	#@echo ""         
-	#@echo ""         
-	#@echo "                                \0033[0;41m    \0033[0m"         
-	#@echo "                           \0033[0;41m           \0033[0m"         
-	#@echo "              \0033[0;41m  \0033[0m        \0033[0;41m                  \0033[0m"         
-	#@echo "               \0033[0;41m     \0033[0m \0033[0;41m                        \0033[0m"         
-	#@echo "               \0033[0;41m                                 \0033[0m  \0033[0;41m    \0033[0m"         
-	#@echo "              \0033[0;41m                                        \0033[0m"         
-	#@echo "            \0033[0;41m               \0033[0m            \0033[0;41m              \0033[0m"         
-	#@echo "          \0033[0;41m             \0033[0m      \0033[1;37mWORLD OF\0033[1;34m   \0033[0;41m            \0033[0m"         
-	#@echo "       \0033[0;41m              \0033[0m        \0033[1;37mWARCUB3D\0033[1;34m    \0033[0;41m             \0033[0m"         
-	#@echo "     \0033[0;41m              \0033[0m             \0033[0;41m \0033[0m            \0033[0;41m             \0033[0m"         
-	#@echo "       \0033[0;41m            \0033[0m           \0033[0;41m      \0033[0m          \0033[0;41m             \0033[0m"         
-	#@echo "          \0033[0;41m        \0033[0m          \0033[0;41m          \0033[0m        \0033[0;41m        \0033[0m"         
-	#@echo "            \0033[0;41m      \0033[0m        \0033[0;41m              \0033[0m      \0033[0;41m      \0033[0m"         
-	#@echo "   \0033[0;41m  \0033[0m        \0033[0;41m      \0033[0m       \0033[0;41m             \0033[0m      \0033[0;41m       \0033[0m         \0033[0;41m \0033[0m"         
-	#@echo "    \0033[0;41m      \0033[0m \0033[0;41m \0033[0m \0033[0;41m       \0033[0m        \0033[0;41m         \0033[0m        \0033[0;41m        \0033[0m    \0033[0;41m     \0033[0m"         
-	#@echo "     \0033[0;41m                 \0033[0m         \0033[0;41m    \0033[0m         \0033[0;41m                 \0033[0m"         
-	#@echo "       \0033[0;41m                \0033[0m                    \0033[0;41m                 \0033[0m"         
-	#@echo "        \0033[0;41m     \0033[0m   \0033[0;41m        \0033[0m                  \0033[0;41m                \0033[0m"         
-	#@echo "                    \0033[0;41m      \0033[0m              \0033[0;41m    \0033[0m          \0033[0;41m  \0033[0m"         
-	#@echo "                      \0033[0;41m     \0033[0m            \0033[0;41m    \0033[0m"         
-	#@echo "                        \0033[0;41m    \0033[0m         \0033[0;41m    \0033[0m"         
-	#@echo "                         \0033[0;41m    \0033[0m       \0033[0;41m     \0033[0m"         
-	#@echo "                         \0033[0;41m    \0033[0m      \0033[0;41m           \0033[0m"         
-	#@echo "                        \0033[0;41m      \0033[0m      \0033[0;41m         \0033[0m"         
-	#@echo "                    \0033[0;41m          \0033[0m      \0033[0;41m       \0033[0m"         
-	#@echo "                     \0033[0;41m         \0033[0m       \0033[0;41m     \0033[0m"         
-	#@echo "                       \0033[0;41m       \0033[0m       \0033[0;41m   \0033[0m"         
-	#@echo "                        \0033[0;41m      \0033[0m       \0033[0;41m  \0033[0m"         
-	#@echo "                          \0033[0;41m    \0033[0m"         
-	#@echo "                           \0033[0;41m  \0033[0m"         
-	#@echo "                            \0033[0;41m \0033[0m"         
-	#@echo ""
-	#@echo ""
-	#./$(NAME) $(MAP)
+	@echo ""         
+	@echo ""         
+	@echo "                                \0033[0;41m    \0033[0m"         
+	@echo "                           \0033[0;41m           \0033[0m"         
+	@echo "              \0033[0;41m  \0033[0m        \0033[0;41m                  \0033[0m"         
+	@echo "               \0033[0;41m     \0033[0m \0033[0;41m                        \0033[0m"         
+	@echo "               \0033[0;41m                                 \0033[0m  \0033[0;41m    \0033[0m"         
+	@echo "              \0033[0;41m                                        \0033[0m"         
+	@echo "            \0033[0;41m               \0033[0m            \0033[0;41m              \0033[0m"         
+	@echo "          \0033[0;41m             \0033[0m      \0033[1;37mWORLD OF\0033[1;34m   \0033[0;41m            \0033[0m"         
+	@echo "       \0033[0;41m              \0033[0m        \0033[1;37mWARCUB3D\0033[1;34m    \0033[0;41m             \0033[0m"         
+	@echo "     \0033[0;41m              \0033[0m             \0033[0;41m \0033[0m            \0033[0;41m             \0033[0m"         
+	@echo "       \0033[0;41m            \0033[0m           \0033[0;41m      \0033[0m          \0033[0;41m             \0033[0m"         
+	@echo "          \0033[0;41m        \0033[0m          \0033[0;41m          \0033[0m        \0033[0;41m        \0033[0m"         
+	@echo "            \0033[0;41m      \0033[0m        \0033[0;41m              \0033[0m      \0033[0;41m      \0033[0m"         
+	@echo "   \0033[0;41m  \0033[0m        \0033[0;41m      \0033[0m       \0033[0;41m             \0033[0m      \0033[0;41m       \0033[0m         \0033[0;41m \0033[0m"         
+	@echo "    \0033[0;41m      \0033[0m \0033[0;41m \0033[0m \0033[0;41m       \0033[0m        \0033[0;41m         \0033[0m        \0033[0;41m        \0033[0m    \0033[0;41m     \0033[0m"         
+	@echo "     \0033[0;41m                 \0033[0m         \0033[0;41m    \0033[0m         \0033[0;41m                 \0033[0m"         
+	@echo "       \0033[0;41m                \0033[0m                    \0033[0;41m                 \0033[0m"         
+	@echo "        \0033[0;41m     \0033[0m   \0033[0;41m        \0033[0m                  \0033[0;41m                \0033[0m"         
+	@echo "                    \0033[0;41m      \0033[0m              \0033[0;41m    \0033[0m          \0033[0;41m  \0033[0m"         
+	@echo "                      \0033[0;41m     \0033[0m            \0033[0;41m    \0033[0m"         
+	@echo "                        \0033[0;41m    \0033[0m         \0033[0;41m    \0033[0m"         
+	@echo "                         \0033[0;41m    \0033[0m       \0033[0;41m     \0033[0m"         
+	@echo "                         \0033[0;41m    \0033[0m      \0033[0;41m           \0033[0m"         
+	@echo "                        \0033[0;41m      \0033[0m      \0033[0;41m         \0033[0m"         
+	@echo "                    \0033[0;41m          \0033[0m      \0033[0;41m       \0033[0m"         
+	@echo "                     \0033[0;41m         \0033[0m       \0033[0;41m     \0033[0m"         
+	@echo "                       \0033[0;41m       \0033[0m       \0033[0;41m   \0033[0m"         
+	@echo "                        \0033[0;41m      \0033[0m       \0033[0;41m  \0033[0m"         
+	@echo "                          \0033[0;41m    \0033[0m"         
+	@echo "                           \0033[0;41m  \0033[0m"         
+	@echo "                            \0033[0;41m \0033[0m"         
+	@echo ""
+	@echo ""
+	@./$(NAME) $(MAP)
 
 .PHONY: all clean fclean re coffee play
