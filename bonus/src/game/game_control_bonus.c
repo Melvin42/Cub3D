@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_control.c                                     :+:      :+:    :+:   */
+/*   game_control_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:45 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 17:03:11 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/23 17:04:38 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "../../inc/cub3d_bonus.h"
 
 int			ft_exit_cross(t_all *all)
 {
 	ft_free_all(all);
+	system("pkill -p aplay");
 	exit(SUCCESS);
 	return (0);
 }
@@ -22,6 +23,7 @@ int			ft_exit_cross(t_all *all)
 static void	ft_escape(t_all *all)
 {
 	ft_free_all(all);
+	system("pkill -p aplay");
 	exit(SUCCESS);
 }
 

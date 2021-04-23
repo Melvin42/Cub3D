@@ -2,7 +2,7 @@
 
 NAME = cub3D
 
-MAP = maps/map.cub
+MAP = skull.cub
 
 ## Color for compilating (pink)
 
@@ -39,18 +39,18 @@ LIBX_DIR = minilibx
 
 INSTALL_LIBX = $(shell cd minilibx && sh configure && cd ..)
 
-GAME_FT			= game_control move_player rotate_player save
+GAME_FT			= game_control_bonus move_player_bonus rotate_player_bonus save_bonus
 
-PARSING_FT		= check_ceiling_color check_floor_color check_resolution \
-				  pars_map check_file_format check_map_open pars_file \
-				  pars_path
+PARSING_FT		= check_ceiling_color_bonus check_floor_color_bonus check_resolution_bonus \
+				  pars_map_bonus check_file_format_bonus check_map_open_bonus pars_file_bonus \
+				  pars_path_bonus
 
-RAYCASTING_FT	= raycasting render_texture sprite
+RAYCASTING_FT	= raycasting_bonus render_texture_bonus sprite_bonus
 
-UTILS_FT		= check_error color_utils cub_utils free mlx_utils \
-				  raycasting_utils
+UTILS_FT		= check_error_bonus color_utils_bonus cub_utils_bonus free_bonus mlx_utils_bonus \
+				  raycasting_utils_bonus
 
-SRC_FT 			= main
+SRC_FT 			= main_bonus bonus
 
 ## List of Utilities
 
