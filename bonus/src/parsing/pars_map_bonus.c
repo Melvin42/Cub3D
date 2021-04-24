@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_map.c                                         :+:      :+:    :+:   */
+/*   pars_map_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:21 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 09:36:54 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/24 14:13:42 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int			check_map(t_all *all)
 			if (all->map[i][j] == '0' || all->map[i][j] == '1'
 				|| all->map[i][j] == ' ')
 				;
-			else if (all->map[i][j] == '2')
+			else if (all->map[i][j] >= '2' && all->map[i][j] <= '9')
 				all->numsprites++;
 			else if (all->map[i][j] == 'N' || all->map[i][j] == 'S'
 				|| all->map[i][j] == 'E' || all->map[i][j] == 'W')
@@ -116,7 +116,7 @@ int			pos_sprites(t_all *all)
 
 	if (!(all->sprite = malloc(sizeof(t_sprite) * (all->numsprites + 1))))
 		return (check_error(all, MALLOC_ERROR));
-	all->sprite[all->numsprites] = (t_sprite){0, 0, 0, 0};
+	all->sprite[all->numsprites] = (t_sprite){0, 0, 0, 0, 0};
 	y = -1;
 	i = 0;
 	while (all->map[++y])
@@ -124,10 +124,11 @@ int			pos_sprites(t_all *all)
 		x = -1;
 		while (all->map[y][++x])
 		{
-			if (all->map[y][x] == '2')
+			if (all->map[y][x] >= '2' && all->map[y][x] <= '9')
 			{
 				all->sprite[i].x = (double)x;
 				all->sprite[i].y = (double)y;
+				all->sprite[i].num = (all->map[y][x]) - 48;
 				i++;
 			}
 		}

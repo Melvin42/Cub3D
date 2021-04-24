@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 17:07:16 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/24 14:34:20 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define MOVESPEED 0.1
 # define ROTSPEED 0.1
 # define WHITE_PIXEL 0XFFFFF
-# define RED_PIXEL 0XFF
+# define RED_PIXEL 0XFF0000
 
 /*
 ********************************************************************************
@@ -166,6 +166,7 @@ typedef struct	s_sprite
 {
 	double		x;
 	double		y;
+	int			num;
 	double		dist;
 	int			texture;
 }				t_sprite;
@@ -180,7 +181,14 @@ typedef struct	s_all
 	char		*south;
 	char		*west;
 	char		*east;
-	char		*path_sprite;
+	char		*path_sprite_two;
+	char		*path_sprite_three;
+	char		*path_sprite_four;
+	char		*path_sprite_five;
+	char		*path_sprite_six;
+	char		*path_sprite_seven;
+	char		*path_sprite_eight;
+	char		*path_sprite_nine;
 	int			numsprites;
 	char		**map;
 	int			map_malloc_size;
@@ -216,7 +224,14 @@ typedef struct	s_all
 	t_img		tex_s;
 	t_img		tex_e;
 	t_img		tex_w;
-	t_img		sprite_img;
+	t_img		sprite_two_img;
+	t_img		sprite_three_img;
+	t_img		sprite_four_img;
+	t_img		sprite_five_img;
+	t_img		sprite_six_img;
+	t_img		sprite_seven_img;
+	t_img		sprite_eight_img;
+	t_img		sprite_nine_img;
 	t_rgb		floor;
 	t_rgb		ceiling;
 }				t_all;
@@ -238,7 +253,14 @@ int				check_north_path(char *line, t_all *all);
 int				check_south_path(char *line, t_all *all);
 int				check_west_path(char *line, t_all *all);
 int				check_east_path(char *line, t_all *all);
-int				check_sprite_path(char *line, t_all *all);
+int				check_sprite_two_path(char *line, t_all *all);
+int				check_sprite_three_path(char *line, t_all *all);
+int				check_sprite_four_path(char *line, t_all *all);
+int				check_sprite_five_path(char *line, t_all *all);
+int				check_sprite_six_path(char *line, t_all *all);
+int				check_sprite_seven_path(char *line, t_all *all);
+int				check_sprite_eight_path(char *line, t_all *all);
+int				check_sprite_nine_path(char *line, t_all *all);
 
 int				check_floor_color(char *line, t_all *all);
 int				check_ceiling_color(char *line, t_all *all);
@@ -306,8 +328,8 @@ void			render_sprite(t_all *all);
 void			ft_calc_sprite_dist(t_all *all);
 void			ft_set_sprite_vars(t_all *all, int i);
 void			ft_calc_sprite_ray(t_all *all);
-void			ft_put_sprite_pix(t_all *all, int stripe);
-void			ft_search_pix_in_sprite(t_all *all);
+void			ft_put_sprite_pix(t_all *all, t_img sprite, int stripe);
+void			ft_search_pix_in_sprite(t_all *all, t_img sprite);
 
 /*
 ********************************************************************************

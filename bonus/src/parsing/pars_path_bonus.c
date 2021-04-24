@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_path.c                                        :+:      :+:    :+:   */
+/*   pars_path_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:27 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/22 20:23:08 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/24 12:22:50 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,26 +117,224 @@ int	check_east_path(char *line, t_all *all)
 	return (0);
 }
 
-int	check_sprite_path(char *line, t_all *all)
+int	check_sprite_two_path(char *line, t_all *all)
 {
 	int		fd;
 	char	*to_free;
 
 	line++;
-	if (*line != ' ' || all->path_sprite)
+	if (*line != '2' || all->path_sprite_two)
+		return (check_error(all, PARS_ERROR));
+	line++;
+	if (*line != ' ')
 		return (check_error(all, PARS_ERROR));
 	while (*line == ' ')
 		line++;
-	all->path_sprite = ft_strdup((const char *)line);
-	if (all->path_sprite == NULL)
+	all->path_sprite_two = ft_strdup((const char *)line);
+	if (all->path_sprite_two == NULL)
 		return (check_error(all, PARS_ERROR));
-	to_free = all->path_sprite;
-	all->path_sprite = ft_strtrim((const char *)all->path_sprite, " ");
+	to_free = all->path_sprite_two;
+	all->path_sprite_two = ft_strtrim((const char *)all->path_sprite_two, " ");
 	free(to_free);
 	to_free = NULL;
-	if (check_xpm_path(all, all->path_sprite) < 0)
+	if (check_xpm_path(all, all->path_sprite_two) < 0)
 		return (-1);
-	fd = open(all->path_sprite, O_RDONLY);
+	fd = open(all->path_sprite_two, O_RDONLY);
+	if (check_fd(all, fd) < 0)
+		return (-1);
+	return (0);
+}
+int	check_sprite_three_path(char *line, t_all *all)
+{
+	int		fd;
+	char	*to_free;
+
+	line++;
+	if (*line != '3' || all->path_sprite_three)
+		return (check_error(all, PARS_ERROR));
+	line++;
+	if (*line != ' ')
+		return (check_error(all, PARS_ERROR));
+	while (*line == ' ')
+		line++;
+	all->path_sprite_three = ft_strdup((const char *)line);
+	if (all->path_sprite_three == NULL)
+		return (check_error(all, PARS_ERROR));
+	to_free = all->path_sprite_three;
+	all->path_sprite_three = ft_strtrim((const char *)all->path_sprite_three, " ");
+	free(to_free);
+	to_free = NULL;
+	if (check_xpm_path(all, all->path_sprite_three) < 0)
+		return (-1);
+	fd = open(all->path_sprite_three, O_RDONLY);
+	if (check_fd(all, fd) < 0)
+		return (-1);
+	return (0);
+}
+
+int	check_sprite_four_path(char *line, t_all *all)
+{
+	int		fd;
+	char	*to_free;
+
+	line++;
+	if (*line != '4' || all->path_sprite_four)
+		return (check_error(all, PARS_ERROR));
+	line++;
+	if (*line != ' ')
+		return (check_error(all, PARS_ERROR));
+	while (*line == ' ')
+		line++;
+	all->path_sprite_four = ft_strdup((const char *)line);
+	if (all->path_sprite_four == NULL)
+		return (check_error(all, PARS_ERROR));
+	to_free = all->path_sprite_four;
+	all->path_sprite_four = ft_strtrim((const char *)all->path_sprite_four, " ");
+	free(to_free);
+	to_free = NULL;
+	if (check_xpm_path(all, all->path_sprite_four) < 0)
+		return (-1);
+	fd = open(all->path_sprite_four, O_RDONLY);
+	if (check_fd(all, fd) < 0)
+		return (-1);
+	return (0);
+}
+
+int	check_sprite_five_path(char *line, t_all *all)
+{
+	int		fd;
+	char	*to_free;
+
+	line++;
+	if (*line != '5' || all->path_sprite_five)
+		return (check_error(all, PARS_ERROR));
+	line++;
+	if (*line != ' ')
+		return (check_error(all, PARS_ERROR));
+	while (*line == ' ')
+		line++;
+	all->path_sprite_five = ft_strdup((const char *)line);
+	if (all->path_sprite_five == NULL)
+		return (check_error(all, PARS_ERROR));
+	to_free = all->path_sprite_five;
+	all->path_sprite_five = ft_strtrim((const char *)all->path_sprite_five, " ");
+	free(to_free);
+	to_free = NULL;
+	if (check_xpm_path(all, all->path_sprite_five) < 0)
+		return (-1);
+	fd = open(all->path_sprite_five, O_RDONLY);
+	if (check_fd(all, fd) < 0)
+		return (-1);
+	return (0);
+}
+
+int	check_sprite_six_path(char *line, t_all *all)
+{
+	int		fd;
+	char	*to_free;
+
+	line++;
+	if (*line != '6' || all->path_sprite_six)
+		return (check_error(all, PARS_ERROR));
+	line++;
+	if (*line != ' ')
+		return (check_error(all, PARS_ERROR));
+	while (*line == ' ')
+		line++;
+	all->path_sprite_six = ft_strdup((const char *)line);
+	if (all->path_sprite_six == NULL)
+		return (check_error(all, PARS_ERROR));
+	to_free = all->path_sprite_six;
+	all->path_sprite_six = ft_strtrim((const char *)all->path_sprite_six, " ");
+	free(to_free);
+	to_free = NULL;
+	if (check_xpm_path(all, all->path_sprite_six) < 0)
+		return (-1);
+	fd = open(all->path_sprite_six, O_RDONLY);
+	if (check_fd(all, fd) < 0)
+		return (-1);
+	return (0);
+}
+
+int	check_sprite_seven_path(char *line, t_all *all)
+{
+	int		fd;
+	char	*to_free;
+
+	line++;
+	if (*line != '7' || all->path_sprite_seven)
+		return (check_error(all, PARS_ERROR));
+	line++;
+	if (*line != ' ')
+		return (check_error(all, PARS_ERROR));
+	while (*line == ' ')
+		line++;
+	all->path_sprite_seven = ft_strdup((const char *)line);
+	if (all->path_sprite_seven == NULL)
+		return (check_error(all, PARS_ERROR));
+	to_free = all->path_sprite_seven;
+	all->path_sprite_seven = ft_strtrim((const char *)all->path_sprite_seven, " ");
+	free(to_free);
+	to_free = NULL;
+	if (check_xpm_path(all, all->path_sprite_seven) < 0)
+		return (-1);
+	fd = open(all->path_sprite_seven, O_RDONLY);
+	if (check_fd(all, fd) < 0)
+		return (-1);
+	return (0);
+}
+
+int	check_sprite_eight_path(char *line, t_all *all)
+{
+	int		fd;
+	char	*to_free;
+
+	line++;
+	if (*line != '8' || all->path_sprite_eight)
+		return (check_error(all, PARS_ERROR));
+	line++;
+	if (*line != ' ')
+		return (check_error(all, PARS_ERROR));
+	while (*line == ' ')
+		line++;
+	all->path_sprite_eight = ft_strdup((const char *)line);
+	if (all->path_sprite_eight == NULL)
+		return (check_error(all, PARS_ERROR));
+	to_free = all->path_sprite_eight;
+	all->path_sprite_eight = ft_strtrim((const char *)all->path_sprite_eight, " ");
+	free(to_free);
+	to_free = NULL;
+	if (check_xpm_path(all, all->path_sprite_eight) < 0)
+		return (-1);
+	fd = open(all->path_sprite_eight, O_RDONLY);
+	if (check_fd(all, fd) < 0)
+		return (-1);
+	return (0);
+}
+
+int	check_sprite_nine_path(char *line, t_all *all)
+{
+	int		fd;
+	char	*to_free;
+
+	line++;
+	if (*line != '9' || all->path_sprite_nine)
+		return (check_error(all, PARS_ERROR));
+	line++;
+	if (*line != ' ')
+		return (check_error(all, PARS_ERROR));
+	while (*line == ' ')
+		line++;
+	all->path_sprite_nine = ft_strdup((const char *)line);
+	if (all->path_sprite_nine == NULL)
+		return (check_error(all, PARS_ERROR));
+	to_free = all->path_sprite_nine;
+	all->path_sprite_nine = ft_strtrim((const char *)all->path_sprite_nine, " ");
+	free(to_free);
+	to_free = NULL;
+	if (check_xpm_path(all, all->path_sprite_nine) < 0)
+		return (-1);
+	fd = open(all->path_sprite_nine, O_RDONLY);
 	if (check_fd(all, fd) < 0)
 		return (-1);
 	return (0);

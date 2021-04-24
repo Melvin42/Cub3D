@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pars_file.c                                        :+:      :+:    :+:   */
+/*   pars_file_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:15 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 09:47:12 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/24 12:31:19 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	set_map_width_max(t_all *all, char *line, int i)
 	j = -1;
 	map_line = 0;
 	tmp = ft_strlen(line);
-	while (line[++j] == ' ' || line[j] == '1' || line[j] == '2')
+	while (line[++j] == ' ' || (line[j] >= '1' && line[j] <= '9'))
 		map_line = 1;
 	if (map_line == 1)
 	{
@@ -66,16 +66,31 @@ int			dispatcher(char *line, t_all *all)
 		return (check_west_path(line, all));
 	else if (*line == 'E')
 		return (check_east_path(line, all));
-	else if (*line == 'S' && line[1] != 'O')
-		return (check_sprite_path(line, all));
+	else if (*line == 'S' && line[1] == '2')
+		return (check_sprite_two_path(line, all));
+	else if (*line == 'S' && line[1] == '3')
+		return (check_sprite_three_path(line, all));
+	else if (*line == 'S' && line[1] == '4')
+		return (check_sprite_four_path(line, all));
+	else if (*line == 'S' && line[1] == '5')
+		return (check_sprite_five_path(line, all));
+	else if (*line == 'S' && line[1] == '6')
+		return (check_sprite_six_path(line, all));
+	else if (*line == 'S' && line[1] == '7')
+		return (check_sprite_seven_path(line, all));
+	else if (*line == 'S' && line[1] == '8')
+		return (check_sprite_eight_path(line, all));
+	else if (*line == 'S' && line[1] == '9')
+		return (check_sprite_nine_path(line, all));
 	else if (*line == 'F')
 		return (check_floor_color(line, all));
 	else if (*line == 'C')
 		return (check_ceiling_color(line, all));
-	else if ((*line == ' ' || *line == '1' || *line == '2'))
+	else if ((*line == ' ') || (*line >= '0' && *line <= '9'))
 		return (extract_map(line, all));
 	else
 		return (check_error(all, PARS_ERROR));
+	return 0;
 }
 
 static int	read_file(int fd, t_all *all)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_utils.c                                        :+:      :+:    :+:   */
+/*   mlx_utils_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:57 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 09:16:24 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/24 14:05:02 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,21 @@ int			ft_load_all_img(t_all *all)
 		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->tex_w, all->west) < 0)
 		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_img, all->path_sprite) < 0)
+	if (ft_mlx_xpm_to_img(all, &all->sprite_two_img, all->path_sprite_two) < 0)
+		return (check_error(all, MLX_ERROR));
+	if (ft_mlx_xpm_to_img(all, &all->sprite_three_img, all->path_sprite_three) < 0)
+		return (check_error(all, MLX_ERROR));
+	if (ft_mlx_xpm_to_img(all, &all->sprite_four_img, all->path_sprite_four) < 0)
+		return (check_error(all, MLX_ERROR));
+	if (ft_mlx_xpm_to_img(all, &all->sprite_five_img, all->path_sprite_five) < 0)
+		return (check_error(all, MLX_ERROR));
+	if (ft_mlx_xpm_to_img(all, &all->sprite_six_img, all->path_sprite_six) < 0)
+		return (check_error(all, MLX_ERROR));
+	if (ft_mlx_xpm_to_img(all, &all->sprite_seven_img, all->path_sprite_seven) < 0)
+		return (check_error(all, MLX_ERROR));
+	if (ft_mlx_xpm_to_img(all, &all->sprite_eight_img, all->path_sprite_eight) < 0)
+		return (check_error(all, MLX_ERROR));
+	if (ft_mlx_xpm_to_img(all, &all->sprite_nine_img, all->path_sprite_nine) < 0)
 		return (check_error(all, MLX_ERROR));
 	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   free_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 09:29:15 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 09:29:54 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/24 10:50:51 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,22 @@ static void	ft_free_all_part_two(t_all *all)
 				mlx_destroy_image(all->mlx_ptr, all->tex_e.mlx_img);
 			if (all->tex_w.mlx_img)
 				mlx_destroy_image(all->mlx_ptr, all->tex_w.mlx_img);
-			if (all->sprite_img.mlx_img)
-				mlx_destroy_image(all->mlx_ptr, all->sprite_img.mlx_img);
+			if (all->sprite_two_img.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_two_img.mlx_img);
+			if (all->sprite_three_img.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_three_img.mlx_img);
+			if (all->sprite_four_img.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_four_img.mlx_img);
+			if (all->sprite_five_img.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_five_img.mlx_img);
+			if (all->sprite_six_img.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_six_img.mlx_img);
+			if (all->sprite_seven_img.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_seven_img.mlx_img);
+			if (all->sprite_eight_img.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_eight_img.mlx_img);
+			if (all->sprite_nine_img.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_nine_img.mlx_img);
 			if (all->img.mlx_img)
 				mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
 			mlx_destroy_window(all->mlx_ptr, all->win_ptr);
@@ -49,8 +63,22 @@ void		ft_free_all(t_all *all)
 		free(all->west);
 	if (all->east)
 		free(all->east);
-	if (all->path_sprite)
-		free(all->path_sprite);
+	if (all->path_sprite_two)
+		free(all->path_sprite_two);
+	if (all->path_sprite_three)
+		free(all->path_sprite_three);
+	if (all->path_sprite_four)
+		free(all->path_sprite_four);
+	if (all->path_sprite_five)
+		free(all->path_sprite_five);
+	if (all->path_sprite_six)
+		free(all->path_sprite_six);
+	if (all->path_sprite_seven)
+		free(all->path_sprite_seven);
+	if (all->path_sprite_eight)
+		free(all->path_sprite_eight);
+	if (all->path_sprite_nine)
+		free(all->path_sprite_nine);
 	if (all->zbuffer)
 		free(all->zbuffer);
 	if (all->map)

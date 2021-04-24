@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 16:57:02 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/24 15:14:38 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,40 @@ void	render_sprite(t_all *all)
 	i = -1;
 	while (++i < all->numsprites)
 	{
-		ft_set_sprite_vars(all, i);
 		ft_calc_sprite_ray(all);
-		ft_search_pix_in_sprite(all);
+		ft_set_sprite_vars(all, i);
+		if (all->sprite[i].num == 2)
+		{
+			ft_search_pix_in_sprite(all, all->sprite_two_img);
+		}
+		else if (all->sprite[i].num == 3)
+		{
+			ft_search_pix_in_sprite(all, all->sprite_three_img);
+		}
+		else if (all->sprite[i].num == 4)
+		{
+			ft_search_pix_in_sprite(all, all->sprite_four_img);
+		}
+		else if (all->sprite[i].num == 5)
+		{
+			ft_search_pix_in_sprite(all, all->sprite_five_img);
+		}
+		else if (all->sprite[i].num == 6)
+		{
+			ft_search_pix_in_sprite(all, all->sprite_six_img);
+		}
+		else if (all->sprite[i].num == 7)
+		{
+			ft_search_pix_in_sprite(all, all->sprite_seven_img);
+		}
+		else if (all->sprite[i].num == 8)
+		{
+			ft_search_pix_in_sprite(all, all->sprite_eight_img);
+		}
+		else if (all->sprite[i].num == 9)
+		{
+			ft_search_pix_in_sprite(all, all->sprite_nine_img);
+		}
 	}
 }
 
