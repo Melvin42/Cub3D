@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 09:29:15 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/24 10:50:51 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/27 17:54:01 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,26 @@ static void	ft_free_all_part_two(t_all *all)
 				mlx_destroy_image(all->mlx_ptr, all->sprite_seven_img.mlx_img);
 			if (all->sprite_eight_img.mlx_img)
 				mlx_destroy_image(all->mlx_ptr, all->sprite_eight_img.mlx_img);
-			if (all->sprite_nine_img.mlx_img)
-				mlx_destroy_image(all->mlx_ptr, all->sprite_nine_img.mlx_img);
+			if (all->sprite_dragon_one.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_dragon_one.mlx_img);
+			if (all->sprite_dragon_two.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_dragon_two.mlx_img);
+			if (all->sprite_dragon_three.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_dragon_three.mlx_img);
+			if (all->sprite_dragon_four.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_dragon_four.mlx_img);
+			if (all->sprite_dragon_five.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_dragon_five.mlx_img);
+			if (all->sprite_dragon_six.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_dragon_six.mlx_img);
+			if (all->sprite_dragon_seven.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_dragon_seven.mlx_img);
+			if (all->sprite_dragon_eight.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_dragon_eight.mlx_img);
+			if (all->sprite_dragon_nine.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_dragon_nine.mlx_img);
+			if (all->sprite_dragon_ten.mlx_img)
+				mlx_destroy_image(all->mlx_ptr, all->sprite_dragon_ten.mlx_img);
 			if (all->img.mlx_img)
 				mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
 			mlx_destroy_window(all->mlx_ptr, all->win_ptr);

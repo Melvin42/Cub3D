@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/27 15:49:56 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/27 17:48:13 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,7 @@ typedef struct	s_all
 	int			index;
 	int			tex_width;
 	int			tex_height;
+	int			dragon_frame;
 	t_player	player;
 	t_ray		ray;
 	t_texture	texture;
@@ -230,7 +231,16 @@ typedef struct	s_all
 	t_img		sprite_six_img;
 	t_img		sprite_seven_img;
 	t_img		sprite_eight_img;
-	t_img		sprite_nine_img;
+	t_img		sprite_dragon_one;
+	t_img		sprite_dragon_two;
+	t_img		sprite_dragon_three;
+	t_img		sprite_dragon_four;
+	t_img		sprite_dragon_five;
+	t_img		sprite_dragon_six;
+	t_img		sprite_dragon_seven;
+	t_img		sprite_dragon_eight;
+	t_img		sprite_dragon_nine;
+	t_img		sprite_dragon_ten;
 	t_rgb		floor;
 	t_rgb		ceiling;
 }				t_all;

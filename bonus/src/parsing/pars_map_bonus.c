@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:21 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/27 15:30:48 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/27 16:08:03 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int			check_map(t_all *all)
 		j = -1;
 		while (all->map[i][++j])
 			if (all->map[i][j] == '0' || all->map[i][j] == '1'
-				|| all->map[i][j] == ' ')
+				|| all->map[i][j] == ' ' || (all->map[i][j] >= 'a' && all->map[i][j] <= 'z'))
 				;
 			else if (all->map[i][j] >= '2' && all->map[i][j] <= '9')
 				all->numsprites++;

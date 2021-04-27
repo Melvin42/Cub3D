@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/27 15:46:54 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/27 18:00:50 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,56 @@ void	render_sprite(t_all *all)
 		}
 		else if (all->sprite[i].num == 9)
 		{
-			ft_search_pix_in_sprite(all, all->sprite_nine_img);
+			if (all->dragon_frame == 1)
+			{
+				ft_search_pix_in_sprite(all, all->sprite_dragon_one);
+				all->dragon_frame++;
+			}
+			else if (all->dragon_frame == 2)
+			{
+				ft_search_pix_in_sprite(all, all->sprite_dragon_two);
+				all->dragon_frame++;
+			}
+			else if (all->dragon_frame == 3)
+			{
+				ft_search_pix_in_sprite(all, all->sprite_dragon_three);
+				all->dragon_frame++;
+			}
+			else if (all->dragon_frame == 4)
+			{
+				ft_search_pix_in_sprite(all, all->sprite_dragon_four);
+				all->dragon_frame++;
+			}
+			else if (all->dragon_frame == 5)
+			{
+				ft_search_pix_in_sprite(all, all->sprite_dragon_five);
+				all->dragon_frame++;
+			}
+			else if (all->dragon_frame == 6)
+			{
+				ft_search_pix_in_sprite(all, all->sprite_dragon_six);
+				all->dragon_frame++;
+			}
+			else if (all->dragon_frame == 7)
+			{
+				ft_search_pix_in_sprite(all, all->sprite_dragon_seven);
+				all->dragon_frame++;
+			}
+			else if (all->dragon_frame == 8)
+			{
+				ft_search_pix_in_sprite(all, all->sprite_dragon_eight);
+				all->dragon_frame++;
+			}
+			else if (all->dragon_frame == 9)
+			{
+				ft_search_pix_in_sprite(all, all->sprite_dragon_nine);
+				all->dragon_frame++;
+			}
+			else if (all->dragon_frame == 10)
+			{
+				ft_search_pix_in_sprite(all, all->sprite_dragon_ten);
+				all->dragon_frame = 1;
+			}
 		}
 	}
 }
