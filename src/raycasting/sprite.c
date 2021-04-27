@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:31:04 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 09:01:49 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/27 12:12:25 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	ft_put_sprite_pix(t_all *all, int stripe)
 		all->texture.tex_y = abs(((d * all->sprite_img.res_y)
 								/ all->spriteheight) / 256);
 		all->texture.color = *((int *)all->sprite_img.addr
-								+ all->sprite_img.res_x * all->texture.tex_y
-								+ all->texture.tex_x);
+								+ (all->sprite_img.res_x * all->texture.tex_y
+								+ all->texture.tex_x));
 		if ((all->texture.color & 0x00FFFFFF) != 0)
 			img_pix_put(&all->img, stripe, y, all->texture.color);
 		y++;

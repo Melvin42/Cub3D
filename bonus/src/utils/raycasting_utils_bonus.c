@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/24 15:14:38 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/27 15:46:54 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	render_sprite(t_all *all)
 	i = -1;
 	while (++i < all->numsprites)
 	{
-		ft_calc_sprite_ray(all);
 		ft_set_sprite_vars(all, i);
+		ft_calc_sprite_ray(all);
 		if (all->sprite[i].num == 2)
 		{
 			ft_search_pix_in_sprite(all, all->sprite_two_img);

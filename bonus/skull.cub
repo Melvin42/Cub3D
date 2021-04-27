@@ -5,11 +5,11 @@ SO ./textures/hearthstone.xpm
 WE ./textures/iron.xpm
 EA ./textures/wood.xpm
 S2 ./sprites/sylvanas1024.xpm
-S3 ./sprites/illidan1024.xpm
-S4 ./sprites/lichking1024.xpm
-S5 ./sprites/onyxian.xpm
-S6 ./sprites/murloc.xpm
-S7 ./sprites/kil-jaeden.xpm
+S3 ./sprites/murloc.xpm
+S4 ./sprites/illidan1024.xpm
+S5 ./sprites/kil-jaeden.xpm
+S6 ./sprites/lichking1024.xpm
+S7 ./sprites/onyxian.xpm
 S8 ./sprites/red-dragon.xpm
 S9 ./sprites/sylvanas1024.xpm
 

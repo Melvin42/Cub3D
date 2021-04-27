@@ -6,12 +6,12 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 17:04:52 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/24 09:46:08 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/27 13:09:55 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d_bonus.h"
-
+/*
 int	menu(t_all *all)
 {
 	if (all->win_ptr == NULL)
@@ -23,7 +23,7 @@ int	menu(t_all *all)
 			(all->ry / 2 + ((all->ry / 2) / 8)), WHITE_PIXEL, "PRESS ENTER");
 	return (0);
 }
-
+*/
 /*
 **	int			menu_width;
 **	int			menu_height;

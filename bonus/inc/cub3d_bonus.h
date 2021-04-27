@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/24 14:34:20 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/27 15:49:56 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,6 @@ typedef struct	s_all
 	t_ray		ray;
 	t_texture	texture;
 	t_sprite	*sprite;
-	t_img		menu;
 	t_img		img;
 	t_img		tex_n;
 	t_img		tex_s;
@@ -328,8 +327,8 @@ void			render_sprite(t_all *all);
 void			ft_calc_sprite_dist(t_all *all);
 void			ft_set_sprite_vars(t_all *all, int i);
 void			ft_calc_sprite_ray(t_all *all);
-void			ft_put_sprite_pix(t_all *all, t_img sprite, int stripe);
-void			ft_search_pix_in_sprite(t_all *all, t_img sprite);
+void			ft_put_sprite_pix(t_all *all, int stripe, t_img sprite_img);
+void			ft_search_pix_in_sprite(t_all *all, t_img sprite_img);
 
 /*
 ********************************************************************************

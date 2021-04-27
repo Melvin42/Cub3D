@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:15 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 09:47:12 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/27 15:17:20 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	set_map_width_max(t_all *all, char *line, int i)
 	j = -1;
 	map_line = 0;
 	tmp = ft_strlen(line);
-	while (line[++j] == ' ' || line[j] == '1' || line[j] == '2')
+	while (line[++j] == ' ' || line[j] == '0' || line[j] == '1' || line[j] == '2')
 		map_line = 1;
 	if (map_line == 1)
 	{

@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:31:04 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/24 15:16:47 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/27 15:49:05 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_calc_sprite_ray(t_all *all)
 		all->drawendx = all->rx - 1;
 }
 
-void	ft_put_sprite_pix(t_all *all, t_img sprite_img, int stripe)
+void	ft_put_sprite_pix(t_all *all, int stripe, t_img sprite_img)
 {
 	int	y;
 	int	d;
@@ -69,9 +69,9 @@ void	ft_put_sprite_pix(t_all *all, t_img sprite_img, int stripe)
 		d = y * 256 - all->ry * 128 + all->spriteheight * 128;
 		all->texture.tex_y = abs(((d * sprite_img.res_y)
 								/ all->spriteheight) / 256);
-		all->texture.color = *((int *)sprite_img.addr
-								+ sprite_img.res_x * all->texture.tex_y
-								+ all->texture.tex_x);
+		all->texture.color = *((int *)sprite_img.addr 
+								+ (sprite_img.res_x * all->texture.tex_y
+								+ all->texture.tex_x));
 		if ((all->texture.color & 0x00FFFFFF) != 0)
 			img_pix_put(&all->img, stripe, y, all->texture.color);
 		y++;
@@ -91,7 +91,7 @@ void	ft_search_pix_in_sprite(t_all *all, t_img sprite_img)
 								/ 256);
 		if (all->transformy > 0 && stripe > 0
 				&& stripe < all->rx && all->transformy < all->zbuffer[stripe])
-			ft_put_sprite_pix(all, sprite_img, stripe);
+			ft_put_sprite_pix(all, stripe, sprite_img);
 		stripe++;
 	}
 }

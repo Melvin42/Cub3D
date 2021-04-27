@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:15 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/24 12:31:19 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/27 15:33:32 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	set_map_width_max(t_all *all, char *line, int i)
 	j = -1;
 	map_line = 0;
 	tmp = ft_strlen(line);
-	while (line[++j] == ' ' || (line[j] >= '1' && line[j] <= '9'))
+	while (line[++j] == ' ' || (line[j] >= '0' && line[j] <= '9'))
 		map_line = 1;
 	if (map_line == 1)
 	{
@@ -86,7 +86,7 @@ int			dispatcher(char *line, t_all *all)
 		return (check_floor_color(line, all));
 	else if (*line == 'C')
 		return (check_ceiling_color(line, all));
-	else if ((*line == ' ') || (*line >= '0' && *line <= '9'))
+	else if ((*line == ' ') || (*line >= '1' && *line <= '9'))
 		return (extract_map(line, all));
 	else
 		return (check_error(all, PARS_ERROR));
