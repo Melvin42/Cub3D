@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/28 18:20:34 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/28 20:01:59 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,15 +210,13 @@ void	render_mini_map_pix(t_all *all, int j, int i, int color)
 	int	x;
 	int	y;
 
-	int	k;
-	int	l;
-	k = i + (((all->ry / 2 - all->ry / 3)) / all->map_height);
-	l = j + (((all->rx / 2 - all->rx / 3)) / all->map_width_max);
+	i = i * 4;
+	j = j * 4;
 	y = i;
-	while (y < i + k)
+	while (y < i + 4)
 	{
 		x = j;
-		while (x < j + l)
+		while (x < j + 4)
 		{
 			img_pix_put(&all->mini_map, x, y, color);
 			x++;
@@ -235,10 +233,10 @@ void	ft_mini_map(t_all *all)
 	int	h;
 	int k;
 	h = -1;
-	while (++h < all->ry / 2 - all->ry / 3)
+	while (++h < all->map_height * 4)
 	{
 		k = 0;
-		while (k < all->rx / 2 - all->rx / 3)
+		while (k < all->map_width_max * 4)
 			img_pix_put(&all->mini_map, k++, h, YELLOW_PIXEL);
 	}
 	i = 0;
@@ -249,30 +247,17 @@ void	ft_mini_map(t_all *all)
 		while (j < all->map_width_max)
 		{
 			if (all->map[i][j] == '1')
-			{
-				//img_pix_put(&all->mini_map, j, i, WHITE_PIXEL);
-				render_mini_map_pix(all, j, i, WHITE_PIXEL);
-			}
-			else if (all->map[i][j] >= '2' && all->map[i][j] <= '8')
-			{
-				//img_pix_put(&all->mini_map, j, i, BLACK_PIXEL);
-				render_mini_map_pix(all, j, i, BLACK_PIXEL);
-			}
-			else
-			{
-				//img_pix_put(&all->mini_map, j, i, GREY_PIXEL);
 				render_mini_map_pix(all, j, i, GREY_PIXEL);
-			}
+			else if (all->map[i][j] >= '2' && all->map[i][j] <= '8')
+				render_mini_map_pix(all, j, i, WHITE_PIXEL);
+			else
+				render_mini_map_pix(all, j, i, BLACK_PIXEL);
 			j++;
 			int	d = -1;
 			while (++d < all->numsprites)
-			{
 				if (all->sprite[d].num == 9)
-					render_mini_map_pix(all, (int)(all->sprite[d].x + 0.5), (int)(all->sprite[d].y + 0.5), RED_PIXEL);
-					//img_pix_put(&all->mini_map, (int)all->sprite[d].x, (int)all->sprite[d].y, RED_PIXEL);
-			}
-			//img_pix_put(&all->mini_map, (int)all->player.posx, (int)all->player.posy, GREEN_PIXEL);
-			render_mini_map_pix(all,  (int)(all->player.posx + 0.5), (int)(all->player.posy + 0.5), GREEN_PIXEL);
+					render_mini_map_pix(all, (int)(all->sprite[d].x), (int)(all->sprite[d].y), RED_PIXEL);
+			render_mini_map_pix(all,  (int)(all->player.posx), (int)(all->player.posy), GREEN_PIXEL);
 		}
 		++i;
 	}
