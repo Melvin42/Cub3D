@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:45 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/28 08:10:00 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/28 09:46:58 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			ft_exit_cross(t_all *all)
 	return (0);
 }
 
-static void	ft_escape(t_all *all)
+void	ft_escape(t_all *all)
 {
 	ft_free_all(all);
 	system("pkill -n aplay");

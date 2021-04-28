@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 17:04:52 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/27 13:09:55 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/28 09:56:15 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		render_life(t_all *all)
 {
 	int	drawstart;
 	int	drawend;
+	int	red_drawend;
 	int	x;
 	int	y;
 
@@ -48,6 +49,7 @@ int		render_life(t_all *all)
 		return (1);
 	drawstart = (all->ry / 2 - all->ry / 3);
 	drawend = (all->ry / 2) + (all->ry / 3);
+	red_drawend = (((all->ry / 2) + (all->ry / 3)) * all->player.hp) / 100;
 	y = 10;
 	x = drawstart - 1;
 	while (x < drawend + 1)
@@ -57,11 +59,11 @@ int		render_life(t_all *all)
 		x = drawstart - 1;
 		img_pix_put(&all->img, x, y, WHITE_PIXEL);
 		x++;
-		while (x < drawend)
+		while (x < red_drawend)
 		{
 			img_pix_put(&all->img, x++, y, RED_PIXEL);
 		}
-		img_pix_put(&all->img, x, y, WHITE_PIXEL);
+		img_pix_put(&all->img, drawend, y, WHITE_PIXEL);
 		y++;
 	}
 	x = drawstart - 1;

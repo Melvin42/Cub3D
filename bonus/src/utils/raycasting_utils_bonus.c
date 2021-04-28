@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/28 08:45:03 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/28 10:02:46 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,25 @@ int		render(t_all *all)
 	raycast(all);
 	render_life(all);
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img.mlx_img, 0, 0);
-	mlx_string_put(all->mlx_ptr, all->win_ptr, all->rx / 2, 25, 0XFFFFFF, "100%");
+	char hp[5];
+
+	if (all->player.hp == 100)
+	{
+		hp[0] = '1';
+		hp[1] = '0';
+		hp[2] = '0';
+		hp[3] = '%';
+		hp[4] = '\0';
+	}
+	else
+	{
+		hp[0] = ' ';
+		hp[1] = all->player.hp / 10 + 48;
+		hp[2] = all->player.hp % 10 + 48;
+		hp[3] = '%';
+		hp[4] = '\0';
+	}
+	mlx_string_put(all->mlx_ptr, all->win_ptr, all->rx / 2, 25, 0XFFFFFF, hp);
 	usleep(85000);
 	return (0);
 }

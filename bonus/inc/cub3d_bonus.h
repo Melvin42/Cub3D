@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/28 08:31:16 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/28 10:03:21 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define STR_NO_PLAYER_ERROR "Error\nThere is no player.\n"
 # define MOVESPEED 0.1
 # define ROTSPEED 0.1
-# define WHITE_PIXEL 0XFFFFF
+# define WHITE_PIXEL 0XFFFFFF
 # define RED_PIXEL 0XFF0000
 
 /*
@@ -132,6 +132,7 @@ typedef struct	s_player
 	double		camerax;
 	double		raydirx;
 	double		raydiry;
+	int			hp;
 }				t_player;
 
 typedef struct	s_ray
@@ -348,6 +349,7 @@ void			ft_search_pix_in_sprite(t_all *all, t_img sprite_img);
 */
 
 int				ft_exit_cross(t_all *all);
+void			ft_escape(t_all *all);
 int				handle_keypress(int keysym, t_all *all);
 
 void			move_up(t_all *all);
