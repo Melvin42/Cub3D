@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:51 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/28 09:19:02 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/28 14:47:13 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	ft_loop(t_all all)
 {
 //	render(&all);
 	mlx_loop_hook(all.mlx_ptr, &render, &all);
-	//mlx_key_hook(all.win_ptr, &handle_keypress, &all);
+//	mlx_key_hook(all.win_ptr, &handle_keypress, &all);
 	mlx_hook(all.win_ptr, ClientMessage, StructureNotifyMask,
 			&ft_exit_cross, &all);
 	mlx_hook(all.win_ptr, FocusIn, FocusChangeMask, &render, &all);

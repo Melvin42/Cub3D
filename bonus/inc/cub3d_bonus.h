@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/28 10:03:21 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/28 14:10:25 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@
 # include <X11/X.h>
 # include <stdint.h>
 # include <math.h>
-# include <linux/kernel.h>
 
 /*
 ********************************************************************************
@@ -360,6 +359,7 @@ void			move_right(t_all *all);
 void			rotate_left(t_all *all);
 void			rotate_right(t_all *all);
 
+void			ft_damage(t_all *all);
 int				ft_save(t_all *all);
 
 /*

@@ -6,27 +6,35 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:07 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/28 12:12:23 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/28 15:12:46 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d_bonus.h"
 
-static void	ft_damage(t_all *all)
+void	ft_damage(t_all *all)
 {
 	int		hp_lost;
 	double	dist_contact;
+	int		i;
 
-	hp_lost = 4;
-	dist_contact = 0.0001;
-	if (all->map[(int)all->player.posy][(int)(all->player.posx + dist_contact)] == '9')
-		all->player.hp -= hp_lost;
-	else if (all->map[(int)all->player.posy][(int)(all->player.posx - dist_contact)] == '9')
-		all->player.hp -= hp_lost;
-	else if (all->map[(int)(all->player.posy + dist_contact)][(int)all->player.posx] == '9')
-		all->player.hp -= hp_lost;
-	else if (all->map[(int)(all->player.posy - dist_contact)][(int)all->player.posx] == '9')
-		all->player.hp -= hp_lost;
+	hp_lost = 1;
+	dist_contact = 0;
+	i = -1;
+	while (++i < all->numsprites)
+	{
+		if (all->sprite[i].num == 9)
+		{
+			if (((int)all->player.posy == (int)all->sprite[i].y) && ((int)(all->player.posx + dist_contact) == (int)all->sprite[i].x))
+				all->player.hp -= hp_lost;
+			else if (((int)all->player.posy == (int)all->sprite[i].y) && ((int)(all->player.posx - dist_contact) == (int)all->sprite[i].x))
+				all->player.hp -= hp_lost;
+			else if (((int)(all->player.posy + dist_contact) == (int)all->sprite[i].y) && ((int)all->player.posx == (int)all->sprite[i].x))
+				all->player.hp -= hp_lost;
+			else if (((int)(all->player.posy - dist_contact) == (int)all->sprite[i].y) && ((int)all->player.posx == (int)all->sprite[i].x))
+				all->player.hp -= hp_lost;
+		}
+	}
 	if (all->player.hp == 0)
 		ft_escape(all);
 }
@@ -34,10 +42,8 @@ static void	ft_damage(t_all *all)
 static void	ft_heal(t_all *all)
 {
 	int		hp_win;
-	double	dist_contact;
 	int	i = -1;
 
-	dist_contact = 0.0001;
 	if (all->player.hp == 99)
 		hp_win = 1;
 	else if (all->player.hp == 98)
@@ -50,24 +56,24 @@ static void	ft_heal(t_all *all)
 	{
 		while (++i < all->numsprites)
 		{
-			if (all->sprite[i].num == 3)
+			if (all->sprite[i].num == 8)
 			{
-				if (((int)all->player.posy == (int)all->sprite[i].y) && ((int)(all->player.posx + dist_contact) == (int)all->sprite[i].x))
+				if (((int)all->player.posy == (int)all->sprite[i].y) && ((int)(all->player.posx) == (int)all->sprite[i].x))
 				{
 					all->player.hp += hp_win;
 					all->sprite[i].num = 0;
 				}
-				else if (((int)all->player.posy == (int)all->sprite[i].y) && ((int)(all->player.posx - dist_contact) == (int)all->sprite[i].x))
+				else if (((int)all->player.posy == (int)all->sprite[i].y) && ((int)(all->player.posx) == (int)all->sprite[i].x))
 				{
 					all->player.hp += hp_win;
 					all->sprite[i].num = 0;
 				}
-				else if (((int)(all->player.posy + dist_contact) == (int)all->sprite[i].y) && ((int)all->player.posx == (int)all->sprite[i].x))
+				else if (((int)(all->player.posy) == (int)all->sprite[i].y) && ((int)all->player.posx == (int)all->sprite[i].x))
 				{
 					all->player.hp += hp_win;
 					all->sprite[i].num = 0;
 				}
-				else if (((int)(all->player.posy - dist_contact) == (int)all->sprite[i].y) && ((int)all->player.posx == (int)all->sprite[i].x))
+				else if (((int)(all->player.posy) == (int)all->sprite[i].y) && ((int)all->player.posx == (int)all->sprite[i].x))
 				{
 					all->player.hp += hp_win;
 					all->sprite[i].num = 0;

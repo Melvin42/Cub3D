@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/28 10:02:46 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/28 14:42:52 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,5 +193,21 @@ int		render(t_all *all)
 	}
 	mlx_string_put(all->mlx_ptr, all->win_ptr, all->rx / 2, 25, 0XFFFFFF, hp);
 	usleep(85000);
+	int	i = -1;
+	while (++i < all->numsprites)
+	{
+		if (all->sprite[i].num == 9)
+		{
+			if (all->player.posy < all->sprite[i].y)
+				all->sprite[i].y -= 0.1;
+			else if (all->player.posy > all->sprite[i].y)
+				all->sprite[i].y += 0.1;
+			if (all->player.posx < all->sprite[i].x)
+				all->sprite[i].x -= 0.1;
+			else if (all->player.posx > all->sprite[i].x)
+				all->sprite[i].x += 0.1;
+		}
+	}
+	ft_damage(all);
 	return (0);
 }
