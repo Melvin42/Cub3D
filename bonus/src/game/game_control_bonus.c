@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:45 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 18:52:28 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/28 08:10:00 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ int			handle_keypress(int keysym, t_all *all)
 		rotate_left(all);
 	else if (keysym == XK_Right || keysym == XK_e)
 		rotate_right(all);
-	render(all);
+//	render(all);
 	return (0);
 }
