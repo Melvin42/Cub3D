@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/28 14:10:25 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/28 17:16:38 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,12 @@
 # define STR_NO_PLAYER_ERROR "Error\nThere is no player.\n"
 # define MOVESPEED 0.1
 # define ROTSPEED 0.1
+# define BLACK_PIXEL 0X0
 # define WHITE_PIXEL 0XFFFFFF
 # define RED_PIXEL 0XFF0000
+# define GREEN_PIXEL 0XFF00
+# define GREY_PIXEL 0X808080
+# define YELLOW_PIXEL 0XFFFF00
 
 /*
 ********************************************************************************
@@ -242,6 +246,7 @@ typedef struct	s_all
 	t_img		sprite_dragon_eight;
 	t_img		sprite_dragon_nine;
 	t_img		sprite_dragon_ten;
+	t_img		mini_map;
 	t_rgb		floor;
 	t_rgb		ceiling;
 }				t_all;

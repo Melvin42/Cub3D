@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/28 14:42:52 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/28 18:20:34 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,17 +162,28 @@ void	ft_render_side(t_all *all, int x)
 	}
 }
 
-int		render(t_all *all)
+void	ft_move_dragon(t_all *all)
 {
-	if (all->win_ptr == NULL)
-		return (check_error(all, MLX_ERROR));
-	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
-	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
-		return (check_error(all, MLX_ERROR));
-	render_background(all);
-	raycast(all);
-	render_life(all);
-	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img.mlx_img, 0, 0);
+	int	i = -1;
+	while (++i < all->numsprites)
+	{
+		if (all->sprite[i].num == 9)
+		{
+			if (all->player.posy < all->sprite[i].y)
+				all->sprite[i].y -= 0.1;
+			else if (all->player.posy > all->sprite[i].y)
+				all->sprite[i].y += 0.1;
+			if (all->player.posx < all->sprite[i].x)
+				all->sprite[i].x -= 0.1;
+			else if (all->player.posx > all->sprite[i].x)
+				all->sprite[i].x += 0.1;
+		}
+	}
+	ft_damage(all);
+}
+
+void	ft_put_string_life(t_all *all)
+{
 	char hp[5];
 
 	if (all->player.hp == 100)
@@ -192,22 +203,96 @@ int		render(t_all *all)
 		hp[4] = '\0';
 	}
 	mlx_string_put(all->mlx_ptr, all->win_ptr, all->rx / 2, 25, 0XFFFFFF, hp);
-	usleep(85000);
-	int	i = -1;
-	while (++i < all->numsprites)
+}
+
+void	render_mini_map_pix(t_all *all, int j, int i, int color)
+{
+	int	x;
+	int	y;
+
+	int	k;
+	int	l;
+	k = i + (((all->ry / 2 - all->ry / 3)) / all->map_height);
+	l = j + (((all->rx / 2 - all->rx / 3)) / all->map_width_max);
+	y = i;
+	while (y < i + k)
 	{
-		if (all->sprite[i].num == 9)
+		x = j;
+		while (x < j + l)
 		{
-			if (all->player.posy < all->sprite[i].y)
-				all->sprite[i].y -= 0.1;
-			else if (all->player.posy > all->sprite[i].y)
-				all->sprite[i].y += 0.1;
-			if (all->player.posx < all->sprite[i].x)
-				all->sprite[i].x -= 0.1;
-			else if (all->player.posx > all->sprite[i].x)
-				all->sprite[i].x += 0.1;
+			img_pix_put(&all->mini_map, x, y, color);
+			x++;
 		}
+		y++;
 	}
-	ft_damage(all);
+}
+
+void	ft_mini_map(t_all *all)
+{
+	int	i;
+	int	j;
+
+	int	h;
+	int k;
+	h = -1;
+	while (++h < all->ry / 2 - all->ry / 3)
+	{
+		k = 0;
+		while (k < all->rx / 2 - all->rx / 3)
+			img_pix_put(&all->mini_map, k++, h, YELLOW_PIXEL);
+	}
+	i = 0;
+	while (i < all->map_height)
+	{
+		j = 0;
+
+		while (j < all->map_width_max)
+		{
+			if (all->map[i][j] == '1')
+			{
+				//img_pix_put(&all->mini_map, j, i, WHITE_PIXEL);
+				render_mini_map_pix(all, j, i, WHITE_PIXEL);
+			}
+			else if (all->map[i][j] >= '2' && all->map[i][j] <= '8')
+			{
+				//img_pix_put(&all->mini_map, j, i, BLACK_PIXEL);
+				render_mini_map_pix(all, j, i, BLACK_PIXEL);
+			}
+			else
+			{
+				//img_pix_put(&all->mini_map, j, i, GREY_PIXEL);
+				render_mini_map_pix(all, j, i, GREY_PIXEL);
+			}
+			j++;
+			int	d = -1;
+			while (++d < all->numsprites)
+			{
+				if (all->sprite[d].num == 9)
+					render_mini_map_pix(all, (int)(all->sprite[d].x + 0.5), (int)(all->sprite[d].y + 0.5), RED_PIXEL);
+					//img_pix_put(&all->mini_map, (int)all->sprite[d].x, (int)all->sprite[d].y, RED_PIXEL);
+			}
+			//img_pix_put(&all->mini_map, (int)all->player.posx, (int)all->player.posy, GREEN_PIXEL);
+			render_mini_map_pix(all,  (int)(all->player.posx + 0.5), (int)(all->player.posy + 0.5), GREEN_PIXEL);
+		}
+		++i;
+	}
+	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->mini_map.mlx_img, 0, 0);
+}
+
+int		render(t_all *all)
+{
+	if (all->win_ptr == NULL)
+		return (check_error(all, MLX_ERROR));
+	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
+	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
+		return (check_error(all, MLX_ERROR));
+	render_background(all);
+	raycast(all);
+	render_life(all);
+	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img.mlx_img, 0, 0);
+	ft_mini_map(all);
+	ft_put_string_life(all);
+	usleep(85000);
+	ft_move_dragon(all);
 	return (0);
 }

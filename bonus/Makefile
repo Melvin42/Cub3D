@@ -2,7 +2,7 @@
 
 NAME = cub3D
 
-MAP = skull.cub
+MAP = skullsave.cub
 
 ## Color for compilating (pink)
 
