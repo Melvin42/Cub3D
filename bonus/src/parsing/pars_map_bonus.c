@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:21 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/27 16:08:03 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/28 11:59:39 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ int			pos_sprites(t_all *all)
 				all->sprite[i].x = (double)x;
 				all->sprite[i].y = (double)y;
 				all->sprite[i].num = (all->map[y][x]) - 48;
+				if (all->sprite[i].num == 3)
+					all->map[y][x] = '0';
 				i++;
 			}
 		}
