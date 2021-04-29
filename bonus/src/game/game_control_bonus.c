@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:45 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/29 10:23:43 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/29 20:54:20 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int		handle_keypress(int keysym, t_all *all)
 		all->key.rot_left = 1;
 	if (keysym == XK_Right || keysym == XK_e)
 		all->key.rot_right = 1;
+	if (keysym == XK_f)
+		ft_weapon_attack(all);
 	return (0);
 }
 

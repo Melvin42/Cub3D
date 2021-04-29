@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/29 14:31:00 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/29 20:56:07 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,14 @@ enum	e_error
 **==============================> STRUCT <====================================**
 ********************************************************************************
 */
+
+typedef struct	s_weapon
+{
+	int			x_start;
+	int			y_start;
+	int			x_end;
+	int			y_end;
+}				t_weapon;
 
 typedef struct	s_key
 {
@@ -360,7 +368,8 @@ void			ft_calc_sprite_ray(t_all *all);
 void			ft_put_sprite_pix(t_all *all, int stripe, t_img sprite_img);
 void			ft_search_pix_in_sprite(t_all *all, t_img sprite_img);
 
-int				ft_weapon(t_all *all, int x_start, int y_start, int x_end, int y_end);
+int				ft_weapon(t_all *all, t_weapon axe);
+int				ft_weapon_attack(t_all *all);
 
 /*
 ********************************************************************************
