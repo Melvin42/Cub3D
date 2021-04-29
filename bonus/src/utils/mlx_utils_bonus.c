@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:57 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/28 19:58:36 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/29 13:46:26 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ int			ft_load_all_img(t_all *all)
 	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_ten, "./sprites/dragon/dragon10.xpm") < 0)
 		return (check_error(all, MLX_ERROR));
 	if (ft_new_mlx_img(all, &all->mini_map, all->map_width_max * 4, all->map_height * 4) < 0)
+		return (check_error(all, MLX_ERROR));
+	if (ft_mlx_xpm_to_img(all, &all->sprite_axe, "./sprites/axe.xpm") < 0)
 		return (check_error(all, MLX_ERROR));
 	return (0);
 }

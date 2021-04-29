@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/28 17:16:38 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/29 14:31:00 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,17 @@ enum	e_error
 **==============================> STRUCT <====================================**
 ********************************************************************************
 */
+
+typedef struct	s_key
+{
+	int			up;
+	int			down;
+	int			left;
+	int			right;
+	int			rot_left;
+	int			rot_right;
+	int			escape;
+}				t_key;
 
 typedef struct	s_bmp_header
 {
@@ -220,6 +231,7 @@ typedef struct	s_all
 	int			tex_width;
 	int			tex_height;
 	int			dragon_frame;
+	t_key		key;
 	t_player	player;
 	t_ray		ray;
 	t_texture	texture;
@@ -246,6 +258,7 @@ typedef struct	s_all
 	t_img		sprite_dragon_eight;
 	t_img		sprite_dragon_nine;
 	t_img		sprite_dragon_ten;
+	t_img		sprite_axe;
 	t_img		mini_map;
 	t_rgb		floor;
 	t_rgb		ceiling;
@@ -300,6 +313,7 @@ void			replace_space_by_one(t_all *all);
 **=============================>   MLX   <====================================**
 ********************************************************************************
 */
+
 int				encode_rgb(int red, int green, int blue);
 void			img_pix_put(t_img *img, int x, int y, int color);
 int				ft_new_mlx_img(t_all *all, t_img *img, int res_x, int res_y);
@@ -346,6 +360,8 @@ void			ft_calc_sprite_ray(t_all *all);
 void			ft_put_sprite_pix(t_all *all, int stripe, t_img sprite_img);
 void			ft_search_pix_in_sprite(t_all *all, t_img sprite_img);
 
+int				ft_weapon(t_all *all, int x_start, int y_start, int x_end, int y_end);
+
 /*
 ********************************************************************************
 **==============================>   GAME   <==================================**
@@ -354,7 +370,9 @@ void			ft_search_pix_in_sprite(t_all *all, t_img sprite_img);
 
 int				ft_exit_cross(t_all *all);
 void			ft_escape(t_all *all);
+void			ft_control(t_all *all);
 int				handle_keypress(int keysym, t_all *all);
+int				handle_keyrelease(int keysym, t_all *all);
 
 void			move_up(t_all *all);
 void			move_down(t_all *all);

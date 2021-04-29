@@ -6,13 +6,13 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:45 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/28 09:46:58 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/29 10:23:43 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d_bonus.h"
 
-int			ft_exit_cross(t_all *all)
+int		ft_exit_cross(t_all *all)
 {
 	ft_free_all(all);
 	system("pkill -n aplay");
@@ -27,22 +27,58 @@ void	ft_escape(t_all *all)
 	exit(SUCCESS);
 }
 
-int			handle_keypress(int keysym, t_all *all)
+void	ft_control(t_all *all)
+{
+	if (all->key.escape == 1)
+		ft_escape(all);
+	if (all->key.up == 1)
+		move_up(all);
+	if (all->key.down == 1)
+		move_down(all);
+	if (all->key.left == 1)
+		move_left(all);
+	if (all->key.right == 1)
+		move_right(all);
+	if (all->key.rot_left == 1)
+		rotate_left(all);
+	if (all->key.rot_right == 1)
+		rotate_right(all);
+}
+
+int		handle_keypress(int keysym, t_all *all)
 {
 	if (keysym == XK_Escape)
-		ft_escape(all);
-	else if (keysym == XK_Up || keysym == XK_w)
-		move_up(all);
-	else if (keysym == XK_Down || keysym == XK_s)
-		move_down(all);
-	else if (keysym == XK_a)
-		move_left(all);
-	else if (keysym == XK_d)
-		move_right(all);
-	else if (keysym == XK_Left || keysym == XK_q)
-		rotate_left(all);
-	else if (keysym == XK_Right || keysym == XK_e)
-		rotate_right(all);
-//	render(all);
+		all->key.escape = 1;
+	if (keysym == XK_Up || keysym == XK_w)
+		all->key.up = 1;
+	if (keysym == XK_Down || keysym == XK_s)
+		all->key.down = 1;
+	if (keysym == XK_a)
+		all->key.left = 1;
+	if (keysym == XK_d)
+		all->key.right = 1;
+	if (keysym == XK_Left || keysym == XK_q)
+		all->key.rot_left = 1;
+	if (keysym == XK_Right || keysym == XK_e)
+		all->key.rot_right = 1;
+	return (0);
+}
+
+int		handle_keyrelease(int keysym, t_all *all)
+{
+	if (keysym == XK_Escape)
+		all->key.escape = 0;
+	if (keysym == XK_Up || keysym == XK_w)
+		all->key.up = 0;
+	if (keysym == XK_Down || keysym == XK_s)
+		all->key.down = 0;
+	if (keysym == XK_a)
+		all->key.left = 0;
+	if (keysym == XK_d)
+		all->key.right = 0;
+	if (keysym == XK_Left || keysym == XK_q)
+		all->key.rot_left = 0;
+	if (keysym == XK_Right || keysym == XK_e)
+		all->key.rot_right = 0;
 	return (0);
 }

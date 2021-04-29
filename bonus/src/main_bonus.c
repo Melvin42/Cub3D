@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:51 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/28 15:38:03 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/29 10:20:14 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@ static void	set_all(t_all *all)
 	*all = (t_all){NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
 			NULL, NULL, NULL, NULL, NULL, 0, NULL, 0,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0, 0, 0, 0, 1,
+			(t_key){0, 0, 0, 0, 0, 0, 0},
 			(t_player){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100},
 			(t_ray){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			(t_texture){0, 0, 0, 0, 0, 0},
 			NULL,
+			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
 			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
 			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
 			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
@@ -76,6 +78,7 @@ static void	ft_loop(t_all all)
 			&ft_exit_cross, &all);
 	mlx_hook(all.win_ptr, FocusIn, FocusChangeMask, &render, &all);
 	mlx_hook(all.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &all);
+	mlx_hook(all.win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, &all);
 	mlx_loop(all.mlx_ptr);
 }
 

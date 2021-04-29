@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/28 20:01:59 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/29 15:35:50 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,81 +37,41 @@ void	render_sprite(t_all *all)
 		ft_set_sprite_vars(all, i);
 		ft_calc_sprite_ray(all);
 		if (all->sprite[i].num == 2)
-		{
 			ft_search_pix_in_sprite(all, all->sprite_two_img);
-		}
 		else if (all->sprite[i].num == 3)
-		{
 			ft_search_pix_in_sprite(all, all->sprite_three_img);
-		}
 		else if (all->sprite[i].num == 4)
-		{
 			ft_search_pix_in_sprite(all, all->sprite_four_img);
-		}
 		else if (all->sprite[i].num == 5)
-		{
 			ft_search_pix_in_sprite(all, all->sprite_five_img);
-		}
 		else if (all->sprite[i].num == 6)
-		{
 			ft_search_pix_in_sprite(all, all->sprite_six_img);
-		}
 		else if (all->sprite[i].num == 7)
-		{
 			ft_search_pix_in_sprite(all, all->sprite_seven_img);
-		}
 		else if (all->sprite[i].num == 8)
-		{
 			ft_search_pix_in_sprite(all, all->sprite_eight_img);
-		}
 		else if (all->sprite[i].num == 9)
 		{
 			if (all->dragon_frame == 1)
-			{
 				ft_search_pix_in_sprite(all, all->sprite_dragon_one);
-				all->dragon_frame++;
-			}
 			else if (all->dragon_frame == 2)
-			{
 				ft_search_pix_in_sprite(all, all->sprite_dragon_two);
-				all->dragon_frame++;
-			}
 			else if (all->dragon_frame == 3)
-			{
 				ft_search_pix_in_sprite(all, all->sprite_dragon_three);
-				all->dragon_frame++;
-			}
 			else if (all->dragon_frame == 4)
-			{
 				ft_search_pix_in_sprite(all, all->sprite_dragon_four);
-				all->dragon_frame++;
-			}
 			else if (all->dragon_frame == 5)
-			{
 				ft_search_pix_in_sprite(all, all->sprite_dragon_five);
-				all->dragon_frame++;
-			}
 			else if (all->dragon_frame == 6)
-			{
 				ft_search_pix_in_sprite(all, all->sprite_dragon_six);
-				all->dragon_frame++;
-			}
 			else if (all->dragon_frame == 7)
-			{
 				ft_search_pix_in_sprite(all, all->sprite_dragon_seven);
-				all->dragon_frame++;
-			}
 			else if (all->dragon_frame == 8)
-			{
 				ft_search_pix_in_sprite(all, all->sprite_dragon_eight);
-				all->dragon_frame++;
-			}
 			else if (all->dragon_frame == 9)
-			{
 				ft_search_pix_in_sprite(all, all->sprite_dragon_nine);
-				all->dragon_frame++;
-			}
-			else if (all->dragon_frame == 10)
+			all->dragon_frame++;
+			if (all->dragon_frame == 10)
 			{
 				ft_search_pix_in_sprite(all, all->sprite_dragon_ten);
 				all->dragon_frame = 1;
@@ -170,13 +130,13 @@ void	ft_move_dragon(t_all *all)
 		if (all->sprite[i].num == 9)
 		{
 			if (all->player.posy < all->sprite[i].y)
-				all->sprite[i].y -= 0.1;
+				all->sprite[i].y -= 0.05;
 			else if (all->player.posy > all->sprite[i].y)
-				all->sprite[i].y += 0.1;
+				all->sprite[i].y += 0.05;
 			if (all->player.posx < all->sprite[i].x)
-				all->sprite[i].x -= 0.1;
+				all->sprite[i].x -= 0.05;
 			else if (all->player.posx > all->sprite[i].x)
-				all->sprite[i].x += 0.1;
+				all->sprite[i].x += 0.05;
 		}
 	}
 	ft_damage(all);
@@ -264,6 +224,108 @@ void	ft_mini_map(t_all *all)
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->mini_map.mlx_img, 0, 0);
 }
 
+static void	render_axe_pix(t_all *all, int j, int i, int color, int x_start, int y_end)
+{
+	int	x;
+	int	y;
+
+	i = i * 3;
+	j = j * 3;
+	y = i;
+	while (y < i + 3)
+	{
+		x = j;
+		while (x < j + 3)
+		{
+			if ((color & 0x00FFFFFF) != 0)
+				img_pix_put(&all->img, all->rx / 2 - x_start * 3 + x, all->ry - y_end * 3 + y, color);
+			x++;
+		}
+		y++;
+	}
+}
+
+int		ft_weapon(t_all *all, int x_start, int y_start, int x_end, int y_end)
+{
+	int	y;
+	int	x;
+	int	color;
+
+	y = y_start;
+	while (y < y_end)
+	{
+		x = x_start;
+		while (x < x_end)
+		{
+	  		color = *((int *)all->sprite_axe.addr + (x + y * 626));
+			render_axe_pix(all, x, y, color, x_start, y_end);
+	  		x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
+int		ft_weapon_attack(t_all *all)
+{
+/*
+	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
+	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
+		return (check_error(all, MLX_ERROR));
+	render_background(all);
+	raycast(all);
+	render_life(all);
+	ft_mini_map(all);
+	ft_put_string_life(all);
+	ft_weapon(all, 516, 81, 626, 304);
+	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img.mlx_img, 0, 0);
+*/
+	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
+	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
+		return (check_error(all, MLX_ERROR));
+	render_background(all);
+	raycast(all);
+	render_life(all);
+	ft_mini_map(all);
+	ft_put_string_life(all);
+	ft_weapon(all, 368, 104, 516, 304);
+	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img.mlx_img, 0, 0);
+
+	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
+	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
+		return (check_error(all, MLX_ERROR));
+	render_background(all);
+	raycast(all);
+	render_life(all);
+	ft_mini_map(all);
+	ft_put_string_life(all);
+	ft_weapon(all, 258, 104, 368, 304);
+	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img.mlx_img, 0, 0);
+
+	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
+	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
+		return (check_error(all, MLX_ERROR));
+	render_background(all);
+	raycast(all);
+	render_life(all);
+	ft_mini_map(all);
+	ft_put_string_life(all);
+	ft_weapon(all, 186, 104, 258, 304);
+	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img.mlx_img, 0, 0);
+
+	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
+	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
+		return (check_error(all, MLX_ERROR));
+	render_background(all);
+	raycast(all);
+	render_life(all);
+	ft_mini_map(all);
+	ft_put_string_life(all);
+	ft_weapon(all, 135, 104, 186, 304);
+	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img.mlx_img, 0, 0);
+	return (0);
+}
+
 int		render(t_all *all)
 {
 	if (all->win_ptr == NULL)
@@ -274,10 +336,12 @@ int		render(t_all *all)
 	render_background(all);
 	raycast(all);
 	render_life(all);
-	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img.mlx_img, 0, 0);
+	ft_weapon(all, 0, 0, 352, 93);
 	ft_mini_map(all);
 	ft_put_string_life(all);
-	usleep(85000);
 	ft_move_dragon(all);
+	ft_control(all);
+	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img.mlx_img, 0, 0);
+	ft_weapon_attack(all);
 	return (0);
 }
