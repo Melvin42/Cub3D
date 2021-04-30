@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 10:48:05 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 13:27:51 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,6 +273,7 @@ int		ft_weapon_attack(t_all *all)
 	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
 		return (check_error(all, MLX_ERROR));
 	render_background(all);
+	floor_casting(all);
 	raycast(all);
 	render_life(all);
 	ft_weapon(all, (t_weapon){368, 104, 516, 304});
@@ -286,6 +287,7 @@ int		ft_weapon_attack(t_all *all)
 	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
 		return (check_error(all, MLX_ERROR));
 	render_background(all);
+	floor_casting(all);
 	raycast(all);
 	render_life(all);
 	ft_weapon(all, (t_weapon){258, 104, 368, 304});
@@ -299,6 +301,7 @@ int		ft_weapon_attack(t_all *all)
 	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
 		return (check_error(all, MLX_ERROR));
 	render_background(all);
+	floor_casting(all);
 	raycast(all);
 	render_life(all);
 	ft_weapon(all, (t_weapon){186, 104, 258, 304});
@@ -312,6 +315,7 @@ int		ft_weapon_attack(t_all *all)
 	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
 		return (check_error(all, MLX_ERROR));
 	render_background(all);
+	floor_casting(all);
 	raycast(all);
 	render_life(all);
 	ft_weapon(all, (t_weapon){135, 104, 186, 304});
@@ -325,6 +329,59 @@ int		ft_weapon_attack(t_all *all)
 	return (0);
 }
 
+void	floor_casting(t_all *all)
+{
+	int	y;
+	int	x;
+	float raydirx0;
+	float raydiry0;
+	float raydirx1;
+	float raydiry1;
+	int	p;
+	float posz;
+	float rowdistance;
+	float floorstepx;
+	float floorstepy;
+	float floorx;
+	float floory;
+	int cellx;
+	int celly;
+	int tx;
+	int ty;
+	int	color;
+
+	y = all->ry / 2;
+	while (y < all->ry)
+	{
+		raydirx0 = all->player.dirx - all->player.planx;
+		raydiry0 = all->player.diry - all->player.plany;
+		raydirx1 = all->player.dirx + all->player.planx;
+		raydiry1 = all->player.diry + all->player.plany;
+		p = y - all->ry / 2;
+		posz = 0.5 * all->ry;
+		rowdistance = posz / p;
+		floorstepx = rowdistance * (raydirx1 - raydirx0) / all->rx;
+		floorstepy = rowdistance * (raydiry1 - raydiry0) / all->rx;
+		floorx = all->player.posx + rowdistance * raydirx0;
+		floory = all->player.posy + rowdistance * raydiry0;
+		x = 0;
+		while (x < all->rx)
+		{
+			cellx = (int)floorx;
+			celly = (int)floory;
+			tx = (int)(all->tex_floor.res_x * (floorx - cellx)) & (all->tex_floor.res_x - 1);
+			ty = (int)(all->tex_floor.res_y * (floory - celly)) & (all->tex_floor.res_y - 1);
+			floorx += floorstepx;
+			floory += floorstepy;
+			color = *((int *)all->tex_floor.addr + (all->tex_floor.res_x * ty + tx));
+			img_pix_put(&all->img, x, y, color);
+			x++;
+		}
+		y++;
+	}
+
+}
+
 int		render(t_all *all)
 {
 	if (all->win_ptr == NULL)
@@ -333,6 +390,7 @@ int		render(t_all *all)
 	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
 		return (check_error(all, MLX_ERROR));
 	render_background(all);
+	floor_casting(all);
 	raycast(all);
 	render_life(all);
 	ft_weapon(all, (t_weapon){0, 0, 352, 93});

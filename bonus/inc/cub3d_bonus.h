@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 10:48:39 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 13:41:38 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,8 @@ typedef struct	s_all
 	t_img		tex_s;
 	t_img		tex_e;
 	t_img		tex_w;
+	t_img		tex_floor;
+	t_img		skybox;
 	t_img		sprite_two_img;
 	t_img		sprite_three_img;
 	t_img		sprite_four_img;
@@ -349,6 +351,7 @@ int				render(t_all *all);
 */
 
 void			ft_set_raycast_vars(t_all *all);
+void			floor_casting(t_all *all);
 void			raycast(t_all *all);
 void			ft_chose_tex(t_all *all);
 
