@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 15:04:04 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 17:35:58 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -382,28 +382,64 @@ void	floor_casting(t_all *all)
 
 }
 
+int	ft_skybox_scale(t_all *all)
+{
+	int	x;
+	int	y;
+	int	color;
+
+//	float res_x = 2 * all->map_width_max + 2 * all->map_height;
+	//double res_x = all->rx * 8;
+	int res_x = all->rx;// * (2 * all->map_width_max + 2 * all->map_height);
+	int res_y = (all->ry / 2);
+	double	target_x;
+	double	target_y;
+
+	if (ft_new_mlx_img(all, &all->skybox_scale, res_x, res_y) < 0)
+		return (check_error(all, MLX_ERROR));
+	y = -1;
+	while (++y < (int)res_y)
+	{
+		x = -1;
+		while (++x < (int)res_x)
+		{
+			target_x = ((double)x / (double)res_x * (double)all->skybox.res_x);
+			target_y = ((double)y / (double)res_y * (double)all->skybox.res_y);
+			target_x = floor(target_x);
+			target_y = floor(target_y);
+			color = *((int *)all->skybox.addr + ((int)target_x + (int)target_y * all->skybox.res_x));
+			img_pix_put(&all->skybox_scale, x, y, color);
+		}
+	}
+	return (0);
+}
+
 void	ft_skybox(t_all *all)
 {
 	int	x;
 	int	y;
 	int	color;
 
-//	skybox_res_x			2 * all->map_width_max + 2 * all->map_height
-	float res_x;
-	res_x = (2 * all->map_width_max + 2 * all->map_height) / all->skybox.res_x;
-	//float res_y = (all->ry / 2) / all->skybox.res_y;
-	
+//	float res_x = 2 * all->map_width_max + 2 * all->map_height;
+	//double res_x = all->rx * 8;
+	int res_x = all->rx;// * (2 * all->map_width_max + 2 * all->map_height);
+	int res_y = (all->ry / 2);
+	double	target_x;
+	double	target_y;
 	y = -1;
 	while (++y < all->ry / 2)
 	{
 		x = -1;
 		while (++x < all->rx)
 		{
-			color = *((int *)all->skybox.addr + (x + y * all->skybox.res_x));
+			target_x = ((double)x / (double)res_x * (double)all->skybox_scale.res_x);
+			target_y = ((double)y / (double)res_y * (double)all->skybox_scale.res_y);
+			target_x = floor(target_x);
+			target_y = floor(target_y);
+			color = *((int *)all->skybox_scale.addr + ((int)target_x + (int)target_y * all->skybox_scale.res_x));
 			img_pix_put(&all->img, x, y, color);
 		}
 	}
-
 }
 
 int		render(t_all *all)
@@ -413,7 +449,6 @@ int		render(t_all *all)
 	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
 	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
 		return (check_error(all, MLX_ERROR));
-//	render_background(all);
 	ft_skybox(all);
 	floor_casting(all);
 	raycast(all);

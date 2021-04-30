@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:51 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 13:41:25 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 17:35:41 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	set_all(t_all *all)
 			(t_ray){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			(t_texture){0, 0, 0, 0, 0, 0},
 			NULL,
+			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
 			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
 			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
 			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
@@ -114,6 +115,7 @@ int			main(int ac, char **av)
 		if (ft_init_game(&all) < 0)
 			return (0);
 		system("aplay -c 2 -t wav -r 48000 ./music/trap.wav &");
+		ft_skybox_scale(&all);
 		ft_loop(all);
 	}
 	return (0);

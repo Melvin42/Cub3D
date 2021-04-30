@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:34 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 09:13:08 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 16:48:05 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	ft_calc_ray(t_all *all)
 	all->ray.drawend = all->ray.lineheight / 2 + all->ry / 2;
 	if (all->ray.drawend >= all->ry)
 		all->ray.drawend = all->ry - 1;
+	
 }
 
 void	ft_search_pix_in_img(t_all *all)

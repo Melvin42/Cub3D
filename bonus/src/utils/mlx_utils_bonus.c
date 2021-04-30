@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:57 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 13:42:27 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 17:31:00 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int			ft_new_mlx_img(t_all *all, t_img *img, int res_x, int res_y)
 								&img->line_len, &img->endian);
 	if (img->addr == NULL)
 		return (check_error(all, MLX_ERROR));
+	img->res_x = res_x;
+	img->res_y = res_y;
 	return (0);
 }
 

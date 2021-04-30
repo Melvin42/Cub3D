@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 13:41:38 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 16:01:20 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,6 +251,7 @@ typedef struct	s_all
 	t_img		tex_w;
 	t_img		tex_floor;
 	t_img		skybox;
+	t_img		skybox_scale;
 	t_img		sprite_two_img;
 	t_img		sprite_three_img;
 	t_img		sprite_four_img;
@@ -417,5 +418,6 @@ void			ft_free_all(t_all *all);
 
 int				render_life(t_all *all);
 int				menu(t_all *all);
+int				ft_skybox_scale(t_all *all);
 
 #endif
