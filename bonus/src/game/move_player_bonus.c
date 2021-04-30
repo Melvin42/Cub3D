@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:07 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 18:11:59 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 20:05:01 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_damage(t_all *all)
 	i = -1;
 	while (++i < all->numsprites)
 	{
-		if ((all->sprite[i].num >= 3 && all->sprite[i].num <= 7) ||  all->sprite[i].num == 9)
+		if ((all->sprite[i].num >= 3 && all->sprite[i].num <= 6) ||  all->sprite[i].num == 9)
 		{
 			if (((int)all->player.posy == (int)all->sprite[i].y) && ((int)(all->player.posx + dist_contact) == (int)all->sprite[i].x))
 				all->player.hp -= hp_lost;
@@ -137,48 +137,68 @@ static void	ft_heal(t_all *all)
 
 void	move_up(t_all *all)
 {
+	float	movespeed;
+
+	movespeed = 0.1;
+	if (all->key.sprint == 1)
+		movespeed = 0.3;
 	if (all->map[(int)all->player.posy]
-				[(int)(all->player.posx + all->player.dirx * MOVESPEED)] == '0')
-		all->player.posx += all->player.dirx * MOVESPEED;
-	if (all->map[(int)(all->player.posy + all->player.diry * MOVESPEED)]
+				[(int)(all->player.posx + all->player.dirx * movespeed)] == '0')
+		all->player.posx += all->player.dirx * movespeed;
+	if (all->map[(int)(all->player.posy + all->player.diry * movespeed)]
 				[(int)all->player.posx] == '0')
-		all->player.posy += all->player.diry * MOVESPEED;
+		all->player.posy += all->player.diry * movespeed;
 	ft_damage(all);
 	ft_heal(all);
 }
 
 void	move_down(t_all *all)
 {
+	float	movespeed;
+
+	movespeed = 0.1;
+	if (all->key.sprint == 1)
+		movespeed = 0.3;
 	if (all->map[(int)all->player.posy]
-				[(int)(all->player.posx - all->player.dirx * MOVESPEED)] == '0')
-		all->player.posx -= all->player.dirx * MOVESPEED;
-	if (all->map[(int)(all->player.posy - all->player.diry * MOVESPEED)]
+				[(int)(all->player.posx - all->player.dirx * movespeed)] == '0')
+		all->player.posx -= all->player.dirx * movespeed;
+	if (all->map[(int)(all->player.posy - all->player.diry * movespeed)]
 				[(int)all->player.posx] == '0')
-		all->player.posy -= all->player.diry * MOVESPEED;
+		all->player.posy -= all->player.diry * movespeed;
 	ft_damage(all);
 	ft_heal(all);
 }
 
 void	move_left(t_all *all)
 {
+	float	movespeed;
+
+	movespeed = 0.1;
+	if (all->key.sprint == 1)
+		movespeed = 0.3;
 	if (all->map[(int)all->player.posy]
-			[(int)(all->player.posx - all->player.planx * MOVESPEED)] == '0')
-		all->player.posx -= all->player.planx * MOVESPEED;
-	if (all->map[(int)(all->player.posy - all->player.plany * MOVESPEED)]
+			[(int)(all->player.posx - all->player.planx * movespeed)] == '0')
+		all->player.posx -= all->player.planx * movespeed;
+	if (all->map[(int)(all->player.posy - all->player.plany * movespeed)]
 				[(int)all->player.posx] == '0')
-		all->player.posy -= all->player.plany * MOVESPEED;
+		all->player.posy -= all->player.plany * movespeed;
 	ft_damage(all);
 	ft_heal(all);
 }
 
 void	move_right(t_all *all)
 {
+	float	movespeed;
+
+	movespeed = 0.1;
+	if (all->key.sprint == 1)
+		movespeed = 0.3;
 	if (all->map[(int)all->player.posy]
-			[(int)(all->player.posx + all->player.planx * MOVESPEED)] == '0')
-		all->player.posx += all->player.planx * MOVESPEED;
-	if (all->map[(int)(all->player.posy + all->player.plany * MOVESPEED)]
+			[(int)(all->player.posx + all->player.planx * movespeed)] == '0')
+		all->player.posx += all->player.planx * movespeed;
+	if (all->map[(int)(all->player.posy + all->player.plany * movespeed)]
 				[(int)all->player.posx] == '0')
-		all->player.posy += all->player.plany * MOVESPEED;
+		all->player.posy += all->player.plany * movespeed;
 	ft_damage(all);
 	ft_heal(all);
 }

@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 18:06:10 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 20:01:58 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@
 # define STR_PATH_ERROR "Error\nBad texture or sprite path.\n"
 # define STR_EMPTY_LINE_ERROR "Error\nEmpty line in the map.\n"
 # define STR_NO_PLAYER_ERROR "Error\nThere is no player.\n"
-# define MOVESPEED 0.1
-# define ROTSPEED 0.1
+# define ROTSPEED 0.12
 # define BLACK_PIXEL 0X0
 # define WHITE_PIXEL 0XFFFFFF
 # define RED_PIXEL 0XFF0000
@@ -102,6 +101,7 @@ typedef struct	s_key
 	int			rot_left;
 	int			rot_right;
 	int			escape;
+	int			sprint;
 }				t_key;
 
 typedef struct	s_bmp_header
