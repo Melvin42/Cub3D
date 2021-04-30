@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:07 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/28 15:12:46 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 11:30:21 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	ft_damage(t_all *all)
 	int		i;
 
 	hp_lost = 1;
-	dist_contact = 0;
+	dist_contact = 0.05;
 	i = -1;
 	while (++i < all->numsprites)
 	{
-		if (all->sprite[i].num == 9)
+		if ((all->sprite[i].num >= 3 && all->sprite[i].num <= 7) ||  all->sprite[i].num == 9)
 		{
 			if (((int)all->player.posy == (int)all->sprite[i].y) && ((int)(all->player.posx + dist_contact) == (int)all->sprite[i].x))
 				all->player.hp -= hp_lost;
@@ -37,6 +37,58 @@ void	ft_damage(t_all *all)
 	}
 	if (all->player.hp == 0)
 		ft_escape(all);
+}
+
+void	ft_player_attack(t_all *all)
+{
+	double	dist_contact;
+	int		i;
+
+	dist_contact = 0.15;
+	i = -1;
+	while (++i < all->numsprites)
+	{
+		if (all->sprite[i].num >= 3 && all->sprite[i].num <= 6)
+		{
+			if (((int)all->player.posy == (int)all->sprite[i].y) && ((int)(all->player.posx + dist_contact) == (int)all->sprite[i].x))
+			{
+				all->map[(int)all->sprite[i].y][(int)all->sprite[i].x] = '0';
+				all->sprite[i].num = 0;
+			}
+			else if (((int)all->player.posy == (int)all->sprite[i].y) && ((int)(all->player.posx - dist_contact) == (int)all->sprite[i].x))
+			{
+				all->map[(int)all->sprite[i].y][(int)all->sprite[i].x] = '0';
+				all->sprite[i].num = 0;
+			}
+			else if (((int)(all->player.posy + dist_contact) == (int)all->sprite[i].y) && ((int)all->player.posx == (int)all->sprite[i].x))
+			{
+				all->map[(int)all->sprite[i].y][(int)all->sprite[i].x] = '0';
+				all->sprite[i].num = 0;
+			}
+			else if (((int)(all->player.posy - dist_contact) == (int)all->sprite[i].y) && ((int)all->player.posx == (int)all->sprite[i].x))
+			{
+				all->map[(int)all->sprite[i].y][(int)all->sprite[i].x] = '0';
+				all->sprite[i].num = 0;
+			}
+		}
+	}
+	dist_contact = 0.5;
+	if ((all->map[(int)all->player.posy][((int)(all->player.posx + dist_contact))] == '1') && (int)(all->player.posx + dist_contact) < all->map_width_max - 1)
+	{
+		all->map[(int)all->player.posy][((int)(all->player.posx + dist_contact))] = '0';
+	}
+	else if ((all->map[((int)all->player.posy)][((int)(all->player.posx - dist_contact))] == '1') && (int)(all->player.posx - dist_contact) > 0)
+	{
+		all->map[((int)all->player.posy)][((int)(all->player.posx - dist_contact))] = '0';
+	}
+	else if	((all->map[((int)(all->player.posy + dist_contact))][((int)all->player.posx)] == '1') && (int)(all->player.posy + dist_contact) < all->map_height - 1)
+	{
+		all->map[((int)(all->player.posy + dist_contact))][((int)all->player.posx)] = '0';
+	}
+	else if ((all->map[((int)(all->player.posy - dist_contact))][((int)all->player.posx)] == '1') && (int)(all->player.posy - dist_contact) > 0)
+	{
+		all->map[((int)(all->player.posy - dist_contact))][((int)all->player.posx)] = '0';
+	}
 }
 
 static void	ft_heal(t_all *all)

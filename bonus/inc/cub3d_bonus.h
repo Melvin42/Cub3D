@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/29 20:56:07 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 10:48:39 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -392,6 +392,7 @@ void			rotate_left(t_all *all);
 void			rotate_right(t_all *all);
 
 void			ft_damage(t_all *all);
+void			ft_player_attack(t_all *all);
 int				ft_save(t_all *all);
 
 /*

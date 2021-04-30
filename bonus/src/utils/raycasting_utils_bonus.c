@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/29 20:54:37 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 10:48:05 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,6 +321,7 @@ int		ft_weapon_attack(t_all *all)
 	ft_mini_map(all);
 	ft_put_string_life(all);
 
+	ft_player_attack(all);
 	return (0);
 }
 
@@ -335,7 +336,6 @@ int		render(t_all *all)
 	raycast(all);
 	render_life(all);
 	ft_weapon(all, (t_weapon){0, 0, 352, 93});
-	//ft_weapon_attack(all);
 	ft_move_dragon(all);
 	ft_control(all);
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img.mlx_img, 0, 0);
