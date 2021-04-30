@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:51 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 17:35:41 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 18:03:47 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ int			main(int ac, char **av)
 		if (ft_init_game(&all) < 0)
 			return (0);
 		system("aplay -c 2 -t wav -r 48000 ./music/trap.wav &");
-		ft_skybox_scale(&all);
 		ft_loop(all);
 	}
 	return (0);

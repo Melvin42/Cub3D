@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:57 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 17:31:00 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 18:06:48 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int			ft_load_all_img(t_all *all)
 		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->skybox, "./textures/skybox.xpm") < 0)
 		return (check_error(all, MLX_ERROR));
+	if (ft_new_mlx_img(all, &all->skybox_scale, all->rx, all->ry / 2) < 0)
+		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->sprite_two_img, all->path_sprite_two) < 0)
 		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->sprite_three_img, all->path_sprite_three) < 0)
@@ -123,5 +125,6 @@ int			ft_load_all_img(t_all *all)
 		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->sprite_axe, "./sprites/axe.xpm") < 0)
 		return (check_error(all, MLX_ERROR));
+	ft_img_scale(&all->skybox_scale, &all->skybox);
 	return (0);
 }

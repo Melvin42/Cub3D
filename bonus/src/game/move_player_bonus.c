@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:07 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 11:30:21 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 18:11:59 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_damage(t_all *all)
 				all->player.hp -= hp_lost;
 		}
 	}
-	if (all->player.hp == 0)
+	if (all->player.hp <= 0)
 		ft_escape(all);
 }
 

@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 17:35:58 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 18:08:35 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -382,33 +382,26 @@ void	floor_casting(t_all *all)
 
 }
 
-int	ft_skybox_scale(t_all *all)
+int		ft_img_scale(t_img *dst, t_img *src)
 {
 	int	x;
 	int	y;
 	int	color;
-
-//	float res_x = 2 * all->map_width_max + 2 * all->map_height;
-	//double res_x = all->rx * 8;
-	int res_x = all->rx;// * (2 * all->map_width_max + 2 * all->map_height);
-	int res_y = (all->ry / 2);
 	double	target_x;
 	double	target_y;
 
-	if (ft_new_mlx_img(all, &all->skybox_scale, res_x, res_y) < 0)
-		return (check_error(all, MLX_ERROR));
 	y = -1;
-	while (++y < (int)res_y)
+	while (++y < (int)dst->res_y)
 	{
 		x = -1;
-		while (++x < (int)res_x)
+		while (++x < (int)dst->res_x)
 		{
-			target_x = ((double)x / (double)res_x * (double)all->skybox.res_x);
-			target_y = ((double)y / (double)res_y * (double)all->skybox.res_y);
+			target_x = ((double)x / (double)dst->res_x * (double)src->res_x);
+			target_y = ((double)y / (double)dst->res_y * (double)src->res_y);
 			target_x = floor(target_x);
 			target_y = floor(target_y);
-			color = *((int *)all->skybox.addr + ((int)target_x + (int)target_y * all->skybox.res_x));
-			img_pix_put(&all->skybox_scale, x, y, color);
+			color = *((int *)src->addr + ((int)target_x + (int)target_y * src->res_x));
+			img_pix_put(dst, x, y, color);
 		}
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 16:01:20 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 18:06:10 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -418,6 +418,6 @@ void			ft_free_all(t_all *all);
 
 int				render_life(t_all *all);
 int				menu(t_all *all);
-int				ft_skybox_scale(t_all *all);
+int				ft_img_scale(t_img *dst, t_img *src);
 
 #endif
