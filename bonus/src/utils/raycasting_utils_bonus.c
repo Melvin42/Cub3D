@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 13:27:51 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 15:04:04 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -382,6 +382,30 @@ void	floor_casting(t_all *all)
 
 }
 
+void	ft_skybox(t_all *all)
+{
+	int	x;
+	int	y;
+	int	color;
+
+//	skybox_res_x			2 * all->map_width_max + 2 * all->map_height
+	float res_x;
+	res_x = (2 * all->map_width_max + 2 * all->map_height) / all->skybox.res_x;
+	//float res_y = (all->ry / 2) / all->skybox.res_y;
+	
+	y = -1;
+	while (++y < all->ry / 2)
+	{
+		x = -1;
+		while (++x < all->rx)
+		{
+			color = *((int *)all->skybox.addr + (x + y * all->skybox.res_x));
+			img_pix_put(&all->img, x, y, color);
+		}
+	}
+
+}
+
 int		render(t_all *all)
 {
 	if (all->win_ptr == NULL)
@@ -389,7 +413,8 @@ int		render(t_all *all)
 	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
 	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
 		return (check_error(all, MLX_ERROR));
-	render_background(all);
+//	render_background(all);
+	ft_skybox(all);
 	floor_casting(all);
 	raycast(all);
 	render_life(all);
