@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:51 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 19:49:33 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 20:21:50 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,14 @@
 
 static void	set_all(t_all *all)
 {
-	*all = (t_all){NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-			NULL, NULL, NULL, NULL, NULL, 0, NULL, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0, 0, 0, 0, 1,
-			(t_key){0, 0, 0, 0, 0, 0, 0, 0},
-			(t_player){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100},
-			(t_ray){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-			(t_texture){0, 0, 0, 0, 0, 0},
-			NULL,
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_rgb){-1, -1, -1},
-			(t_rgb){-1, -1, -1}};
+	ft_memset(all, 0, sizeof(*all));
+	all->player.hp = 100;
+	all->floor.red = -1;
+	all->floor.green = -1;
+	all->floor.blue = -1;
+	all->ceiling.red = -1;
+	all->ceiling.green = -1;
+	all->ceiling.blue = -1;
 }
 
 static int	ft_pars_all(t_all *all, char **av)
@@ -104,7 +75,7 @@ int			main(int ac, char **av)
 	t_all	all;
 
 	set_all(&all);
-	if (ac < 2 && ac > 3)
+	if (ac < 2 || ac > 3)
 		return (check_error(&all, ARG_ERROR));
 	if (ft_pars_all(&all, av) < 0)
 		return (0);

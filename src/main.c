@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:51 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 09:31:27 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 20:22:29 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int			main(int ac, char **av)
 	t_all	all;
 
 	set_all(&all);
-	if (ac < 2 && ac > 3)
+	if (ac < 2 || ac > 3)
 		return (check_error(&all, ARG_ERROR));
 	if (ft_pars_all(&all, av) < 0)
 		return (0);
