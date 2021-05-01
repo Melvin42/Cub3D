@@ -6,11 +6,12 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 17:04:52 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/29 14:11:20 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 20:52:17 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d_bonus.h"
+
 /*
 int	menu(t_all *all)
 {

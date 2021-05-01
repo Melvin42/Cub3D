@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:57 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 18:06:48 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 20:46:36 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,10 @@ int			ft_load_all_img(t_all *all)
 {
 	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
 		return (check_error(all, MLX_ERROR));
+	if (ft_mlx_xpm_to_img(all, &all->menu, "./menu/menu.xpm") < 0)
+		return (check_error(all, MLX_ERROR));
+	if (ft_new_mlx_img(all, &all->menu_scale, all->rx, all->ry) < 0)
+		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->tex_n, all->north) < 0)
 		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->tex_s, all->south) < 0)
@@ -126,5 +130,6 @@ int			ft_load_all_img(t_all *all)
 	if (ft_mlx_xpm_to_img(all, &all->sprite_axe, "./sprites/axe.xpm") < 0)
 		return (check_error(all, MLX_ERROR));
 	ft_img_scale(&all->skybox_scale, &all->skybox);
+	ft_img_scale(&all->menu_scale, &all->menu);
 	return (0);
 }

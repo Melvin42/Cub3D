@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:45 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 19:57:26 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 22:06:01 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ void	ft_control(t_all *all)
 
 int		handle_keypress(int keysym, t_all *all)
 {
+	if (keysym == XK_t)
+	{
+		all->key.menu = 1;
+	}
 	if (keysym == XK_Escape)
 		all->key.escape = 1;
 	if (keysym == XK_w)

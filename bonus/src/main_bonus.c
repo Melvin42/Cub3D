@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:51 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 20:21:50 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 22:13:41 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,18 @@ static int	ft_pars_all(t_all *all, char **av)
 	return (0);
 }
 
+int	menu(t_all all)
+{
+	mlx_put_image_to_window(all.mlx_ptr, all.win_ptr, all.menu_scale.mlx_img, 0, 0);
+	return (0);
+}
+
 static void	ft_loop(t_all all)
 {
 	mlx_loop_hook(all.mlx_ptr, &render, &all);
+	mlx_hook(all.win_ptr, FocusIn, FocusChangeMask, &render, &all);
 	mlx_hook(all.win_ptr, ClientMessage, StructureNotifyMask,
 			&ft_exit_cross, &all);
-	mlx_hook(all.win_ptr, FocusIn, FocusChangeMask, &render, &all);
 	mlx_hook(all.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &all);
 	mlx_hook(all.win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, &all);
 	mlx_loop(all.mlx_ptr);
@@ -85,6 +91,7 @@ int			main(int ac, char **av)
 	{
 		if (ft_init_game(&all) < 0)
 			return (0);
+		menu(all);
 		system("aplay -c 2 -t wav -r 48000 ./music/trap.wav &");
 		ft_loop(all);
 	}

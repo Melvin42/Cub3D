@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:07 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 20:05:01 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 20:39:43 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,32 @@ static void	ft_heal(t_all *all)
 		}
 	}
 }
+/*
+void	ft_end_lvl(t_all *all)
+{
+	int	i = -1;
 
+	while (++i < all->numsprites)
+	{
+		if (all->sprite[i].num == 2)
+		{
+			if (((int)all->player.posy == (int)all->sprite[i].y) && ((int)(all->player.posx) == (int)all->sprite[i].x))
+			{
+			
+			}
+			else if (((int)all->player.posy == (int)all->sprite[i].y) && ((int)(all->player.posx) == (int)all->sprite[i].x))
+			{
+			}
+			else if (((int)(all->player.posy) == (int)all->sprite[i].y) && ((int)all->player.posx == (int)all->sprite[i].x))
+			{
+			}
+			else if (((int)(all->player.posy) == (int)all->sprite[i].y) && ((int)all->player.posx == (int)all->sprite[i].x))
+			{
+			}
+		}
+	}
+}
+*/
 void	move_up(t_all *all)
 {
 	float	movespeed;

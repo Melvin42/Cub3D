@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 20:01:58 by melperri         ###   ########.fr       */
+/*   Updated: 2021/04/30 21:41:33 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct	s_key
 	int			rot_right;
 	int			escape;
 	int			sprint;
+	int			menu;
 }				t_key;
 
 typedef struct	s_bmp_header
@@ -245,6 +246,8 @@ typedef struct	s_all
 	t_texture	texture;
 	t_sprite	*sprite;
 	t_img		img;
+	t_img		menu;
+	t_img		menu_scale;
 	t_img		tex_n;
 	t_img		tex_s;
 	t_img		tex_e;
@@ -417,7 +420,7 @@ void			ft_free_all(t_all *all);
 */
 
 int				render_life(t_all *all);
-int				menu(t_all *all);
+int				menu(t_all all);
 int				ft_img_scale(t_img *dst, t_img *src);
 
 #endif
