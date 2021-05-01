@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 21:41:33 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/01 14:14:39 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct	s_key
 	int			escape;
 	int			sprint;
 	int			menu;
+	double		cameray1;
 }				t_key;
 
 typedef struct	s_bmp_header

@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:51 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 22:13:41 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/01 14:16:47 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	set_all(t_all *all)
 {
 	ft_memset(all, 0, sizeof(*all));
 	all->player.hp = 100;
+	all->key.cameray1 = 0.5;
 	all->floor.red = -1;
 	all->floor.green = -1;
 	all->floor.blue = -1;
@@ -92,7 +93,7 @@ int			main(int ac, char **av)
 		if (ft_init_game(&all) < 0)
 			return (0);
 		menu(all);
-		system("aplay -c 2 -t wav -r 48000 ./music/trap.wav &");
+	//	system("aplay -c 2 -t wav -r 48000 ./music/trap.wav &");
 		ft_loop(all);
 	}
 	return (0);

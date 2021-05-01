@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 20:37:17 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/01 13:07:00 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,14 +350,14 @@ void	floor_casting(t_all *all)
 	int ty;
 	int	color;
 
-	y = all->ry / 2;
+	y = all->ry / 2;//all->key.cameray;
 	while (y < all->ry)
 	{
 		raydirx0 = all->player.dirx - all->player.planx;
 		raydiry0 = all->player.diry - all->player.plany;
 		raydirx1 = all->player.dirx + all->player.planx;
 		raydiry1 = all->player.diry + all->player.plany;
-		p = y - all->ry / 2;
+		p = y - all->ry / 2;//all->key.cameray;
 		posz = 0.5 * all->ry;
 		rowdistance = posz / p;
 		floorstepx = rowdistance * (raydirx1 - raydirx0) / all->rx;

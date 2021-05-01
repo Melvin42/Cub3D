@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:34 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/01 11:48:52 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/01 14:16:01 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_calc_ray(t_all *all)
 							+ (double)(1 - all->ray.step_y) / 2)
 							/ all->player.raydiry);
 	all->ray.lineheight = (int)((double)all->ry / all->ray.perpwalldist);
-	all->ray.drawstart = -(all->ray.lineheight) / 2 + all->ry / 2;
+	all->ray.drawstart = (int)((double)-(all->ray.lineheight) * all->key.cameray1 + all->ry / 2);
 	if (all->ray.drawstart < 0)
 		all->ray.drawstart = 0;
 	all->ray.drawend = all->ray.lineheight / 2 + all->ry / 2;
@@ -101,9 +101,9 @@ void	ft_search_pix_in_img(t_all *all)
 		all->texture.tex_x = all->tex_width - all->texture.tex_x - 1;
 	if (all->ray.side == 1 && all->player.raydiry > 0)
 		all->texture.tex_x = all->tex_width - all->texture.tex_x - 1;
-	all->ray.step = 1.0 * (double)all->tex_height / (double)all->ray.lineheight;
+	all->ray.step = 1.0 * (double)all->tex_height/ ((double)all->ray.lineheight);
 	all->texture.tex_pos = ((double)all->ray.drawstart - (double)all->ry / 2
-						+ (double)all->ray.lineheight / 2) * all->ray.step;
+						+ (double)all->ray.lineheight * all->key.cameray1) * all->ray.step;
 }
 
 void	raycast(t_all *all)
