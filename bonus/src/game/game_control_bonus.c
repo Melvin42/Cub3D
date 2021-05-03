@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:45 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/03 16:19:04 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/03 18:02:38 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ void	ft_control(t_all *all)
 		rotate_left(all);
 	if (all->key.rot_right == 1)
 		rotate_right(all);
+	if (all->key.attack == 1)
+		ft_attack_one_loop(all);
+	if (all->key.attack == 2)
+		ft_attack_two_loop(all);
+	if (all->key.attack == 3)
+		ft_attack_three_loop(all);
+	if (all->key.attack == 4)
+		ft_attack_four_loop(all);
 	if (all->key.menu == 0)
 		ft_menu_loop(all);
 }
@@ -96,7 +104,7 @@ int		handle_keypress(int keysym, t_all *all)
 	if (keysym == XK_Up)
 		all->key.sprint = 1;
 	if (keysym == XK_f)
-		ft_weapon_attack(all);
+		all->key.attack = 1;
 	if (keysym == XK_c)
 		all->key.cameray1 += 1.0;
 	if (keysym == XK_v && all->key.cameray1 > 0.5)

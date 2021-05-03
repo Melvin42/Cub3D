@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/03 17:20:25 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/03 18:15:11 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct	s_key
 	int			rot_right;
 	int			escape;
 	int			sprint;
+	int			attack;
 	int			menu;
 	int			game_over;
 	double		cameray1;
@@ -344,6 +345,10 @@ int				render_tex_e(t_all *all, int x, int y);
 int				render_tex_w(t_all *all, int x, int y);
 void			ft_render_side(t_all *all, int x);
 int				render(t_all *all);
+int				render_attack_one(t_all *all);
+int				render_attack_two(t_all *all);
+int				render_attack_three(t_all *all);
+int				render_attack_four(t_all *all);
 
 /*
 ********************************************************************************
@@ -373,7 +378,6 @@ void			ft_put_sprite_pix(t_all *all, int stripe, t_img sprite_img);
 void			ft_search_pix_in_sprite(t_all *all, t_img sprite_img);
 
 int				ft_weapon(t_all *all, t_weapon axe);
-int				ft_weapon_attack(t_all *all);
 
 /*
 ********************************************************************************
@@ -421,6 +425,10 @@ int				render_life(t_all *all);
 void			ft_loop(t_all *all);
 void			ft_game_over_loop(t_all *all);
 void			ft_menu_loop(t_all *all);
+void			ft_attack_one_loop(t_all *all);
+void			ft_attack_two_loop(t_all *all);
+void			ft_attack_three_loop(t_all *all);
+void			ft_attack_four_loop(t_all *all);
 
 void			ft_game_over_control(t_all *all);
 int				ft_game_over_keypress(int keysym, t_all *all);
