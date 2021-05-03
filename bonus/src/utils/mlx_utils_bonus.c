@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:57 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 20:46:36 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/03 15:01:11 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ int			ft_load_all_img(t_all *all)
 		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->tex_floor, "./textures/hearth.xpm") < 0)
 		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->skybox, "./textures/skybox.xpm") < 0)
+	if (ft_mlx_xpm_to_img(all, &all->skybox, "./textures/space.xpm") < 0)
 		return (check_error(all, MLX_ERROR));
-	if (ft_new_mlx_img(all, &all->skybox_scale, all->rx, all->ry / 2) < 0)
+	if (ft_new_mlx_img(all, &all->skybox_scale, all->rx * 4, all->ry/2) < 0)
 		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->sprite_two_img, all->path_sprite_two) < 0)
 		return (check_error(all, MLX_ERROR));

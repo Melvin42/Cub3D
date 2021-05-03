@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/01 14:14:39 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/03 16:19:26 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct	s_key
 	int			escape;
 	int			sprint;
 	int			menu;
+	int			game_over;
 	double		cameray1;
 }				t_key;
 
@@ -421,7 +422,19 @@ void			ft_free_all(t_all *all);
 */
 
 int				render_life(t_all *all);
-int				menu(t_all all);
+
+void			ft_loop(t_all *all);
+void			ft_game_over_loop(t_all *all);
+void			ft_menu_loop(t_all *all);
+
+void			ft_game_over_control(t_all *all);
+int				ft_game_over_keypress(int keysym, t_all *all);
+void			ft_menu_control(t_all *all);
+int				ft_menu_keypress(int keysym, t_all *all);
+
+int				ft_game_over_render(t_all *all);
+int				ft_menu_render(t_all *all);
+
 int				ft_img_scale(t_img *dst, t_img *src);
 
 #endif

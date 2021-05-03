@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/01 13:07:00 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/03 16:28:14 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,14 +350,14 @@ void	floor_casting(t_all *all)
 	int ty;
 	int	color;
 
-	y = all->ry / 2;//all->key.cameray;
+	y = all->ry / 2;
 	while (y < all->ry)
 	{
 		raydirx0 = all->player.dirx - all->player.planx;
 		raydiry0 = all->player.diry - all->player.plany;
 		raydirx1 = all->player.dirx + all->player.planx;
 		raydiry1 = all->player.diry + all->player.plany;
-		p = y - all->ry / 2;//all->key.cameray;
+		p = y - all->ry / 2;
 		posz = 0.5 * all->ry;
 		rowdistance = posz / p;
 		floorstepx = rowdistance * (raydirx1 - raydirx0) / all->rx;
@@ -406,7 +406,7 @@ int		ft_img_scale(t_img *dst, t_img *src)
 	}
 	return (0);
 }
-
+/*
 void	ft_skybox(t_all *all)
 {
 	int	x;
@@ -430,6 +430,34 @@ void	ft_skybox(t_all *all)
 			target_x = floor(target_x);
 			target_y = floor(target_y);
 			color = *((int *)all->skybox_scale.addr + ((int)target_x + (int)target_y * all->skybox_scale.res_x));
+			img_pix_put(&all->img, x, y, color);
+		}
+	}
+}
+*/
+
+void	ft_skybox(t_all *all)
+{
+	int	x;
+	int	y;
+	int	color;
+	double vector;
+
+//	float res_x = 2 * all->map_width_max + 2 * all->map_height;
+	vector = atan2(all->player.raydiry, all->player.raydirx);
+	vector *= 100;
+	if (vector < 0)
+		vector += 360;
+	else if (vector >= 0)
+		vector *= 2;
+	printf("%f\n", vector);
+	y = -1;
+	while (++y < all->ry / 2)
+	{
+		x = -1;
+		while (++x < all->rx)
+		{
+			color = *((int *)all->skybox.addr + (x + (int)vector + ((y * all->skybox.res_x) - (int)vector)));
 			img_pix_put(&all->img, x, y, color);
 		}
 	}
