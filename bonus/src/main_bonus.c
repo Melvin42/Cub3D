@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:51 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/03 16:20:05 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/03 16:45:58 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@ static void	set_all(t_all *all)
 	ft_memset(all, 0, sizeof(*all));
 	all->player.hp = 100;
 	all->key.cameray1 = 0.5;
-	all->floor.red = -1;
-	all->floor.green = -1;
-	all->floor.blue = -1;
-	all->ceiling.red = -1;
-	all->ceiling.green = -1;
-	all->ceiling.blue = -1;
 }
 
 static int	ft_pars_all(t_all *all, char **av)
@@ -33,12 +27,6 @@ static int	ft_pars_all(t_all *all, char **av)
 		return (-1);
 	if (pos_sprites(all) < 0)
 		return (-1);
-	if (check_rgb(all) < 0)
-		return (-1);
-	all->floor_color = encode_rgb(all->floor.red,
-								all->floor.green, all->floor.blue);
-	all->ceiling_color = encode_rgb(all->ceiling.red,
-								all->ceiling.green, all->ceiling.blue);
 	if (check_resolution_value(all) < 0)
 		return (-1);
 	if (all->player.flag == 0)

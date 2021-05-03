@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/03 16:19:26 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/03 17:20:25 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,13 +138,6 @@ typedef struct	s_img
 	int			res_y;
 }				t_img;
 
-typedef struct	s_rgb
-{
-	int			red;
-	int			green;
-	int			blue;
-}				t_rgb;
-
 typedef struct	s_player
 {
 	int			flag;
@@ -216,6 +209,8 @@ typedef struct	s_all
 	char		*path_sprite_seven;
 	char		*path_sprite_eight;
 	char		*path_sprite_nine;
+	char		*floor;
+	char		*skybox;
 	int			numsprites;
 	char		**map;
 	int			map_malloc_size;
@@ -255,7 +250,7 @@ typedef struct	s_all
 	t_img		tex_e;
 	t_img		tex_w;
 	t_img		tex_floor;
-	t_img		skybox;
+	t_img		tex_skybox;
 	t_img		skybox_scale;
 	t_img		sprite_two_img;
 	t_img		sprite_three_img;
@@ -276,8 +271,6 @@ typedef struct	s_all
 	t_img		sprite_dragon_ten;
 	t_img		sprite_axe;
 	t_img		mini_map;
-	t_rgb		floor;
-	t_rgb		ceiling;
 }				t_all;
 
 /*
@@ -297,6 +290,8 @@ int				check_north_path(char *line, t_all *all);
 int				check_south_path(char *line, t_all *all);
 int				check_west_path(char *line, t_all *all);
 int				check_east_path(char *line, t_all *all);
+int				check_floor_path(char *line, t_all *all);
+int				check_skybox_path(char *line, t_all *all);
 int				check_sprite_two_path(char *line, t_all *all);
 int				check_sprite_three_path(char *line, t_all *all);
 int				check_sprite_four_path(char *line, t_all *all);

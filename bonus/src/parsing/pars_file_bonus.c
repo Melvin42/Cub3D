@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:15 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/27 16:03:02 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/03 17:09:51 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ int			dispatcher(char *line, t_all *all)
 		return (check_sprite_eight_path(line, all));
 	else if (*line == 'S' && line[1] == '9')
 		return (check_sprite_nine_path(line, all));
-	else if (*line == 'F')
-		return (check_floor_color(line, all));
 	else if (*line == 'C')
-		return (check_ceiling_color(line, all));
+		return (check_skybox_path(line, all));
+	else if (*line == 'F')
+		return (check_floor_path(line, all));
 	else if ((*line == ' ') || (*line >= '1' && *line <= '9'))
 		return (extract_map(line, all));
 	else

@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:27 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/24 12:22:50 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/03 17:09:17 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,56 @@ int	check_east_path(char *line, t_all *all)
 	if (check_xpm_path(all, all->east) < 0)
 		return (-1);
 	fd = open(all->east, O_RDONLY);
+	if (check_fd(all, fd) < 0)
+		return (-1);
+	return (0);
+}
+
+int	check_floor_path(char *line, t_all *all)
+{
+	int		fd;
+	char	*to_free;
+
+	line++;
+	if (*line != ' ' || all->floor)
+		return (check_error(all, PARS_ERROR));
+	while (*line == ' ')
+		line++;
+	all->floor = ft_strdup((const char *)line);
+	if (all->floor == NULL)
+		return (check_error(all, PARS_ERROR));
+	to_free = all->floor;
+	all->floor = ft_strtrim((const char *)all->floor, " ");
+	free(to_free);
+	to_free = NULL;
+	if (check_xpm_path(all, all->floor) < 0)
+		return (-1);
+	fd = open(all->floor, O_RDONLY);
+	if (check_fd(all, fd) < 0)
+		return (-1);
+	return (0);
+}
+
+int	check_skybox_path(char *line, t_all *all)
+{
+	int		fd;
+	char	*to_free;
+
+	line++;
+	if (*line != ' ' || all->skybox)
+		return (check_error(all, PARS_ERROR));
+	while (*line == ' ')
+		line++;
+	all->skybox = ft_strdup((const char *)line);
+	if (all->skybox == NULL)
+		return (check_error(all, PARS_ERROR));
+	to_free = all->skybox;
+	all->skybox = ft_strtrim((const char *)all->skybox, " ");
+	free(to_free);
+	to_free = NULL;
+	if (check_xpm_path(all, all->skybox) < 0)
+		return (-1);
+	fd = open(all->skybox, O_RDONLY);
 	if (check_fd(all, fd) < 0)
 		return (-1);
 	return (0);

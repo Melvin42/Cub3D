@@ -41,13 +41,13 @@ INSTALL_LIBX = $(shell cd minilibx && sh configure && cd ..)
 
 GAME_FT			= game_control_bonus move_player_bonus rotate_player_bonus save_bonus
 
-PARSING_FT		= check_ceiling_color_bonus check_floor_color_bonus check_resolution_bonus \
+PARSING_FT		= check_resolution_bonus \
 				  pars_map_bonus check_file_format_bonus check_map_open_bonus pars_file_bonus \
 				  pars_path_bonus
 
 RAYCASTING_FT	= raycasting_bonus render_texture_bonus sprite_bonus
 
-UTILS_FT		= check_error_bonus color_utils_bonus cub_utils_bonus free_bonus mlx_utils_bonus \
+UTILS_FT		= check_error_bonus cub_utils_bonus free_bonus mlx_utils_bonus \
 				  raycasting_utils_bonus
 
 SRC_FT 			= main_bonus bonus
