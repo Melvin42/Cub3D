@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/03 18:15:11 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/03 19:01:21 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define STR_PATH_ERROR "Error\nBad texture or sprite path.\n"
 # define STR_EMPTY_LINE_ERROR "Error\nEmpty line in the map.\n"
 # define STR_NO_PLAYER_ERROR "Error\nThere is no player.\n"
-# define ROTSPEED 0.12
+# define ROTSPEED 0.07
 # define BLACK_PIXEL 0X0
 # define WHITE_PIXEL 0XFFFFFF
 # define RED_PIXEL 0XFF0000

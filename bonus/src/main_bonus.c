@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:51 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/03 18:01:06 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/03 21:25:07 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,6 @@ int			main(int ac, char **av)
 			return (0);
 		ft_menu_loop(&all);
 	//	system("aplay -c 2 -t wav -r 48000 ./music/trap.wav &");
-//		ft_loop(all);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:23 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/22 19:29:25 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/03 21:24:28 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,35 @@
 
 static int	check_resolution_path_part_two(char *line, t_all *all)
 {
-	while (*line)
-	{
-		if (ft_isdigit(*line))
-			all->ry = ft_atoi(line);
-		else
-			return (check_error(all, RES_ERROR));
-		while (ft_isdigit(*line))
+	if (ft_isdigit(*line))
+		all->ry = ft_atoi(line);
+	else
+		return (check_error(all, RES_ERROR));
+	while (ft_isdigit(*line))
+		line++;
+	if (*line == ' ' || *line == '\0')
+		while (*line == ' ')
 			line++;
-		if (*line == ' ' || *line == '\0')
-			while (*line == ' ')
-				line++;
-		if (*line != '\0')
-			return (check_error(all, RES_ERROR));
-	}
+	if (*line != '\0')
+		return (check_error(all, RES_ERROR));
 	return (0);
 }
 
 int			check_resolution_path(char *line, t_all *all)
 {
 	line++;
-	while (*line)
-	{
-		while (*line == ' ')
-			line++;
-		if (ft_isdigit(*line))
-			all->rx = ft_atoi(line);
-		else
-			return (check_error(all, RES_ERROR));
-		while (ft_isdigit(*line))
-			line++;
-		while (*line == ' ')
-			line++;
-		if (check_resolution_path_part_two(line, all) < 0)
-			return (-1);
-	}
+	while (*line == ' ')
+		line++;
+	if (ft_isdigit(*line))
+		all->rx = ft_atoi(line);
+	else
+		return (check_error(all, RES_ERROR));
+	while (ft_isdigit(*line))
+		line++;
+	while (*line == ' ')
+		line++;
+	if (check_resolution_path_part_two(line, all) < 0)
+		return (-1);
 	return (0);
 }
 

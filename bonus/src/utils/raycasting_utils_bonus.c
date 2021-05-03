@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/03 18:17:47 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/03 22:25:40 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,35 +344,6 @@ int		ft_img_scale(t_img *dst, t_img *src)
 	}
 	return (0);
 }
-/*
-void	ft_skybox(t_all *all)
-{
-	int	x;
-	int	y;
-	int	color;
-
-//	float res_x = 2 * all->map_width_max + 2 * all->map_height;
-	//double res_x = all->rx * 8;
-	int res_x = all->rx;// * (2 * all->map_width_max + 2 * all->map_height);
-	int res_y = (all->ry / 2);
-	double	target_x;
-	double	target_y;
-	y = -1;
-	while (++y < all->ry / 2)
-	{
-		x = -1;
-		while (++x < all->rx)
-		{
-			target_x = ((double)x / (double)res_x * (double)all->skybox_scale.res_x);
-			target_y = ((double)y / (double)res_y * (double)all->skybox_scale.res_y);
-			target_x = floor(target_x);
-			target_y = floor(target_y);
-			color = *((int *)all->skybox_scale.addr + ((int)target_x + (int)target_y * all->skybox_scale.res_x));
-			img_pix_put(&all->img, x, y, color);
-		}
-	}
-}
-*/
 
 void	ft_skybox(t_all *all)
 {
@@ -380,23 +351,25 @@ void	ft_skybox(t_all *all)
 	int	y;
 	int	color;
 	double vector;
+	int	vectorx;
 
-//	float res_x = 2 * all->map_width_max + 2 * all->map_height;
 	vector = atan2(all->player.raydiry, all->player.raydirx);
-	vector *= 100;
-	if (vector < 0)
-		vector += 360;
-	else if (vector >= 0)
-		vector *= 2;
-	//printf("%f\n", vector);
+	vector *= (double)all->rx / 6.3;
+	vectorx = (int)vector;
+
 	y = -1;
 	while (++y < all->ry / 2)
 	{
 		x = -1;
+		vectorx = (int)vector;
 		while (++x < all->rx)
 		{
-			color = *((int *)all->tex_skybox.addr + (x + (int)vector + ((y * all->tex_skybox.res_x) - (int)vector)));
-			img_pix_put(&all->img, x, y, color);
+			color = *((int *)all->tex_skybox.addr + (x + ((y * all->tex_skybox.res_x))));
+			if (vectorx <= 0)
+				img_pix_put(&all->img, all->rx + vectorx, y, color);
+			else
+				img_pix_put(&all->img, vectorx, y, color);
+			vectorx++;
 		}
 	}
 }
