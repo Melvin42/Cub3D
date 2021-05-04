@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/03 19:01:21 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/04 18:42:19 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,7 +343,10 @@ int				render_tex_n(t_all *all, int x, int y);
 int				render_tex_s(t_all *all, int x, int y);
 int				render_tex_e(t_all *all, int x, int y);
 int				render_tex_w(t_all *all, int x, int y);
+
 void			ft_render_side(t_all *all, int x);
+void			render_sprite(t_all *all);
+
 int				render(t_all *all);
 int				render_attack_one(t_all *all);
 int				render_attack_two(t_all *all);
@@ -368,8 +371,6 @@ void			ft_chose_tex(t_all *all);
 */
 
 void			sort_sprites(t_all *all);
-
-void			render_sprite(t_all *all);
 
 void			ft_calc_sprite_dist(t_all *all);
 void			ft_set_sprite_vars(t_all *all, int i);
@@ -439,5 +440,12 @@ int				ft_game_over_render(t_all *all);
 int				ft_menu_render(t_all *all);
 
 int				ft_img_scale(t_img *dst, t_img *src);
+
+void			ft_move_dragon(t_all *all);
+void			ft_put_string_life(t_all *all);
+void			render_mini_map_pix(t_all *all, int j, int i, int color);
+void			ft_mini_map(t_all *all);
+void			floor_casting(t_all *all);
+void			ft_skybox(t_all *all);
 
 #endif

@@ -2,7 +2,7 @@
 
 NAME = cub3D
 
-MAP = skull.cub
+MAP = maps/skull.cub
 
 ## Color for compilating (pink)
 
@@ -20,6 +20,7 @@ GAME_DIR		= game
 PARSING_DIR		= parsing
 RAYCASTING_DIR	= raycasting
 UTILS_DIR		= utils
+RENDERS_DIR		= renders
 
 ## Compilating Utilities
 
@@ -39,16 +40,19 @@ LIBX_DIR = minilibx
 
 INSTALL_LIBX = $(shell cd minilibx && sh configure && cd ..)
 
-GAME_FT			= game_control_bonus move_player_bonus rotate_player_bonus save_bonus
+GAME_FT			= game_control_bonus move_player_bonus rotate_player_bonus save_bonus \
+				  loops attack_loops dragon
 
 PARSING_FT		= check_resolution_bonus \
 				  pars_map_bonus check_file_format_bonus check_map_open_bonus pars_file_bonus \
 				  pars_path_bonus
 
-RAYCASTING_FT	= raycasting_bonus render_texture_bonus sprite_bonus
+RAYCASTING_FT	= raycasting_bonus sprite_bonus
 
 UTILS_FT		= check_error_bonus cub_utils_bonus free_bonus mlx_utils_bonus \
 				  raycasting_utils_bonus
+
+RENDERS_FT		= render_texture_bonus render_menu render_raycasting render_attack
 
 SRC_FT 			= main_bonus bonus
 
@@ -58,7 +62,8 @@ SRC = $(SRC_FT:%=$(SRC_DIR)/%.c) \
 	$(GAME_FT:%=$(SRC_DIR)/$(GAME_DIR)/%.c) \
 	$(PARSING_FT:%=$(SRC_DIR)/$(PARSING_DIR)/%.c) \
 	$(RAYCASTING_FT:%=$(SRC_DIR)/$(RAYCASTING_DIR)/%.c) \
-	$(UTILS_FT:%=$(SRC_DIR)/$(UTILS_DIR)/%.c)
+	$(UTILS_FT:%=$(SRC_DIR)/$(UTILS_DIR)/%.c) \
+	$(RENDERS_FT:%=$(SRC_DIR)/$(RENDERS_DIR)/%.c)
 
 OBJ = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
@@ -66,7 +71,8 @@ OBJ_DIRS = $(OBJ_DIR) \
 	$(GAME_DIR:%=$(OBJ_DIR)/%) \
 	$(PARSING_DIR:%=$(OBJ_DIR)/%) \
 	$(RAYCASTING_DIR:%=$(OBJ_DIR)/%) \
-	$(UTILS_DIR:%=$(OBJ_DIR)/%)
+	$(UTILS_DIR:%=$(OBJ_DIR)/%) \
+	$(RENDERS_DIR:%=$(OBJ_DIR)/%)
 
 ## Rules of Makefile
 

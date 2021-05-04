@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:51 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/03 21:25:07 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/04 17:55:43 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,108 +32,6 @@ static int	ft_pars_all(t_all *all, char **av)
 	if (all->player.flag == 0)
 		return (check_error(all, NO_PLAYER_ERROR));
 	return (0);
-}
-
-int	ft_menu_render(t_all *all)
-{
-	if (all->win_ptr == NULL)
-		return (1);
-	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->menu_scale.mlx_img, 0, 0);
-	mlx_string_put(all->mlx_ptr, all->win_ptr, ((all->rx / 2 - (all->rx / 2) / 10)),
-			all->ry / 2, WHITE_PIXEL, "WELCOME TO THE WORLD OF WARCUB!!!");
-	mlx_string_put(all->mlx_ptr, all->win_ptr, ((all->rx / 2 - (all->rx / 8) / 10)),
-			(all->ry / 2 + ((all->ry / 2) / 8)), WHITE_PIXEL, "PRESS ENTER");
-	ft_menu_control(all);	
-	return (0);
-}
-
-int	ft_game_over_render(t_all *all)
-{
-	if (all->win_ptr == NULL)
-		return (1);
-	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->menu_scale.mlx_img, 0, 0);
-	mlx_string_put(all->mlx_ptr, all->win_ptr, ((all->rx / 2 - (all->rx / 2) / 10)),
-			all->ry / 2, WHITE_PIXEL, "GAME OVER!!!");
-	mlx_string_put(all->mlx_ptr, all->win_ptr, ((all->rx / 2 - (all->rx / 8) / 10)),
-			(all->ry / 2 + ((all->ry / 2) / 8)), WHITE_PIXEL, "PRESS ESCAPE TO LEAVE");
-	ft_game_over_control(all);	
-	return (0);
-}
-
-void	ft_game_over_loop(t_all *all)
-{
-	mlx_loop_hook(all->mlx_ptr, &ft_game_over_render, all);
-	mlx_hook(all->win_ptr, FocusIn, FocusChangeMask, &ft_game_over_render, all);
-	mlx_hook(all->win_ptr, ClientMessage, StructureNotifyMask,
-			&ft_exit_cross, all);
-	mlx_hook(all->win_ptr, KeyPress, KeyPressMask, &ft_game_over_keypress, all);
-	mlx_loop(all->mlx_ptr);
-}
-
-void	ft_menu_loop(t_all *all)
-{
-	mlx_loop_hook(all->mlx_ptr, &ft_menu_render, all);
-	mlx_hook(all->win_ptr, FocusIn, FocusChangeMask, &ft_menu_render, all);
-	mlx_hook(all->win_ptr, ClientMessage, StructureNotifyMask,
-			&ft_exit_cross, all);
-	mlx_hook(all->win_ptr, KeyPress, KeyPressMask, &ft_menu_keypress, all);
-	mlx_hook(all->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, all);
-	mlx_loop(all->mlx_ptr);
-}
-
-void	ft_loop(t_all *all)
-{
-	mlx_loop_hook(all->mlx_ptr, &render, all);
-	mlx_hook(all->win_ptr, FocusIn, FocusChangeMask, &render, all);
-	mlx_hook(all->win_ptr, ClientMessage, StructureNotifyMask,
-			&ft_exit_cross, &all);
-	mlx_hook(all->win_ptr, KeyPress, KeyPressMask, &handle_keypress, all);
-	mlx_hook(all->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, all);
-	mlx_loop(all->mlx_ptr);
-}
-
-void	ft_attack_one_loop(t_all *all)
-{
-	mlx_loop_hook(all->mlx_ptr, &render_attack_one, all);
-	mlx_hook(all->win_ptr, FocusIn, FocusChangeMask, &render_attack_one, all);
-	mlx_hook(all->win_ptr, ClientMessage, StructureNotifyMask,
-			&ft_exit_cross, &all);
-	mlx_hook(all->win_ptr, KeyPress, KeyPressMask, &handle_keypress, all);
-	mlx_hook(all->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, all);
-	mlx_loop(all->mlx_ptr);
-}
-
-void	ft_attack_two_loop(t_all *all)
-{
-	mlx_loop_hook(all->mlx_ptr, &render_attack_two, all);
-	mlx_hook(all->win_ptr, FocusIn, FocusChangeMask, &render_attack_two, all);
-	mlx_hook(all->win_ptr, ClientMessage, StructureNotifyMask,
-			&ft_exit_cross, &all);
-	mlx_hook(all->win_ptr, KeyPress, KeyPressMask, &handle_keypress, all);
-	mlx_hook(all->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, all);
-	mlx_loop(all->mlx_ptr);
-}
-
-void	ft_attack_three_loop(t_all *all)
-{
-	mlx_loop_hook(all->mlx_ptr, &render_attack_three, all);
-	mlx_hook(all->win_ptr, FocusIn, FocusChangeMask, &render_attack_three, all);
-	mlx_hook(all->win_ptr, ClientMessage, StructureNotifyMask,
-			&ft_exit_cross, &all);
-	mlx_hook(all->win_ptr, KeyPress, KeyPressMask, &handle_keypress, all);
-	mlx_hook(all->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, all);
-	mlx_loop(all->mlx_ptr);
-}
-
-void	ft_attack_four_loop(t_all *all)
-{
-	mlx_loop_hook(all->mlx_ptr, &render_attack_four, all);
-	mlx_hook(all->win_ptr, FocusIn, FocusChangeMask, &render_attack_four, all);
-	mlx_hook(all->win_ptr, ClientMessage, StructureNotifyMask,
-			&ft_exit_cross, &all);
-	mlx_hook(all->win_ptr, KeyPress, KeyPressMask, &handle_keypress, all);
-	mlx_hook(all->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, all);
-	mlx_loop(all->mlx_ptr);
 }
 
 static int	ft_init_game(t_all *all)
