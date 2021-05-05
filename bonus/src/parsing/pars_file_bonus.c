@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:15 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/03 17:09:51 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/05 21:42:57 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	set_map_width_max(t_all *all, char *line, int i)
 	j = -1;
 	map_line = 0;
 	tmp = ft_strlen(line);
-	while (line[++j] == ' ' || (line[j] >= '0' && line[j] <= '9') || (line[j] >= 'a' && line[j] <= 'z'))
+	while (line[++j] == ' ' || (line[j] >= '0' && line[j] <= '9'))
 		map_line = 1;
 	if (map_line == 1)
 	{
@@ -54,45 +54,6 @@ int			count_line(int fd, t_all *all)
 	return (i);
 }
 
-int			dispatcher(char *line, t_all *all)
-{
-	if (*line == 'R')
-		return (check_resolution_path(line, all));
-	else if (*line == 'N')
-		return (check_north_path(line, all));
-	else if (*line == 'S' && line[1] == 'O')
-		return (check_south_path(line, all));
-	else if (*line == 'W')
-		return (check_west_path(line, all));
-	else if (*line == 'E')
-		return (check_east_path(line, all));
-	else if (*line == 'S' && line[1] == '2')
-		return (check_sprite_two_path(line, all));
-	else if (*line == 'S' && line[1] == '3')
-		return (check_sprite_three_path(line, all));
-	else if (*line == 'S' && line[1] == '4')
-		return (check_sprite_four_path(line, all));
-	else if (*line == 'S' && line[1] == '5')
-		return (check_sprite_five_path(line, all));
-	else if (*line == 'S' && line[1] == '6')
-		return (check_sprite_six_path(line, all));
-	else if (*line == 'S' && line[1] == '7')
-		return (check_sprite_seven_path(line, all));
-	else if (*line == 'S' && line[1] == '8')
-		return (check_sprite_eight_path(line, all));
-	else if (*line == 'S' && line[1] == '9')
-		return (check_sprite_nine_path(line, all));
-	else if (*line == 'C')
-		return (check_skybox_path(line, all));
-	else if (*line == 'F')
-		return (check_floor_path(line, all));
-	else if ((*line == ' ') || (*line >= '1' && *line <= '9'))
-		return (extract_map(line, all));
-	else
-		return (check_error(all, PARS_ERROR));
-	return 0;
-}
-
 static int	read_file(int fd, t_all *all)
 {
 	char	*line;
@@ -108,6 +69,7 @@ static int	read_file(int fd, t_all *all)
 		else if (ft_only_space(line) && all->flag_map == 1)
 		{
 			free(line);
+			line = NULL;
 			return (check_error(all, EMPTY_LINE_ERROR));
 		}
 		if (*line != '\0')
@@ -117,6 +79,7 @@ static int	read_file(int fd, t_all *all)
 		line = NULL;
 	}
 	free(line);
+	line = NULL;
 	return (0);
 }
 

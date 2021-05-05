@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:31:04 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/01 13:07:59 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/05 18:03:44 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void	ft_set_sprite_vars(t_all *all, int i)
 	all->spritescreenx = (int)((all->rx / 2)
 						* (1 + all->transformx / all->transformy));
 	all->spriteheight = abs((int)(all->ry / all->transformy));
-	all->drawstarty = -all->spriteheight / 2 + all->ry / 2;//all->key.cameray;
+	all->drawstarty = -all->spriteheight / 2 + all->ry / 2;
 }
 
 void	ft_calc_sprite_ray(t_all *all)
 {
 	if (all->drawstarty < 0)
 		all->drawstarty = 0;
-	all->drawendy = all->spriteheight / 2 + all->ry / 2;//all->key.cameray;
+	all->drawendy = all->spriteheight / 2 + all->ry / 2;
 	if (all->drawendy >= all->ry)
 		all->drawendy = all->ry - 1;
 	all->spritewidth = abs((int)(all->ry / all->transformy));
@@ -62,18 +62,14 @@ void	ft_put_sprite_pix(t_all *all, int stripe, t_img sprite_img)
 {
 	int	y;
 	int	d;
-	int test;
-//	if (all->key.cameray == 2)
-		test = 256;
-//	else
-//		test = 256;
+
 	y = all->drawstarty;
 	while (y < all->drawendy)
 	{
-		d = y * test - all->ry * 128 + all->spriteheight * 128;
+		d = y * 256 - all->ry * 128 + all->spriteheight * 128;
 		all->texture.tex_y = abs(((d * sprite_img.res_y)
-								/ all->spriteheight) / test);
-		all->texture.color = *((int *)sprite_img.addr 
+								/ all->spriteheight) / 256);
+		all->texture.color = *((int *)sprite_img.addr
 								+ (sprite_img.res_x * all->texture.tex_y
 								+ all->texture.tex_x));
 		if ((all->texture.color & 0x00FFFFFF) != 0)

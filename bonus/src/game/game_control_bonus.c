@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:45 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/03 18:02:38 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/05 18:37:39 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,36 +55,6 @@ void	ft_control(t_all *all)
 		ft_menu_loop(all);
 }
 
-void	ft_game_over_control(t_all *all)
-{
-	if (all->key.escape == 1)
-		ft_escape(all);
-}
-
-int		ft_game_over_keypress(int keysym, t_all *all)
-{
-	if (keysym == XK_Escape)
-		all->key.escape = 1;
-	return (0);
-}
-
-void	ft_menu_control(t_all *all)
-{
-	if (all->key.escape == 1)
-		ft_escape(all);
-	if (all->key.menu == 1)
-		ft_loop(all);
-}
-
-int		ft_menu_keypress(int keysym, t_all *all)
-{
-	if (keysym == XK_Return)
-		all->key.menu = 1;
-	if (keysym == XK_Escape)
-		all->key.escape = 1;
-	return (0);
-}
-
 int		handle_keypress(int keysym, t_all *all)
 {
 	if (keysym == XK_Escape)
@@ -106,9 +76,9 @@ int		handle_keypress(int keysym, t_all *all)
 	if (keysym == XK_f)
 		all->key.attack = 1;
 	if (keysym == XK_c)
-		all->key.cameray1 += 1.0;
-	if (keysym == XK_v && all->key.cameray1 > 0.5)
-		all->key.cameray1 -= 1.0;
+		all->key.cameray += 1.0;
+	if (keysym == XK_v && all->key.cameray > 0.5)
+		all->key.cameray -= 1.0;
 	if (keysym == XK_p)
 		all->key.menu = 0;
 	return (0);

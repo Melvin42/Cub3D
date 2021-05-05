@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 18:46:19 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/04 18:47:20 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/05 18:00:00 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	ft_move_dragon(t_all *all)
 {
-	int	i = -1;
+	int	i;
+
+	i = -1;
 	while (++i < all->numsprites)
 	{
 		if (all->sprite[i].num == 9)
@@ -31,4 +33,3 @@ void	ft_move_dragon(t_all *all)
 	}
 	ft_damage(all);
 }
-

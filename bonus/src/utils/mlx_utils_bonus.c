@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:57 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/04 18:52:19 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/05 19:42:02 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,70 +66,5 @@ int			ft_mlx_xpm_to_img(t_all *all, t_img *tex, char *path)
 								&tex->line_len, &tex->endian);
 	if (tex->addr == NULL)
 		return (check_error(all, MLX_ERROR));
-	return (0);
-}
-
-int			ft_load_all_img(t_all *all)
-{
-	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->menu, "./menu/menu.xpm") < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_new_mlx_img(all, &all->menu_scale, all->rx, all->ry) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->tex_n, all->north) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->tex_s, all->south) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->tex_e, all->east) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->tex_w, all->west) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->tex_floor, all->floor) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->tex_skybox, all->skybox) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_new_mlx_img(all, &all->skybox_scale, all->rx * 4, all->ry/2) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_two_img, all->path_sprite_two) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_three_img, all->path_sprite_three) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_four_img, all->path_sprite_four) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_five_img, all->path_sprite_five) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_six_img, all->path_sprite_six) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_seven_img, all->path_sprite_seven) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_eight_img, all->path_sprite_eight) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_one, all->path_sprite_nine) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_two, "./sprites/dragon/dragon2.xpm") < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_three, "./sprites/dragon/dragon3.xpm") < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_four, "./sprites/dragon/dragon4.xpm") < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_five, "./sprites/dragon/dragon5.xpm") < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_six, "./sprites/dragon/dragon6.xpm") < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_seven, "./sprites/dragon/dragon7.xpm") < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_eight, "./sprites/dragon/dragon8.xpm") < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_nine, "./sprites/dragon/dragon9.xpm") < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_ten, "./sprites/dragon/dragon10.xpm") < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_new_mlx_img(all, &all->mini_map, all->map_width_max * 4, all->map_height * 4) < 0)
-		return (check_error(all, MLX_ERROR));
-	if (ft_mlx_xpm_to_img(all, &all->sprite_axe, "./sprites/axe.xpm") < 0)
-		return (check_error(all, MLX_ERROR));
-	ft_img_scale(&all->skybox_scale, &all->tex_skybox);
-	ft_img_scale(&all->menu_scale, &all->menu);
 	return (0);
 }

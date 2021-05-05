@@ -41,20 +41,21 @@ LIBX_DIR = minilibx
 INSTALL_LIBX = $(shell cd minilibx && sh configure && cd ..)
 
 GAME_FT			= game_control_bonus move_player_bonus rotate_player_bonus save_bonus \
-				  loops attack_loops dragon
+				  loops attack_loops dragon menu_control fight heal
 
-PARSING_FT		= check_resolution_bonus \
+PARSING_FT		= check_resolution_bonus dispatcher \
 				  pars_map_bonus check_file_format_bonus check_map_open_bonus pars_file_bonus \
-				  pars_path_bonus
+				  pars_path_bonus path_floor_skybox path_sprite_seven_to_nine path_sprite_two_to_six
 
-RAYCASTING_FT	= raycasting_bonus sprite_bonus
+RAYCASTING_FT	= raycasting_bonus sprite_bonus raycasting_utils_bonus floor_raycasting
 
 UTILS_FT		= check_error_bonus cub_utils_bonus free_bonus mlx_utils_bonus \
-				  raycasting_utils_bonus
+				  load_img
 
-RENDERS_FT		= render_texture_bonus render_menu render_raycasting render_attack
+RENDERS_FT		= render_texture_bonus render_menu render_raycasting render_attack \
+				  render_life mini_map render_weapon
 
-SRC_FT 			= main_bonus bonus
+SRC_FT 			= main_bonus
 
 ## List of Utilities
 

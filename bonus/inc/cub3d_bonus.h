@@ -6,11 +6,11 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/04 18:42:19 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/05 21:57:32 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
+#ifndef CUB3D_BONUS_H
 
 /*
 ********************************************************************************
@@ -18,7 +18,7 @@
 ********************************************************************************
 */
 
-# define CUB3D_H
+# define CUB3D_BONUS_H
 # define STR_MLX_ERROR "Error\nmlx error.\n"
 # define STR_PARS_ERROR "Error\nFile .cub isn't well formated.\n"
 # define STR_FOLDER_ERROR "Error\nBad path, or .cub is a folder or empty.\n"
@@ -105,7 +105,7 @@ typedef struct	s_key
 	int			attack;
 	int			menu;
 	int			game_over;
-	double		cameray1;
+	double		cameray;
 }				t_key;
 
 typedef struct	s_bmp_header
@@ -173,6 +173,25 @@ typedef struct	s_ray
 	int			side;
 }				t_ray;
 
+typedef struct	s_floor_ray
+{
+	float		raydirx0;
+	float		raydiry0;
+	float		raydirx1;
+	float		raydiry1;
+	int			p;
+	float		posz;
+	float		rowdistance;
+	float		floorstepx;
+	float		floorstepy;
+	float		floorx;
+	float		floory;
+	int			cellx;
+	int			celly;
+	int			tx;
+	int			ty;
+}				t_floor_ray;
+
 typedef struct	s_texture
 {
 	double		wall_x;
@@ -202,14 +221,14 @@ typedef struct	s_all
 	char		*south;
 	char		*west;
 	char		*east;
-	char		*path_sprite_two;
-	char		*path_sprite_three;
-	char		*path_sprite_four;
-	char		*path_sprite_five;
-	char		*path_sprite_six;
-	char		*path_sprite_seven;
-	char		*path_sprite_eight;
-	char		*path_sprite_nine;
+	char		*path_two;
+	char		*path_three;
+	char		*path_four;
+	char		*path_five;
+	char		*path_six;
+	char		*path_seven;
+	char		*path_eight;
+	char		*path_nine;
 	char		*floor;
 	char		*skybox;
 	int			numsprites;
@@ -240,7 +259,9 @@ typedef struct	s_all
 	int			dragon_frame;
 	t_key		key;
 	t_player	player;
+	t_weapon	weapon;
 	t_ray		ray;
+	t_floor_ray	floor_ray;
 	t_texture	texture;
 	t_sprite	*sprite;
 	t_img		img;
@@ -353,6 +374,11 @@ int				render_attack_two(t_all *all);
 int				render_attack_three(t_all *all);
 int				render_attack_four(t_all *all);
 
+void			ft_mini_map(t_all *all);
+
+void			render_life(t_all *all);
+void			ft_put_string_life(t_all *all);
+
 /*
 ********************************************************************************
 **============================>  RAYCASTING  <================================**
@@ -360,9 +386,11 @@ int				render_attack_four(t_all *all);
 */
 
 void			ft_set_raycast_vars(t_all *all);
-void			floor_casting(t_all *all);
 void			raycast(t_all *all);
 void			ft_chose_tex(t_all *all);
+void			ft_skybox(t_all *all);
+
+void			floor_casting(t_all *all);
 
 /*
 ********************************************************************************
@@ -378,7 +406,7 @@ void			ft_calc_sprite_ray(t_all *all);
 void			ft_put_sprite_pix(t_all *all, int stripe, t_img sprite_img);
 void			ft_search_pix_in_sprite(t_all *all, t_img sprite_img);
 
-int				ft_weapon(t_all *all, t_weapon axe);
+int				ft_render_weapon(t_all *all);
 
 /*
 ********************************************************************************
@@ -401,6 +429,7 @@ void			rotate_left(t_all *all);
 void			rotate_right(t_all *all);
 
 void			ft_damage(t_all *all);
+void			ft_heal(t_all *all);
 void			ft_player_attack(t_all *all);
 int				ft_save(t_all *all);
 
@@ -417,11 +446,9 @@ void			ft_free_all(t_all *all);
 
 /*
 ********************************************************************************
-**==============================>   BONUS   <=================================**
+**==============================>   LOOPS   <=================================**
 ********************************************************************************
 */
-
-int				render_life(t_all *all);
 
 void			ft_loop(t_all *all);
 void			ft_game_over_loop(t_all *all);
@@ -431,6 +458,12 @@ void			ft_attack_two_loop(t_all *all);
 void			ft_attack_three_loop(t_all *all);
 void			ft_attack_four_loop(t_all *all);
 
+/*
+********************************************************************************
+**==============================>   LOOPS   <=================================**
+********************************************************************************
+*/
+
 void			ft_game_over_control(t_all *all);
 int				ft_game_over_keypress(int keysym, t_all *all);
 void			ft_menu_control(t_all *all);
@@ -439,13 +472,14 @@ int				ft_menu_keypress(int keysym, t_all *all);
 int				ft_game_over_render(t_all *all);
 int				ft_menu_render(t_all *all);
 
-int				ft_img_scale(t_img *dst, t_img *src);
-
 void			ft_move_dragon(t_all *all);
-void			ft_put_string_life(t_all *all);
-void			render_mini_map_pix(t_all *all, int j, int i, int color);
-void			ft_mini_map(t_all *all);
-void			floor_casting(t_all *all);
-void			ft_skybox(t_all *all);
+
+/*
+********************************************************************************
+**==============================>   UTILS   <=================================**
+********************************************************************************
+*/
+
+int				ft_img_scale(t_img *dst, t_img *src);
 
 #endif

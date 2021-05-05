@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:21 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/01 11:29:38 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/05 21:46:47 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int			check_map(t_all *all)
 		j = -1;
 		while (all->map[i][++j])
 			if (all->map[i][j] == '0' || all->map[i][j] == '1'
-				|| all->map[i][j] == ' ' || (all->map[i][j] >= 'a' && all->map[i][j] <= 'z'))
+				|| all->map[i][j] == ' ')
 				;
 			else if (all->map[i][j] >= '2' && all->map[i][j] <= '9')
 				all->numsprites++;
@@ -123,7 +123,6 @@ int			pos_sprites(t_all *all)
 	{
 		x = -1;
 		while (all->map[y][++x])
-		{
 			if (all->map[y][x] >= '2' && all->map[y][x] <= '9')
 			{
 				all->sprite[i].x = (double)x;
@@ -133,7 +132,6 @@ int			pos_sprites(t_all *all)
 					all->map[y][x] = '0';
 				i++;
 			}
-		}
 	}
 	return (0);
 }
