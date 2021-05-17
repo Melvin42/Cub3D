@@ -24,11 +24,11 @@ RENDERS_DIR		= renders
 
 ## Compilating Utilities
 
-#FAST = -Ofast
+FAST = -Ofast
 
-DEBUG = -g3 #-fsanitize=address
+DEBUG = -g3 -fsanitize=address
 
-FLAGS = -Wall -Wextra -Werror $(FAST) $(DEBUG) -D_REENTRANT
+FLAGS = -Wall -Wextra -Werror $(FAST) #$(DEBUG) -D_REENTRANT
 
 INC = $(./$(INC_DIR)/-I%.h)
 

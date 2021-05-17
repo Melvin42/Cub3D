@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/05 21:05:20 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/11 15:25:31 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_skybox(t_all *all)
 	int		vectorx;
 
 	vector = atan2(all->player.raydiry, all->player.raydirx);
-	vector *= (double)all->rx / 6.3;
+	vector *= (double)all->rx / 6.28;
 	y = -1;
 	while (++y < all->ry / 2)
 	{
