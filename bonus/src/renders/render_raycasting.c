@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 18:00:41 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/17 16:34:03 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/18 16:51:49 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,17 @@ int			render(t_all *all)
 	if (all->win_ptr == NULL)
 		return (check_error(all, MLX_ERROR));
 	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
-	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0
-//	floor_casting(all);
+	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
+		return (check_error(all, MLX_ERROR));
+	ft_skybox(all);
+	floor_casting(all);
 	raycast(all);
 	render_life(all);
 	all->weapon.x_start = 0;
 	all->weapon.y_start = 0;
 	all->weapon.x_end = 352;
 	all->weapon.y_end = 93;
-//	ft_render_weapon(all);
+	ft_render_weapon(all);
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->img.mlx_img, 0, 0);
 	ft_mini_map(all);
 	ft_put_string_life(all);

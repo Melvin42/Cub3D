@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/11 15:25:31 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/18 16:59:54 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ void	ft_skybox(t_all *all)
 		{
 			color = *((int *)all->tex_skybox.addr
 					+ (x + ((y * all->tex_skybox.res_x))));
-			if (vectorx <= 0)
+			if (vectorx < 0 && vectorx + all->rx >= 0 && all->rx + vectorx <= all->rx)
 				img_pix_put(&all->img, all->rx + vectorx, y, color);
-			else
+			else if (vectorx >= 0 && vectorx >= 0 && vectorx <= all->rx)
 				img_pix_put(&all->img, vectorx, y, color);
 			vectorx++;
 		}
