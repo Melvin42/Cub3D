@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/05 21:57:32 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/19 18:15:41 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,6 +359,10 @@ int				ft_load_all_img(t_all *all);
 ********************************************************************************
 */
 
+int				ft_game_over_render(t_all *all);
+int				ft_next_lvl_menu_render(t_all *all);
+int				ft_menu_render(t_all *all);
+
 void			render_background(t_all *all);
 int				render_tex_n(t_all *all, int x, int y);
 int				render_tex_s(t_all *all, int x, int y);
@@ -374,6 +378,7 @@ int				render_attack_two(t_all *all);
 int				render_attack_three(t_all *all);
 int				render_attack_four(t_all *all);
 
+int				mini_map_factor(t_all *all);
 void			ft_mini_map(t_all *all);
 
 void			render_life(t_all *all);
@@ -443,6 +448,8 @@ int				check_fd(t_all *all, int fd);
 int				check_error(t_all *all, int error);
 
 void			ft_free_all(t_all *all);
+void			ft_free_to_go_next_lvl(t_all *all);
+int				ft_load_next_lvl(t_all *all);
 
 /*
 ********************************************************************************
@@ -453,6 +460,7 @@ void			ft_free_all(t_all *all);
 void			ft_loop(t_all *all);
 void			ft_game_over_loop(t_all *all);
 void			ft_menu_loop(t_all *all);
+void			ft_next_lvl_loop(t_all *all);
 void			ft_attack_one_loop(t_all *all);
 void			ft_attack_two_loop(t_all *all);
 void			ft_attack_three_loop(t_all *all);
@@ -468,9 +476,6 @@ void			ft_game_over_control(t_all *all);
 int				ft_game_over_keypress(int keysym, t_all *all);
 void			ft_menu_control(t_all *all);
 int				ft_menu_keypress(int keysym, t_all *all);
-
-int				ft_game_over_render(t_all *all);
-int				ft_menu_render(t_all *all);
 
 void			ft_move_dragon(t_all *all);
 

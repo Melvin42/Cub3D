@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   save.c                                             :+:      :+:    :+:   */
+/*   save_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:59 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/22 19:31:00 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/19 17:10:50 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,15 @@ int			ft_save(t_all *all)
 	ft_bzero(header, 54);
 	set_header_struct(all, &bmp, header);
 	ft_init_save(all);
-	render_background(all);
+	ft_skybox(all);
+	floor_casting(all);
 	raycast(all);
+	render_life(all);
+	all->weapon.x_start = 0;
+	all->weapon.y_start = 0;
+	all->weapon.x_end = 352;
+	all->weapon.y_end = 93;
+	ft_render_weapon(all);
 	fd = open("save.bmp", O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
 	write(fd, header, 54);
 	i = all->ry;

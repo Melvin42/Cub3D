@@ -1,11 +1,12 @@
-R 9999999999 99999999999999999
+R 1000 800
 
 NO ./textures/icestone.xpm
 SO ./textures/hearthstone.xpm
 WE ./textures/iron.xpm
 EA ./textures/wood.xpm
-S2 ./sprites/sylvanas1024.xpm
-S3 ./sprites/red-dragon.xpm
+
+S2 ./sprites/portal.xpm
+S3 ./sprites/sylvanas1024.xpm
 S4 ./sprites/illidan1024.xpm
 S5 ./sprites/kil-jaeden.xpm
 S6 ./sprites/lichking1024.xpm
@@ -13,8 +14,9 @@ S7 ./sprites/babydragon.xpm
 S8 ./sprites/murloc.xpm
 S9 ./sprites/dragon/dragon1.xpm
 
-F 80,80,80
-C 0,0,0
+C  ./textures/space.xpm
+F  ./textures/hearth.xpm
+
 111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
 111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
 111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111

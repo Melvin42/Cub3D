@@ -6,29 +6,46 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 19:46:04 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/05 19:53:17 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/19 16:54:33 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d_bonus.h"
 
+int			mini_map_factor(t_all *all)
+{
+	int	factor;
+
+	if (all->rx > 1600 && all->ry > 800)
+		factor = 4;
+	else if (all->rx > 600 && all->rx <= 1600)
+		factor = 3;
+	else if (all->ry > 400 && all->ry <= 800)
+		factor = 3;
+	else if (all->rx > 200 && all->rx <= 600)
+		factor = 2;
+	else if (all->ry > 200 && all->ry <= 400)
+		factor = 2;
+	else
+		factor = 1;
+	return (factor);
+}
+
 static void	render_mini_map_pix(t_all *all, int j, int i, int color)
 {
 	int	x;
 	int	y;
+	int	factor;
 
-	i = i * 4;
-	j = j * 4;
+	factor = mini_map_factor(all);
+	i = i * factor;
+	j = j * factor;
 	y = i;
-	while (y < i + 4)
+	while (y++ < i + factor)
 	{
 		x = j;
-		while (x < j + 4)
-		{
-			img_pix_put(&all->mini_map, x, y, color);
-			x++;
-		}
-		y++;
+		while (x < j + factor)
+			img_pix_put(&all->mini_map, x++, y, color);
 	}
 }
 

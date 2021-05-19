@@ -6,44 +6,38 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:07 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/05 19:15:40 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/19 17:56:17 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d_bonus.h"
 
-/*
-**void	ft_end_lvl(t_all *all)
-**{
-**	int	i = -1;
-**
-**	while (++i < all->numsprites)
-**	{
-**		if (all->sprite[i].num == 2)
-**		{
-**			if (((int)all->player.posy == (int)all->sprite[i].y)
-**				&& ((int)(all->player.posx) == (int)all->sprite[i].x))
-**			{
-**
-**			}
-**			else if (((int)all->player.posy == (int)all->sprite[i].y)
-**				&& ((int)(all->player.posx) == (int)all->sprite[i].x))
-**			{
-**			}
-**			else if (((int)(all->player.posy) == (int)all->sprite[i].y)
-**				&& ((int)all->player.posx == (int)all->sprite[i].x))
-**			{
-**			}
-**			else if (((int)(all->player.posy) == (int)all->sprite[i].y)
-**				&& ((int)all->player.posx == (int)all->sprite[i].x))
-**			{
-**			}
-**		}
-**	}
-**}
-*/
+static void	ft_end_lvl(t_all *all)
+{
+	double	d;
+	int	i;
 
-void	move_up(t_all *all)
+	d = 0.05;
+	i = -1;
+	while (++i < all->numsprites)
+		if (all->sprite[i].num == 2)
+		{
+			if (((int)all->player.posy == (int)all->sprite[i].y)
+				&& ((int)(all->player.posx + d) == (int)all->sprite[i].x))
+				ft_next_lvl_loop(all);
+			else if (((int)all->player.posy == (int)all->sprite[i].y)
+				&& ((int)(all->player.posx - d) == (int)all->sprite[i].x))
+				ft_next_lvl_loop(all);
+			else if (((int)(all->player.posy + d) == (int)all->sprite[i].y)
+				&& ((int)all->player.posx == (int)all->sprite[i].x))
+				ft_next_lvl_loop(all);
+			else if (((int)(all->player.posy - d) == (int)all->sprite[i].y)
+				&& ((int)all->player.posx == (int)all->sprite[i].x))
+				ft_next_lvl_loop(all);
+		}
+}
+
+void		move_up(t_all *all)
 {
 	float	movespeed;
 
@@ -58,9 +52,10 @@ void	move_up(t_all *all)
 		all->player.posy += all->player.diry * movespeed;
 	ft_damage(all);
 	ft_heal(all);
+	ft_end_lvl(all);
 }
 
-void	move_down(t_all *all)
+void		move_down(t_all *all)
 {
 	float	movespeed;
 
@@ -75,9 +70,10 @@ void	move_down(t_all *all)
 		all->player.posy -= all->player.diry * movespeed;
 	ft_damage(all);
 	ft_heal(all);
+	ft_end_lvl(all);
 }
 
-void	move_left(t_all *all)
+void		move_left(t_all *all)
 {
 	float	movespeed;
 
@@ -92,9 +88,10 @@ void	move_left(t_all *all)
 		all->player.posy -= all->player.plany * movespeed;
 	ft_damage(all);
 	ft_heal(all);
+	ft_end_lvl(all);
 }
 
-void	move_right(t_all *all)
+void		move_right(t_all *all)
 {
 	float	movespeed;
 
@@ -109,4 +106,5 @@ void	move_right(t_all *all)
 		all->player.posy += all->player.plany * movespeed;
 	ft_damage(all);
 	ft_heal(all);
+	ft_end_lvl(all);
 }

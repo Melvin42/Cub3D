@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 18:07:55 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/18 16:49:57 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/19 14:50:09 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		render_attack_one(t_all *all)
 	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
 	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
 		return (check_error(all, MLX_ERROR));
-//	ft_skybox(all);
+	ft_skybox(all);
 	floor_casting(all);
 	raycast(all);
 	render_life(all);
@@ -45,7 +45,7 @@ int		render_attack_two(t_all *all)
 	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
 	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
 		return (check_error(all, MLX_ERROR));
-//	ft_skybox(all);
+	ft_skybox(all);
 	floor_casting(all);
 	raycast(all);
 	render_life(all);
@@ -70,7 +70,7 @@ int		render_attack_three(t_all *all)
 	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
 	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
 		return (check_error(all, MLX_ERROR));
-//	ft_skybox(all);
+	ft_skybox(all);
 	floor_casting(all);
 	raycast(all);
 	render_life(all);
@@ -95,7 +95,7 @@ int		render_attack_four(t_all *all)
 	mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
 	if (ft_new_mlx_img(all, &all->img, all->rx, all->ry) < 0)
 		return (check_error(all, MLX_ERROR));
-//	ft_skybox(all);
+	ft_skybox(all);
 	floor_casting(all);
 	raycast(all);
 	render_life(all);

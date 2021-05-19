@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 09:29:15 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/11 15:23:28 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/19 18:38:24 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,20 @@ static void	ft_destroy_img_tex(t_all *all)
 		mlx_destroy_image(all->mlx_ptr, all->tex_e.mlx_img);
 	if (all->tex_w.mlx_img)
 		mlx_destroy_image(all->mlx_ptr, all->tex_w.mlx_img);
+	if (all->tex_floor.mlx_img)
+		mlx_destroy_image(all->mlx_ptr, all->tex_floor.mlx_img);
+	if (all->tex_skybox.mlx_img)
+		mlx_destroy_image(all->mlx_ptr, all->tex_skybox.mlx_img);
+	if (all->skybox_scale.mlx_img)
+		mlx_destroy_image(all->mlx_ptr, all->skybox_scale.mlx_img);
+	if (all->menu.mlx_img)
+		mlx_destroy_image(all->mlx_ptr, all->menu.mlx_img);
+	if (all->menu_scale.mlx_img)
+		mlx_destroy_image(all->mlx_ptr, all->menu_scale.mlx_img);
+	if (all->sprite_axe.mlx_img)
+		mlx_destroy_image(all->mlx_ptr, all->sprite_axe.mlx_img);
+	if (all->mini_map.mlx_img)
+		mlx_destroy_image(all->mlx_ptr, all->mini_map.mlx_img);
 }
 
 static void	ft_destroy_img_sprite(t_all *all)
@@ -80,6 +94,8 @@ static void	ft_free_path(t_all *all)
 	free(all->path_seven);
 	free(all->path_eight);
 	free(all->path_nine);
+	free(all->skybox);
+	free(all->floor);
 }
 
 void		ft_free_all(t_all *all)
@@ -107,4 +123,49 @@ void		ft_free_all(t_all *all)
 		mlx_destroy_display(all->mlx_ptr);
 		free(all->mlx_ptr);
 	}
+}
+
+void		ft_free_to_go_next_lvl(t_all *all)
+{
+	ft_free_path(all);
+	free(all->zbuffer);
+	while (all->index-- > 0)
+	{
+		if (all->map[all->index])
+			free(all->map[all->index]);
+	}
+	free(all->map);
+	free(all->sprite);
+	if (all->mlx_ptr)
+	{
+		if (all->win_ptr)
+		{
+			ft_destroy_img_tex(all);
+			ft_destroy_img_sprite(all);
+			ft_destroy_img_dragon(all);
+		}
+	}
+}
+
+int			ft_load_next_lvl(t_all *all)
+{
+	char **av;
+
+	if (!(av = malloc(sizeof(char *) * 3)))
+		return (-1);
+	memset(av, 0, sizeof(**av));
+	if (!(av[1] = malloc(sizeof(char) * 18)))
+		return (-1);
+	strcpy(av[1], "./maps/dragon.cub");
+	if (ft_pars_file(all, av) < 0)
+		return (-1);
+	if (pos_sprites(all) < 0)
+		return (-1);
+	if (check_resolution_value(all) < 0)
+		return (-1);
+	if (all->player.flag == 0)
+		return (check_error(all, NO_PLAYER_ERROR));
+	free(av[1]);
+	free(av);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 17:54:57 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/05 19:13:34 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/19 18:12:40 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,24 @@ int	ft_menu_render(t_all *all)
 	mlx_string_put(all->mlx_ptr, all->win_ptr,
 			((all->rx / 2 - (all->rx / 8) / 10)),
 			(all->ry / 2 + ((all->ry / 2) / 8)), WHITE_PIXEL, "PRESS ENTER");
+	ft_menu_control(all);
+	return (0);
+}
+
+int	ft_next_lvl_menu_render(t_all *all)
+{
+	if (all->win_ptr == NULL)
+		return (1);
+	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr,
+				all->menu_scale.mlx_img, 0, 0);
+	mlx_string_put(all->mlx_ptr, all->win_ptr,
+				((all->rx / 2 - (all->rx / 2) / 10)),
+				all->ry / 2, WHITE_PIXEL, "LET'S GO TO THE NEXT LEVEL!!!");
+	mlx_string_put(all->mlx_ptr, all->win_ptr,
+			((all->rx / 2 - (all->rx / 8) / 10)),
+			(all->ry / 2 + ((all->ry / 2) / 8)), WHITE_PIXEL, "PRESS ENTER");
+	ft_free_to_go_next_lvl(all);
+	ft_load_next_lvl(all);
 	ft_menu_control(all);
 	return (0);
 }
