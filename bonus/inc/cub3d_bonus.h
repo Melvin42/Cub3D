@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/19 18:15:41 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/19 23:23:54 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -476,6 +476,7 @@ void			ft_game_over_control(t_all *all);
 int				ft_game_over_keypress(int keysym, t_all *all);
 void			ft_menu_control(t_all *all);
 int				ft_menu_keypress(int keysym, t_all *all);
+void			ft_next_lvl_menu_control(t_all *all);
 
 void			ft_move_dragon(t_all *all);
 
@@ -486,5 +487,6 @@ void			ft_move_dragon(t_all *all);
 */
 
 int				ft_img_scale(t_img *dst, t_img *src);
+int				main(int ac, char **av);
 
 #endif

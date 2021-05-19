@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:07 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/19 17:56:17 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/19 23:31:39 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,24 @@ static void	ft_end_lvl(t_all *all)
 		{
 			if (((int)all->player.posy == (int)all->sprite[i].y)
 				&& ((int)(all->player.posx + d) == (int)all->sprite[i].x))
+			{
 				ft_next_lvl_loop(all);
+			}
 			else if (((int)all->player.posy == (int)all->sprite[i].y)
 				&& ((int)(all->player.posx - d) == (int)all->sprite[i].x))
+			{
 				ft_next_lvl_loop(all);
+			}
 			else if (((int)(all->player.posy + d) == (int)all->sprite[i].y)
 				&& ((int)all->player.posx == (int)all->sprite[i].x))
+			{
 				ft_next_lvl_loop(all);
+			}
 			else if (((int)(all->player.posy - d) == (int)all->sprite[i].y)
 				&& ((int)all->player.posx == (int)all->sprite[i].x))
+			{
 				ft_next_lvl_loop(all);
+			}
 		}
 }
 

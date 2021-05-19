@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:13 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/27 16:06:10 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/19 22:21:18 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	check_around_zero(t_all *all, int x, int y, int flag)
 {
 	while (++y < all->map_height - 1)
 	{
-		x = 0;
+		x = -1;
 		while (++x < all->map_width_max - 1)
 		{
 			flag = 1;
