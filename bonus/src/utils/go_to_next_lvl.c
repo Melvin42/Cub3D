@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 10:48:37 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/20 11:49:49 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/20 15:54:31 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 int			ft_load_next_lvl(t_all *all)
 {
+	char *test[3];
+
 	ft_free_all(all);
-	if (!(all->av_next = malloc(sizeof(char *) * 3)))
-		return (-1);
-	ft_memset(all->av_next, 0, sizeof(**all->av_next));
-	if (!(all->av_next[1] = malloc(sizeof(char) * 18)))
-		return (-1);
-	ft_strcpy(all->av_next[1], "./maps/dragon.cub");
-	main(2, all->av_next);
+	test[0] = "./cub3D";
+	test[1] = "./maps/dragon.cub";
+	test[2] = NULL;
+	main(2, test);
 	return (0);
 }

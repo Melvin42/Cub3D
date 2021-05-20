@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 09:29:15 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/20 11:57:30 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/20 15:41:31 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,6 @@ static void	ft_free_path(t_all *all)
 
 void		ft_free_all(t_all *all)
 {
-	if (all->av_next)
-		free(all->av_next);
-	//if (all->av_next[1])
-	//	free(all->av_next[1]);
 	ft_free_path(all);
 	free(all->zbuffer);
 	while (all->index-- > 0)

@@ -37,6 +37,8 @@ LIB_DIR = libft
 
 LIBX_DIR = minilibx
 
+BONUS_DIR = bonus
+
 INSTALL_LIBX = $(shell cd minilibx && sh configure && cd ..)
 
 GAME_FT			= game_control move_player rotate_player save
@@ -70,6 +72,9 @@ OBJ_DIRS = $(OBJ_DIR) \
 
 ## Rules of Makefile
 
+bonus: 
+	@make -s -C $(BONUS_DIR)/
+
 all: $(NAME)
 	@echo "$(COLOR)$(NAME) \033[100D\033[40C\0033[1;30m[All OK]\0033[1;37m"
 
@@ -90,17 +95,17 @@ $(NAME): $(OBJ_DIRS) $(SRC) $(INC)
 	@$(CC) $(OBJ) -Llibft -lft -Lminilibx -lmlx -lmlx_Linux -lXext -lX11 -lm -o $@
 	@echo "$(COLOR)$(NAME) \033[100D\033[40C\0033[1;32m[Created]\0033[1;37m"
 
-bonus:
-
 clean:
 	@rm -rf $(OBJ_DIR)
 	@make clean -s -C $(LIB_DIR)
+	@make clean -s -C $(BONUS_DIR)
 	@echo "$(COLOR)Objects \033[100D\033[40C\0033[1;31m[Removed]\0033[1;37m"
 
 fclean: clean
 	@rm -f $(NAME)
 	@make clean -s -C $(LIBX_DIR)
 	@make fclean -s -C $(LIB_DIR)
+	@make fclean -s -C $(BONUS_DIR)
 	@echo "$(COLOR)$(NAME) \033[100D\033[40C\0033[1;31m[Removed]\0033[1;37m"
 
 re: fclean all

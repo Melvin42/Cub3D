@@ -10,6 +10,7 @@ COLOR = \0033[1;35m
 
 ## List of Directories
 
+
 INC_DIR = inc
 OBJ_DIR = obj
 SRC_DIR	= src
@@ -24,11 +25,11 @@ RENDERS_DIR		= renders
 
 ## Compilating Utilities
 
-#FAST = -Ofast
+FAST = -Ofast
 
-DEBUG = -g3 #-fsanitize=address
+#DEBUG = -g3 #-fsanitize=address
 
-FLAGS = -Wall -Wextra -Werror $(FAST) $(DEBUG) #-D_REENTRANT
+FLAGS = -Wall -Wextra -Werror $(FAST) $(DEBUG) -D_REENTRANT
 
 INC = $(./$(INC_DIR)/-I%.h)
 
@@ -96,8 +97,6 @@ $(NAME): $(OBJ_DIRS) $(SRC) $(INC)
 	@make -s -C $(LIB_DIR)
 	@$(CC) $(OBJ) -Llibft -lft -Lminilibx -lmlx -lmlx_Linux -lXext -lX11 -lm -o $@
 	@echo "$(COLOR)$(NAME) \033[100D\033[40C\0033[1;32m[Created]\0033[1;37m"
-
-bonus:
 
 clean:
 	@rm -rf $(OBJ_DIR)
