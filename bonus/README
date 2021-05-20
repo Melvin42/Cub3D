@@ -19,21 +19,19 @@ Control list :
 
 Bonus list :
 
-	- 1 :
-	- 2 :
-	- 3 :
-	- 4 :
-	- 5 :
-	- 6 :
-	- 7 :
-	- 8 :
-	- 9 :
-	-10 :
-	-11 :
-	-12 :
-	-13 :
-	-14 :
-	-15 :
-	-16 :
-	-17 :
-	-18 :
+	- 1 : collide with wall
+	- 2 : collide with sprites
+	- 3 : texture floor
+	- 4 : skybox
+	- 5 : mini map
+	- 6 : health bar
+	- 7 : lost/win health
+	- 8 : animed sprites
+	- 9 : music
+	-10 : weapon and ennemy to fight
+	-11 : destruct wall / secret passage
+	-12 : menu
+	-13 : multiple level
+	-14 : sprint
+	-15 : multiple sprites
+	-16 : add more wall

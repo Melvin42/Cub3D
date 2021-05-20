@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/19 23:23:54 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/20 11:34:13 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,7 @@ typedef struct	s_all
 	int			tex_width;
 	int			tex_height;
 	int			dragon_frame;
+	char		**av_next;
 	t_key		key;
 	t_player	player;
 	t_weapon	weapon;
@@ -447,10 +448,6 @@ int				ft_save(t_all *all);
 int				check_fd(t_all *all, int fd);
 int				check_error(t_all *all, int error);
 
-void			ft_free_all(t_all *all);
-void			ft_free_to_go_next_lvl(t_all *all);
-int				ft_load_next_lvl(t_all *all);
-
 /*
 ********************************************************************************
 **==============================>   LOOPS   <=================================**
@@ -485,6 +482,9 @@ void			ft_move_dragon(t_all *all);
 **==============================>   UTILS   <=================================**
 ********************************************************************************
 */
+
+void			ft_free_all(t_all *all);
+int				ft_load_next_lvl(t_all *all);
 
 int				ft_img_scale(t_img *dst, t_img *src);
 int				main(int ac, char **av);

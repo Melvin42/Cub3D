@@ -50,7 +50,7 @@ PARSING_FT		= check_resolution_bonus dispatcher \
 RAYCASTING_FT	= raycasting_bonus sprite_bonus raycasting_utils_bonus floor_raycasting
 
 UTILS_FT		= check_error_bonus cub_utils_bonus free_bonus mlx_utils_bonus \
-				  load_img
+				  load_img go_to_next_lvl
 
 RENDERS_FT		= render_texture_bonus render_menu render_raycasting render_attack \
 				  render_life mini_map render_weapon

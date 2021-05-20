@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 18:21:05 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/19 23:51:35 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/20 10:42:25 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,7 @@ void	ft_next_lvl_menu_control(t_all *all)
 	if (all->key.escape == 1)
 		ft_escape(all);
 	if (all->key.menu == 1)
-	{
-		//mlx_loop_end(all->mlx_ptr);
-		ft_free_all(all);
 		ft_load_next_lvl(all);
-		//ft_loop(all);
-	}
 }
 
 void	ft_menu_control(t_all *all)
@@ -43,9 +38,7 @@ void	ft_menu_control(t_all *all)
 	if (all->key.escape == 1)
 		ft_escape(all);
 	if (all->key.menu == 1)
-	{
 		ft_loop(all);
-	}
 }
 
 int		ft_menu_keypress(int keysym, t_all *all)

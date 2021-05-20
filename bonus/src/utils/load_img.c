@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 19:41:29 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/19 16:54:43 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/20 10:38:37 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	ft_load_tex(t_all *all)
 		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->tex_skybox, all->skybox) < 0)
 		return (check_error(all, MLX_ERROR));
-	if (ft_new_mlx_img(all, &all->skybox_scale, all->rx, all->ry/2) < 0)
+	if (ft_new_mlx_img(all, &all->skybox_scale, all->rx, all->ry / 2) < 0)
 		return (check_error(all, MLX_ERROR));
 	ft_img_scale(&all->skybox_scale, &all->tex_skybox);
 	return (0);
@@ -110,7 +110,7 @@ int			ft_load_all_img(t_all *all)
 	if (ft_load_dragon_part_two(all) < 0)
 		return (-1);
 	if (ft_new_mlx_img(all, &all->mini_map,
-						all->map_width_max * factor, all->map_height * factor) < 0)
+					all->map_width_max * factor, all->map_height * factor) < 0)
 		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->sprite_axe, "./sprites/axe.xpm") < 0)
 		return (check_error(all, MLX_ERROR));

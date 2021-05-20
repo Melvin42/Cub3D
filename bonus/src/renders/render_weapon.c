@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 20:08:30 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/19 16:22:23 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/20 10:28:37 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,13 @@ static int	render_weapon_pix(t_all *all, int j, int i, int color)
 	int	y;
 	int	factor;
 
+	factor = 1;
 	if (all->rx > 1600 && all->ry > 800)
 		factor = 3;
 	else if (all->rx > 1000 && all->rx <= 1600)
 		factor = 2;
 	else if (all->ry > 800 && all->ry <= 800)
 		factor = 2;
-	else
-		factor = 1;
 	i = i * factor;
 	j = j * factor;
 	y = i - 1;
