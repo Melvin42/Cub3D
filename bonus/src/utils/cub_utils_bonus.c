@@ -6,13 +6,13 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/05 21:21:44 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 15:10:31 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d_bonus.h"
 
-int		ft_img_scale(t_img *dst, t_img *src)
+int	ft_img_scale(t_img *dst, t_img *src)
 {
 	int		x;
 	int		y;
@@ -31,14 +31,14 @@ int		ft_img_scale(t_img *dst, t_img *src)
 			target_x = floor(target_x);
 			target_y = floor(target_y);
 			color = *((int *)src->addr + ((int)target_x
-					+ (int)target_y * src->res_x));
+						+ (int)target_y * src->res_x));
 			img_pix_put(dst, x, y, color);
 		}
 	}
 	return (0);
 }
 
-int		ft_only_space(char *line)
+int	ft_only_space(char *line)
 {
 	if (!line)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 17:41:32 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/19 23:27:43 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 13:48:50 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_game_over_loop(t_all *all)
 	mlx_loop_hook(all->mlx_ptr, &ft_game_over_render, all);
 	mlx_hook(all->win_ptr, FocusIn, FocusChangeMask, &ft_game_over_render, all);
 	mlx_hook(all->win_ptr, ClientMessage, StructureNotifyMask,
-			&ft_exit_cross, all);
+		&ft_exit_cross, all);
 	mlx_hook(all->win_ptr, KeyPress, KeyPressMask, &ft_game_over_keypress, all);
 	mlx_loop(all->mlx_ptr);
 }
@@ -27,11 +27,11 @@ void	ft_next_lvl_loop(t_all *all)
 	all->key.menu = 0;
 	mlx_loop_hook(all->mlx_ptr, &ft_next_lvl_menu_render, all);
 	mlx_hook(all->win_ptr, FocusIn, FocusChangeMask,
-			&ft_next_lvl_menu_render, all);
+		&ft_next_lvl_menu_render, all);
 	mlx_hook(all->win_ptr, ClientMessage, StructureNotifyMask,
-			&ft_exit_cross, all);
+		&ft_exit_cross, all);
 	mlx_hook(all->win_ptr, KeyPress, KeyPressMask,
-			&ft_menu_keypress, all);
+		&ft_menu_keypress, all);
 	mlx_hook(all->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, all);
 	mlx_loop(all->mlx_ptr);
 }
@@ -41,7 +41,7 @@ void	ft_menu_loop(t_all *all)
 	mlx_loop_hook(all->mlx_ptr, &ft_menu_render, all);
 	mlx_hook(all->win_ptr, FocusIn, FocusChangeMask, &ft_menu_render, all);
 	mlx_hook(all->win_ptr, ClientMessage, StructureNotifyMask,
-			&ft_exit_cross, all);
+		&ft_exit_cross, all);
 	mlx_hook(all->win_ptr, KeyPress, KeyPressMask, &ft_menu_keypress, all);
 	mlx_hook(all->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, all);
 	mlx_loop(all->mlx_ptr);
@@ -52,7 +52,7 @@ void	ft_loop(t_all *all)
 	mlx_loop_hook(all->mlx_ptr, &render, all);
 	mlx_hook(all->win_ptr, FocusIn, FocusChangeMask, &render, all);
 	mlx_hook(all->win_ptr, ClientMessage, StructureNotifyMask,
-			&ft_exit_cross, &all);
+		&ft_exit_cross, &all);
 	mlx_hook(all->win_ptr, KeyPress, KeyPressMask, &handle_keypress, all);
 	mlx_hook(all->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, all);
 	mlx_loop(all->mlx_ptr);

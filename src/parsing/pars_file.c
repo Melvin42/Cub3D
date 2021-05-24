@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:15 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/27 15:17:20 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 12:23:35 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static int	set_map_width_max(t_all *all, char *line, int i)
 	j = -1;
 	map_line = 0;
 	tmp = ft_strlen(line);
-	while (line[++j] == ' ' || line[j] == '0' || line[j] == '1' || line[j] == '2')
+	while (line[++j] == ' ' || line[j] == '0'
+		|| line[j] == '1' || line[j] == '2')
 		map_line = 1;
 	if (map_line == 1)
 	{
@@ -32,7 +33,7 @@ static int	set_map_width_max(t_all *all, char *line, int i)
 	return (i);
 }
 
-int			count_line(int fd, t_all *all)
+int	count_line(int fd, t_all *all)
 {
 	int		i;
 	char	*line;
@@ -44,7 +45,7 @@ int			count_line(int fd, t_all *all)
 		{
 			free(line);
 			line = NULL;
-			continue;
+			continue ;
 		}
 		i = set_map_width_max(all, line, i);
 		free(line);
@@ -54,7 +55,7 @@ int			count_line(int fd, t_all *all)
 	return (i);
 }
 
-int			dispatcher(char *line, t_all *all)
+int	dispatcher(char *line, t_all *all)
 {
 	if (*line == 'R')
 		return (check_resolution_path(line, all));
@@ -88,7 +89,7 @@ static int	read_file(int fd, t_all *all)
 		{
 			free(line);
 			line = NULL;
-			continue;
+			continue ;
 		}
 		else if (ft_only_space(line) && all->flag_map == 1)
 		{
@@ -105,7 +106,7 @@ static int	read_file(int fd, t_all *all)
 	return (0);
 }
 
-int			ft_pars_file(t_all *all, char **av)
+int	ft_pars_file(t_all *all, char **av)
 {
 	int	fd;
 

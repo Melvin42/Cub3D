@@ -6,13 +6,13 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 18:00:41 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/18 16:51:49 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 15:06:23 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d_bonus.h"
 
-void		ft_render_side(t_all *all, int x)
+void	ft_render_side(t_all *all, int x)
 {
 	if (all->ray.hit == 1)
 	{
@@ -55,7 +55,7 @@ static void	render_dragon(t_all *all)
 	}
 }
 
-void		render_sprite(t_all *all)
+void	render_sprite(t_all *all)
 {
 	int	i;
 
@@ -84,7 +84,7 @@ void		render_sprite(t_all *all)
 	}
 }
 
-int			render(t_all *all)
+int	render(t_all *all)
 {
 	if (all->win_ptr == NULL)
 		return (check_error(all, MLX_ERROR));

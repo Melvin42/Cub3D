@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 09:29:15 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 09:29:54 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 13:35:37 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	ft_free_all_part_two(t_all *all)
 	}
 }
 
-void		ft_free_all(t_all *all)
+void	ft_free_all(t_all *all)
 {
 	if (all->north)
 		free(all->north);

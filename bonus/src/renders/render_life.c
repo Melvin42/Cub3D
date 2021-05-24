@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 18:29:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/05 21:14:22 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 15:08:39 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_put_string_life(t_all *all)
 {
-	char hp[5];
+	char	hp[5];
 
 	if (all->player.hp == 100)
 	{

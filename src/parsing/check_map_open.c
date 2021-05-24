@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:13 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/22 19:29:16 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 12:20:14 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static int	check_side_left_right(t_all *all)
 		return (check_error(all, MAP_ERROR));
 	y = -1;
 	while ((all->map[++y][all->map_width_max - 1] == ' '
-			|| all->map[y][all->map_width_max - 1] == '1')
-			&& y < all->map_height - 1)
+		|| all->map[y][all->map_width_max - 1] == '1')
+		&& y < all->map_height - 1)
 		;
 	if (y != all->map_height - 1)
 		return (check_error(all, MAP_ERROR));
@@ -75,7 +75,7 @@ static int	check_around_zero(t_all *all, int x, int y, int flag)
 	return (0);
 }
 
-int			is_map_open(t_all *all)
+int	is_map_open(t_all *all)
 {
 	if (check_side_up_down(all) < 0)
 		return (-1);

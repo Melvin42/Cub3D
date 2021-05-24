@@ -6,13 +6,13 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:59 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/19 17:10:50 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 13:58:36 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d_bonus.h"
 
-int			ft_init_save(t_all *all)
+int	ft_init_save(t_all *all)
 {
 	all->mlx_ptr = mlx_init();
 	if (all->mlx_ptr == NULL)
@@ -81,7 +81,7 @@ static void	set_header_struct(t_all *all, t_bmp_header *bmp, char header[54])
 	fill_header_part_one(bmp, header);
 }
 
-int			ft_save(t_all *all)
+int	ft_save(t_all *all)
 {
 	t_bmp_header	bmp;
 	int				i;

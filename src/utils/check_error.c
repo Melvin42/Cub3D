@@ -6,13 +6,13 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:28:49 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 09:30:06 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 13:36:50 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-int			check_fd(t_all *all, int fd)
+int	check_fd(t_all *all, int fd)
 {
 	if (fd == -1)
 		return (check_error(all, PARS_ERROR));
@@ -58,7 +58,7 @@ static void	check_error_part_one(int error)
 		write(1, STR_RES_ERROR, ft_strlen(STR_RES_ERROR));
 }
 
-int			check_error(t_all *all, int error)
+int	check_error(t_all *all, int error)
 {
 	ft_free_all(all);
 	if (error >= -13 && error <= -8)

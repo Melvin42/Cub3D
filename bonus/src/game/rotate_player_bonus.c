@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:53 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 20:00:54 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 13:58:01 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void	rotate_left(t_all *all)
 
 	olddirx = all->player.dirx;
 	all->player.dirx = all->player.dirx * cos(-ROTSPEED)
-					- all->player.diry * sin(-ROTSPEED);
+		- all->player.diry * sin(-ROTSPEED);
 	all->player.diry = olddirx * sin(-ROTSPEED)
-					+ all->player.diry * cos(-ROTSPEED);
+		+ all->player.diry * cos(-ROTSPEED);
 	oldplanx = all->player.planx;
 	all->player.planx = all->player.planx * cos(-ROTSPEED)
-					- all->player.plany * sin(-ROTSPEED);
+		- all->player.plany * sin(-ROTSPEED);
 	all->player.plany = oldplanx * sin(-ROTSPEED)
-					+ all->player.plany * cos(-ROTSPEED);
+		+ all->player.plany * cos(-ROTSPEED);
 }
 
 void	rotate_right(t_all *all)
@@ -36,12 +36,12 @@ void	rotate_right(t_all *all)
 
 	olddirx = all->player.dirx;
 	all->player.dirx = all->player.dirx * cos(ROTSPEED)
-					- all->player.diry * sin(ROTSPEED);
+		- all->player.diry * sin(ROTSPEED);
 	all->player.diry = olddirx * sin(ROTSPEED)
-					+ all->player.diry * cos(ROTSPEED);
+		+ all->player.diry * cos(ROTSPEED);
 	oldplanx = all->player.planx;
 	all->player.planx = all->player.planx * cos(ROTSPEED)
-					- all->player.plany * sin(ROTSPEED);
+		- all->player.plany * sin(ROTSPEED);
 	all->player.plany = oldplanx * sin(ROTSPEED)
-					+ all->player.plany * cos(ROTSPEED);
+		+ all->player.plany * cos(ROTSPEED);
 }

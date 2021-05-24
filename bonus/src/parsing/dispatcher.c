@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 21:42:09 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/05 21:44:18 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 13:48:12 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	ft_dispatch_s(char *line, t_all *all)
 		return (0);
 }
 
-int			dispatcher(char *line, t_all *all)
+int	dispatcher(char *line, t_all *all)
 {
 	if (*line == 'R')
 		return (check_resolution_path(line, all));
@@ -47,7 +47,7 @@ int			dispatcher(char *line, t_all *all)
 	else if (*line == 'E')
 		return (check_east_path(line, all));
 	else if (*line == 'S'
-			&& (line[1] == 'O' || (line[1] >= '2' && line[1] <= '9')))
+		&& (line[1] == 'O' || (line[1] >= '2' && line[1] <= '9')))
 	{
 		if (ft_dispatch_s(line, all) < 0)
 			return (-1);

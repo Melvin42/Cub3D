@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/20 16:22:14 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 16:24:12 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,15 @@ enum	e_error
 ********************************************************************************
 */
 
-typedef struct	s_weapon
+typedef struct s_weapon
 {
 	int			x_start;
 	int			y_start;
 	int			x_end;
 	int			y_end;
-}				t_weapon;
+}	t_weapon;
 
-typedef struct	s_key
+typedef struct s_key
 {
 	int			up;
 	int			down;
@@ -106,9 +106,9 @@ typedef struct	s_key
 	int			menu;
 	int			game_over;
 	double		cameray;
-}				t_key;
+}	t_key;
 
-typedef struct	s_bmp_header
+typedef struct s_bmp_header
 {
 	uint32_t	size;
 	uint16_t	reserved1;
@@ -126,9 +126,9 @@ typedef struct	s_bmp_header
 	uint32_t	num_colors;
 	uint32_t	important_colors;
 
-}				t_bmp_header;
+}	t_bmp_header;
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void		*mlx_img;
 	char		*addr;
@@ -137,9 +137,9 @@ typedef struct	s_img
 	int			endian;
 	int			res_x;
 	int			res_y;
-}				t_img;
+}	t_img;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	int			flag;
 	double		posx;
@@ -152,9 +152,9 @@ typedef struct	s_player
 	double		raydirx;
 	double		raydiry;
 	int			hp;
-}				t_player;
+}	t_player;
 
-typedef struct	s_ray
+typedef struct s_ray
 {
 	double		delta_dist_x;
 	double		delta_dist_y;
@@ -171,9 +171,9 @@ typedef struct	s_ray
 	int			lineheight;
 	int			hit;
 	int			side;
-}				t_ray;
+}	t_ray;
 
-typedef struct	s_floor_ray
+typedef struct s_floor_ray
 {
 	float		raydirx0;
 	float		raydiry0;
@@ -190,9 +190,9 @@ typedef struct	s_floor_ray
 	int			celly;
 	int			tx;
 	int			ty;
-}				t_floor_ray;
+}	t_floor_ray;
 
-typedef struct	s_texture
+typedef struct s_texture
 {
 	double		wall_x;
 	int			tex_x;
@@ -200,18 +200,18 @@ typedef struct	s_texture
 	double		step;
 	double		tex_pos;
 	int			color;
-}				t_texture;
+}	t_texture;
 
-typedef struct	s_sprite
+typedef struct s_sprite
 {
 	double		x;
 	double		y;
 	int			num;
 	double		dist;
 	int			texture;
-}				t_sprite;
+}	t_sprite;
 
-typedef struct	s_all
+typedef struct s_all
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
@@ -294,7 +294,7 @@ typedef struct	s_all
 	t_img		sprite_dragon_ten;
 	t_img		sprite_axe;
 	t_img		mini_map;
-}				t_all;
+}	t_all;
 
 /*
 ********************************************************************************

@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:21 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/20 11:33:24 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 16:32:17 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,25 @@ static char	*ft_strcpy_cub_line(t_all *all, char *dst, char *src)
 	return (dst);
 }
 
-int			extract_map(char *line, t_all *all)
+int	extract_map(char *line, t_all *all)
 {
 	if (ft_only_space(line) && all->flag_map == 0)
 		return (0);
 	if (!all->map)
 	{
-		if (!(all->map = malloc(sizeof(char *) * (all->map_malloc_size + 1))))
+		all->map = malloc(sizeof(char *) * (all->map_malloc_size + 2));
+		if (!all->map)
 			return (check_error(all, MALLOC_ERROR));
 		all->map_height = all->map_malloc_size;
 		all->map[all->map_height] = NULL;
 	}
 	all->flag_map = 1;
-	if (!(all->map[all->index] = malloc(sizeof(char)
-								* (all->map_width_max + 1))))
+	all->map[all->index] = malloc(sizeof(char) * (all->map_width_max + 1));
+	if (!(all->map[all->index]))
 		return (check_error(all, MALLOC_ERROR));
 	if (all->index < all->map_height)
 		all->map[all->index] = ft_strcpy_cub_line(all,
-												all->map[all->index], line);
+				all->map[all->index], line);
 	all->index++;
 	return (0);
 }
@@ -80,7 +81,7 @@ static void	set_player(t_all *all, int x, int y)
 	all->player.posy = y + 0.5;
 }
 
-int			check_map(t_all *all)
+int	check_map(t_all *all)
 {
 	int	i;
 	int	j;
@@ -93,28 +94,29 @@ int			check_map(t_all *all)
 			if (all->map[i][j] == '0' || all->map[i][j] == '1'
 				|| all->map[i][j] == ' ')
 				;
-			else if (all->map[i][j] >= '2' && all->map[i][j] <= '9')
-				all->numsprites++;
-			else if (all->map[i][j] == 'N' || all->map[i][j] == 'S'
-				|| all->map[i][j] == 'E' || all->map[i][j] == 'W')
-			{
-				if (all->player.flag == 1)
-					return (check_error(all, PARS_ERROR));
-				set_player(all, j, i);
-			}
-			else
+		else if (all->map[i][j] >= '2' && all->map[i][j] <= '9')
+			all->numsprites++;
+		else if (all->map[i][j] == 'N' || all->map[i][j] == 'S'
+			|| all->map[i][j] == 'E' || all->map[i][j] == 'W')
+		{
+			if (all->player.flag == 1)
 				return (check_error(all, PARS_ERROR));
+			set_player(all, j, i);
+		}
+		else
+			return (check_error(all, PARS_ERROR));
 	}
 	return (0);
 }
 
-int			pos_sprites(t_all *all)
+int	pos_sprites(t_all *all)
 {
 	int	x;
 	int	y;
 	int	i;
 
-	if (!(all->sprite = malloc(sizeof(t_sprite) * (all->numsprites + 1))))
+	all->sprite = malloc(sizeof(t_sprite) * (all->numsprites + 1));
+	if (!all->sprite)
 		return (check_error(all, MALLOC_ERROR));
 	all->sprite[all->numsprites] = (t_sprite){0, 0, 0, 0, 0};
 	y = -1;
@@ -123,6 +125,7 @@ int			pos_sprites(t_all *all)
 	{
 		x = -1;
 		while (all->map[y][++x])
+		{
 			if (all->map[y][x] >= '2' && all->map[y][x] <= '9')
 			{
 				all->sprite[i].x = (double)x;
@@ -132,6 +135,7 @@ int			pos_sprites(t_all *all)
 					all->map[y][x] = '0';
 				i++;
 			}
+		}
 	}
 	return (0);
 }

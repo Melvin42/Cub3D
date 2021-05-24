@@ -6,13 +6,13 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 09:00:10 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 13:37:06 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-int		ft_only_space(char *line)
+int	ft_only_space(char *line)
 {
 	if (!line)
 		return (1);

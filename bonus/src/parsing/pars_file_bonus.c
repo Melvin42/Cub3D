@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:15 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/19 22:11:21 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 13:46:42 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	set_map_width_max(t_all *all, char *line, int i)
 	return (i);
 }
 
-int			count_line(int fd, t_all *all)
+int	count_line(int fd, t_all *all)
 {
 	int		i;
 	char	*line;
@@ -44,7 +44,7 @@ int			count_line(int fd, t_all *all)
 		{
 			free(line);
 			line = NULL;
-			continue;
+			continue ;
 		}
 		i = set_map_width_max(all, line, i);
 		free(line);
@@ -64,7 +64,7 @@ static int	read_file(int fd, t_all *all)
 		{
 			free(line);
 			line = NULL;
-			continue;
+			continue ;
 		}
 		else if (ft_only_space(line) && all->flag_map == 1)
 		{
@@ -83,7 +83,7 @@ static int	read_file(int fd, t_all *all)
 	return (0);
 }
 
-int			ft_pars_file(t_all *all, char **av)
+int	ft_pars_file(t_all *all, char **av)
 {
 	int	fd;
 

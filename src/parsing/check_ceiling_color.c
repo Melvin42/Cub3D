@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:54:16 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/22 20:00:03 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 12:19:21 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	check_ceiling_color_part_two(char *line, t_all *all)
 	return (0);
 }
 
-int			check_ceiling_color(char *line, t_all *all)
+int	check_ceiling_color(char *line, t_all *all)
 {
 	line++;
 	while (*line == ' ')

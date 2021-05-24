@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 19:41:29 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/20 14:53:59 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 15:13:00 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,16 @@ static int	ft_load_dragon_part_one(t_all *all)
 	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_one, all->path_nine) < 0)
 		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_two,
-							"./sprites/dragon/dragon2.xpm") < 0)
+			"./sprites/dragon/dragon2.xpm") < 0)
 		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_three,
-							"./sprites/dragon/dragon3.xpm") < 0)
+			"./sprites/dragon/dragon3.xpm") < 0)
 		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_four,
-							"./sprites/dragon/dragon4.xpm") < 0)
+			"./sprites/dragon/dragon4.xpm") < 0)
 		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_five,
-							"./sprites/dragon/dragon5.xpm") < 0)
+			"./sprites/dragon/dragon5.xpm") < 0)
 		return (check_error(all, MLX_ERROR));
 	return (0);
 }
@@ -73,24 +73,24 @@ static int	ft_load_dragon_part_one(t_all *all)
 static int	ft_load_dragon_part_two(t_all *all)
 {
 	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_six,
-							"./sprites/dragon/dragon6.xpm") < 0)
+			"./sprites/dragon/dragon6.xpm") < 0)
 		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_seven,
-							"./sprites/dragon/dragon7.xpm") < 0)
+			"./sprites/dragon/dragon7.xpm") < 0)
 		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_eight,
-							"./sprites/dragon/dragon8.xpm") < 0)
+			"./sprites/dragon/dragon8.xpm") < 0)
 		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_nine,
-							"./sprites/dragon/dragon9.xpm") < 0)
+			"./sprites/dragon/dragon9.xpm") < 0)
 		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->sprite_dragon_ten,
-							"./sprites/dragon/dragon10.xpm") < 0)
+			"./sprites/dragon/dragon10.xpm") < 0)
 		return (check_error(all, MLX_ERROR));
 	return (0);
 }
 
-int			ft_load_all_img(t_all *all)
+int	ft_load_all_img(t_all *all)
 {
 	int	factor;
 
@@ -110,7 +110,7 @@ int			ft_load_all_img(t_all *all)
 	if (ft_load_dragon_part_two(all) < 0)
 		return (-1);
 	if (ft_new_mlx_img(all, &all->mini_map,
-					all->map_width_max * factor, all->map_height * factor) < 0)
+			all->map_width_max * factor, all->map_height * factor) < 0)
 		return (check_error(all, MLX_ERROR));
 	if (ft_mlx_xpm_to_img(all, &all->sprite_axe, "./sprites/axe.xpm") < 0)
 		return (check_error(all, MLX_ERROR));

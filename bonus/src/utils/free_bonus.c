@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 09:29:15 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/20 15:41:31 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 15:10:57 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static void	ft_free_path(t_all *all)
 	free(all->floor);
 }
 
-void		ft_free_all(t_all *all)
+void	ft_free_all(t_all *all)
 {
 	ft_free_path(all);
 	free(all->zbuffer);

@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 20:08:30 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/20 10:28:37 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 15:07:26 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	render_weapon_pix(t_all *all, int j, int i, int color)
 	return (0);
 }
 
-int			ft_render_weapon(t_all *all)
+int	ft_render_weapon(t_all *all)
 {
 	int	y;
 	int	x;
@@ -55,7 +55,7 @@ int			ft_render_weapon(t_all *all)
 		{
 			color = *((int *)all->sprite_axe.addr + (x + y * 626));
 			render_weapon_pix(all, x - all->weapon.x_end, y
-									- all->weapon.y_start, color);
+				- all->weapon.y_start, color);
 		}
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 17:03:33 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 16:22:10 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ enum	e_error
 ********************************************************************************
 */
 
-typedef struct	s_bmp_header
+typedef struct s_bmp_header
 {
 	uint32_t	size;
 	uint16_t	reserved1;
@@ -97,9 +97,9 @@ typedef struct	s_bmp_header
 	uint32_t	num_colors;
 	uint32_t	important_colors;
 
-}				t_bmp_header;
+}	t_bmp_header;
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void		*mlx_img;
 	char		*addr;
@@ -108,16 +108,16 @@ typedef struct	s_img
 	int			endian;
 	int			res_x;
 	int			res_y;
-}				t_img;
+}	t_img;
 
-typedef struct	s_rgb
+typedef struct s_rgb
 {
 	int			red;
 	int			green;
 	int			blue;
-}				t_rgb;
+}	t_rgb;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	int			flag;
 	double		posx;
@@ -129,9 +129,9 @@ typedef struct	s_player
 	double		camerax;
 	double		raydirx;
 	double		raydiry;
-}				t_player;
+}	t_player;
 
-typedef struct	s_ray
+typedef struct s_ray
 {
 	double		delta_dist_x;
 	double		delta_dist_y;
@@ -148,9 +148,9 @@ typedef struct	s_ray
 	int			lineheight;
 	int			hit;
 	int			side;
-}				t_ray;
+}	t_ray;
 
-typedef struct	s_texture
+typedef struct s_texture
 {
 	double		wall_x;
 	int			tex_x;
@@ -158,9 +158,9 @@ typedef struct	s_texture
 	double		step;
 	double		tex_pos;
 	int			color;
-}				t_texture;
+}	t_texture;
 
-typedef struct	s_sprite
+typedef struct s_sprite
 {
 	double		x;
 	double		y;
@@ -168,7 +168,7 @@ typedef struct	s_sprite
 	int			texture;
 }				t_sprite;
 
-typedef struct	s_all
+typedef struct s_all
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
@@ -217,7 +217,7 @@ typedef struct	s_all
 	t_img		sprite_img;
 	t_rgb		floor;
 	t_rgb		ceiling;
-}				t_all;
+}	t_all;
 
 /*
 ********************************************************************************

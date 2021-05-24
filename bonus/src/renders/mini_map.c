@@ -6,13 +6,13 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 19:46:04 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/19 16:54:33 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 15:08:16 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d_bonus.h"
 
-int			mini_map_factor(t_all *all)
+int	mini_map_factor(t_all *all)
 {
 	int	factor;
 
@@ -57,10 +57,10 @@ static void	ft_put_dragon_on_mini_map(t_all *all)
 	while (++d < all->numsprites)
 		if (all->sprite[d].num == 9)
 			render_mini_map_pix(all, (int)(all->sprite[d].x),
-								(int)(all->sprite[d].y), RED_PIXEL);
+				(int)(all->sprite[d].y), RED_PIXEL);
 }
 
-void		ft_mini_map(t_all *all)
+void	ft_mini_map(t_all *all)
 {
 	int	i;
 	int	j;
@@ -79,9 +79,9 @@ void		ft_mini_map(t_all *all)
 				render_mini_map_pix(all, j, i, BLACK_PIXEL);
 			ft_put_dragon_on_mini_map(all);
 			render_mini_map_pix(all, (int)(all->player.posx),
-								(int)(all->player.posy), GREEN_PIXEL);
+				(int)(all->player.posy), GREEN_PIXEL);
 		}
 	}
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr,
-							all->mini_map.mlx_img, 0, 0);
+		all->mini_map.mlx_img, 0, 0);
 }

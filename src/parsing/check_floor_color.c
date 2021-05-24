@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:55:23 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/22 19:59:48 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 12:23:59 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	check_floor_color_part_two(char *line, t_all *all)
 	return (0);
 }
 
-int			check_floor_color(char *line, t_all *all)
+int	check_floor_color(char *line, t_all *all)
 {
 	line++;
 	while (*line == ' ')

@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:23 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/03 21:24:28 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 12:20:59 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	check_resolution_path_part_two(char *line, t_all *all)
 	return (0);
 }
 
-int			check_resolution_path(char *line, t_all *all)
+int	check_resolution_path(char *line, t_all *all)
 {
 	line++;
 	while (*line == ' ')
@@ -46,7 +46,7 @@ int			check_resolution_path(char *line, t_all *all)
 	return (0);
 }
 
-int			check_resolution_value(t_all *all)
+int	check_resolution_value(t_all *all)
 {
 	if (all->rx == 0 || all->ry == 0)
 		return (check_error(all, RES_ERROR));
@@ -57,7 +57,7 @@ int			check_resolution_value(t_all *all)
 	return (0);
 }
 
-void		rectify_resolution_value(t_all *all)
+void	rectify_resolution_value(t_all *all)
 {
 	int	resx;
 	int	resy;

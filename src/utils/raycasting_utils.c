@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 09:00:13 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 13:33:47 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	ft_set_raycast_vars(t_all *all)
 {
 	all->player.raydirx = all->player.dirx + all->player.planx
-						* all->player.camerax;
+		* all->player.camerax;
 	all->player.raydiry = all->player.diry + all->player.plany
-						* all->player.camerax;
+		* all->player.camerax;
 	all->ray.map_x = (int)(all->player.posx);
 	all->ray.map_y = (int)(all->player.posy);
 	all->ray.delta_dist_x = fabs(1.0 / all->player.raydirx);
@@ -82,7 +82,7 @@ void	ft_render_side(t_all *all, int x)
 	}
 }
 
-int		render(t_all *all)
+int	render(t_all *all)
 {
 	if (all->win_ptr == NULL)
 		return (check_error(all, MLX_ERROR));

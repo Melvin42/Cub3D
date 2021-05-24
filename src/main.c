@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:51 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/30 20:22:29 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 12:18:39 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 static void	set_all(t_all *all)
 {
 	*all = (t_all){NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0, 0, 0, 0,
-			(t_player){0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-			(t_ray){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-			(t_texture){0, 0, 0, 0, 0, 0},
-			NULL,
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_img){NULL, NULL, 0, 0, 0, 0, 0},
-			(t_rgb){-1, -1, -1},
-			(t_rgb){-1, -1, -1}};
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0, 0, 0, 0, 0, 0,
+		(t_player){0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		(t_ray){0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		(t_texture){0, 0, 0, 0, 0, 0},
+		NULL,
+		(t_img){NULL, NULL, 0, 0, 0, 0, 0},
+		(t_img){NULL, NULL, 0, 0, 0, 0, 0},
+		(t_img){NULL, NULL, 0, 0, 0, 0, 0},
+		(t_img){NULL, NULL, 0, 0, 0, 0, 0},
+		(t_img){NULL, NULL, 0, 0, 0, 0, 0},
+		(t_img){NULL, NULL, 0, 0, 0, 0, 0},
+		(t_img){NULL, NULL, 0, 0, 0, 0, 0},
+		(t_rgb){-1, -1, -1},
+		(t_rgb){-1, -1, -1}};
 }
 
 static int	ft_pars_all(t_all *all, char **av)
@@ -42,9 +42,9 @@ static int	ft_pars_all(t_all *all, char **av)
 	if (check_rgb(all) < 0)
 		return (-1);
 	all->floor_color = encode_rgb(all->floor.red,
-								all->floor.green, all->floor.blue);
+			all->floor.green, all->floor.blue);
 	all->ceiling_color = encode_rgb(all->ceiling.red,
-								all->ceiling.green, all->ceiling.blue);
+			all->ceiling.green, all->ceiling.blue);
 	if (check_resolution_value(all) < 0)
 		return (-1);
 	if (all->player.flag == 0)
@@ -56,7 +56,7 @@ static void	ft_loop(t_all all)
 {
 	render(&all);
 	mlx_hook(all.win_ptr, ClientMessage, StructureNotifyMask,
-			&ft_exit_cross, &all);
+		&ft_exit_cross, &all);
 	mlx_hook(all.win_ptr, FocusIn, FocusChangeMask, &render, &all);
 	mlx_hook(all.win_ptr, KeyPress, KeyPressMask, &handle_keypress, &all);
 	mlx_loop(all.mlx_ptr);
@@ -76,7 +76,7 @@ static int	ft_init_game(t_all *all)
 	return (0);
 }
 
-int			main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_all	all;
 

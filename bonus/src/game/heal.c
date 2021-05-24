@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 19:02:17 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/05 19:08:35 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 13:56:56 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,20 @@ static void	ft_pick_up_heal(t_all *all, int i, int hp_win)
 static void	ft_pos_item_heal(t_all *all, int i, int hp_win)
 {
 	if (((int)all->player.posy == (int)all->sprite[i].y)
-			&& ((int)(all->player.posx) == (int)all->sprite[i].x))
+		&& ((int)(all->player.posx) == (int)all->sprite[i].x))
 		ft_pick_up_heal(all, i, hp_win);
 	else if (((int)all->player.posy == (int)all->sprite[i].y)
-			&& ((int)(all->player.posx) == (int)all->sprite[i].x))
+		&& ((int)(all->player.posx) == (int)all->sprite[i].x))
 		ft_pick_up_heal(all, i, hp_win);
 	else if (((int)(all->player.posy) == (int)all->sprite[i].y)
-			&& ((int)all->player.posx == (int)all->sprite[i].x))
+		&& ((int)all->player.posx == (int)all->sprite[i].x))
 		ft_pick_up_heal(all, i, hp_win);
 	else if (((int)(all->player.posy) == (int)all->sprite[i].y)
-			&& ((int)all->player.posx == (int)all->sprite[i].x))
+		&& ((int)all->player.posx == (int)all->sprite[i].x))
 		ft_pick_up_heal(all, i, hp_win);
 }
 
-void		ft_heal(t_all *all)
+void	ft_heal(t_all *all)
 {
 	int	hp_win;
 	int	i;

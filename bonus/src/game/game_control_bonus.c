@@ -6,13 +6,13 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:45 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/05 18:37:39 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 14:00:19 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d_bonus.h"
 
-int		ft_exit_cross(t_all *all)
+int	ft_exit_cross(t_all *all)
 {
 	ft_free_all(all);
 	system("pkill -n aplay");
@@ -55,7 +55,7 @@ void	ft_control(t_all *all)
 		ft_menu_loop(all);
 }
 
-int		handle_keypress(int keysym, t_all *all)
+int	handle_keypress(int keysym, t_all *all)
 {
 	if (keysym == XK_Escape)
 		all->key.escape = 1;
@@ -84,7 +84,7 @@ int		handle_keypress(int keysym, t_all *all)
 	return (0);
 }
 
-int		handle_keyrelease(int keysym, t_all *all)
+int	handle_keyrelease(int keysym, t_all *all)
 {
 	if (keysym == XK_Escape)
 		all->key.escape = 0;

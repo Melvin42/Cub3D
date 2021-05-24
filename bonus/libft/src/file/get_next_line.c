@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 00:50:58 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/23 14:21:14 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 16:17:21 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static char	*cpy_line(char *tmp)
 	i = -1;
 	if (!tmp)
 	{
-		if (!(line = malloc(sizeof(char) * 1)))
+		line = malloc(sizeof(char) * 1);
+		if (!line)
 			return (NULL);
 		line[0] = '\0';
 		return (line);
@@ -28,7 +29,8 @@ static char	*cpy_line(char *tmp)
 	while (tmp[++i])
 		if (tmp[i] == '\n')
 			break ;
-	if (!(line = malloc(sizeof(char) * i + 1)))
+	line = malloc(sizeof(char) * i + 1);
+	if (!line)
 		return (NULL);
 	i = -1;
 	while (tmp[++i])
@@ -49,9 +51,7 @@ static int	read_file(t_gnl *gnl, int fd)
 			return (-1);
 		gnl->buf[gnl->ret] = '\0';
 		if (!gnl->tmp)
-		{
 			gnl->tmp = ft_strdup(gnl->buf);
-		}
 		else
 		{
 			gnl->tofree = gnl->tmp;
@@ -86,7 +86,7 @@ static int	len_to_sub(t_gnl *gnl)
 	return (gnl->i);
 }
 
-int			get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static t_gnl	gnl;
 
