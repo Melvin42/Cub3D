@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:55:23 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/24 12:23:59 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 18:02:07 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static int	check_floor_color_part_two(char *line, t_all *all)
 int	check_floor_color(char *line, t_all *all)
 {
 	line++;
+	if (all->floor.red != -1 || all->floor.green != -1 || all->floor.blue != -1)
+		return (check_error(all, PARS_ERROR));
 	while (*line == ' ')
 		line++;
 	if (!ft_isdigit(*line))
@@ -77,6 +79,6 @@ int	check_floor_color(char *line, t_all *all)
 	while (*line == ' ')
 		line++;
 	if (check_floor_color_part_two(line, all) < 0)
-		return (0);
+		return (-1);
 	return (0);
 }

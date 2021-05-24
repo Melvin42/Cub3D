@@ -27,7 +27,7 @@ RENDERS_DIR		= renders
 
 #FAST = -Ofast
 
-#DEBUG = -g3 #-fsanitize=address
+DEBUG = -g3 #-fsanitize=address
 
 FLAGS = -Wall -Wextra -Werror $(FAST) $(DEBUG) -D_REENTRANT
 

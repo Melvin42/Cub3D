@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:34 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/24 13:27:53 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/24 16:58:23 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,7 @@ void	raycast(t_all *all)
 
 	if (all->zbuffer)
 		free(all->zbuffer);
-	if (!all->zbuffer)
-		all->zbuffer = (double *)malloc(sizeof(double) * (all->rx));
+	all->zbuffer = (double *)malloc(sizeof(double) * (all->rx));
 	if (!all->zbuffer)
 		return ;
 	i = -1;
