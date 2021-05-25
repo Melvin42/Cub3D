@@ -1,6 +1,6 @@
 ## Name of Project
 
-NAME = cub3D
+NAME = World_Of_Warcub3D
 
 MAP = maps/skull.cub
 
@@ -9,7 +9,6 @@ MAP = maps/skull.cub
 COLOR = \0033[1;35m
 
 ## List of Directories
-
 
 INC_DIR = inc
 OBJ_DIR = obj
@@ -35,11 +34,11 @@ INC = $(./$(INC_DIR)/-I%.h)
 
 CC = clang $(FLAGS) $(INC)
 
-LIB_DIR = libft
+LIB_DIR = ../libft
 
-LIBX_DIR = minilibx
+LIBX_DIR = ../minilibx
 
-INSTALL_LIBX = $(shell cd minilibx && sh configure && cd ..)
+INSTALL_LIBX = $(shell cd ../minilibx && sh configure && cd ../bonus)
 
 GAME_FT			= game_control_bonus move_player_bonus rotate_player_bonus save_bonus \
 				  loops attack_loops dragon menu_control fight heal
@@ -95,18 +94,15 @@ $(NAME): $(OBJ_DIRS) $(SRC) $(INC)
 	@echo "$(COLOR)Objects \033[100D\033[40C\0033[1;32m[Created]\0033[1;37m"
 	@echo $(INSTALL_LIBX)
 	@make -s -C $(LIB_DIR)
-	@$(CC) $(OBJ) -Llibft -lft -Lminilibx -lmlx -lmlx_Linux -lXext -lX11 -lm -o $@
+	@$(CC) $(OBJ) -L../libft -lft -L../minilibx -lmlx -lmlx_Linux -lXext -lX11 -lm -o $@
 	@echo "$(COLOR)$(NAME) \033[100D\033[40C\0033[1;32m[Created]\0033[1;37m"
 
 clean:
 	@rm -rf $(OBJ_DIR)
-	@make clean -s -C $(LIB_DIR)
 	@echo "$(COLOR)Objects \033[100D\033[40C\0033[1;31m[Removed]\0033[1;37m"
 
 fclean: clean
 	@rm -f $(NAME)
-	@make clean -s -C $(LIBX_DIR)
-	@make fclean -s -C $(LIB_DIR)
 	@echo "$(COLOR)$(NAME) \033[100D\033[40C\0033[1;31m[Removed]\0033[1;37m"
 
 re: fclean all
