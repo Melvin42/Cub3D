@@ -14,6 +14,7 @@ COLOR = \0033[1;35m
 
 ## List of Directories
 
+LIB = libft/libft.a
 LIB_DIR = libft
 LIBX_DIR = minilibx
 BONUS_DIR = bonus
@@ -59,19 +60,21 @@ UTILS_FT		= check_error color_utils cub_utils free mlx_utils \
 SRC_FT 			= main
 
 GAME_FT_BONUS		= game_control_bonus move_player_bonus rotate_player_bonus save_bonus \
-				  	loops attack_loops dragon menu_control fight heal
+				  	loops_bonus attack_loops_bonus dragon_bonus menu_control_bonus \
+					fight_bonus heal_bonus
 
-PARSING_FT_BONUS	= check_resolution_bonus dispatcher \
+PARSING_FT_BONUS	= check_resolution_bonus dispatcher_bonus \
 				  	pars_map_bonus check_file_format_bonus check_map_open_bonus pars_file_bonus \
-				  	pars_path_bonus path_floor_skybox path_sprite_seven_to_nine path_sprite_two_to_six
+				  	pars_path_bonus path_floor_skybox_bonus path_sprite_seven_to_nine_bonus \
+					path_sprite_two_to_six_bonus
 
-RAYCASTING_FT_BONUS	= raycasting_bonus sprite_bonus raycasting_utils_bonus floor_raycasting
+RAYCASTING_FT_BONUS	= raycasting_bonus sprite_bonus raycasting_utils_bonus floor_raycasting_bonus
 
 UTILS_FT_BONUS		= check_error_bonus cub_utils_bonus cub_utils_two_bonus \
-				  	free_bonus mlx_utils_bonus load_img go_to_next_lvl
+				  	free_bonus mlx_utils_bonus load_img_bonus go_to_next_lvl_bonus
 
-RENDERS_FT_BONUS	= render_texture_bonus render_menu render_raycasting render_attack \
-				  	render_life mini_map render_weapon
+RENDERS_FT_BONUS	= render_texture_bonus render_menu_bonus render_raycasting_bonus \
+					render_attack_bonus render_life_bonus mini_map_bonus render_weapon_bonus
 
 SRC_FT_BONUS		= main_bonus
 
@@ -109,7 +112,7 @@ OBJ_DIRS_BONUS = $(BONUS_DIR)/$(OBJ_DIR) \
 
 ## Rules of Makefile
 
-all: $(NAME)
+all: $(NAME) $(LIB)
 	@echo "$(COLOR)$(NAME) \033[100D\033[40C0033[1;30m[All OK]\0033[1;37m"
 
 $(OBJ_DIRS):
@@ -124,12 +127,16 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC)
 $(NAME): $(OBJ_DIRS) $(SRC) $(INC)
 	@$(MAKE) -j -s $(OBJ)
 	@echo "$(COLOR)Objects \033[100D\033[40C\0033[1;32m[Created]\0033[1;37m"
-	@echo $(INSTALL_LIBX)
-	@make -s -C $(LIB_DIR)
+	#@echo $(INSTALL_LIBX)
+	#@make -s -C $(LIB_DIR)
 	@$(CC) $(OBJ) -Llibft -lft -Lminilibx -lmlx -lmlx_Linux -lXext -lX11 -lm -o $@
 	@echo "$(COLOR)$(NAME) \033[100D\033[40C\0033[1;32m[Created]\0033[1;37m"
 
-bonus: $(NAME_BONUS)
+$(LIB):
+	@echo $(INSTALL_LIBX)
+	@make -s -C $(LIB_DIR)
+
+bonus: $(NAME_BONUS) $(LIB)
 	@echo "$(COLOR)$(NAME_BONUS) \033[100D\033[40C0033[1;30m[All OK]\0033[1;37m"
 
 $(OBJ_DIRS_BONUS):
@@ -144,8 +151,8 @@ $(BONUS_DIR)/$(OBJ_DIR)/%.o: $(BONUS_DIR)/$(SRC_DIR)/%.c $(INC_BONUS)
 $(NAME_BONUS): $(OBJ_DIRS_BONUS) $(SRC_BONUS) $(INC_BONUS)
 	@$(MAKE) -j -s $(OBJ_BONUS)
 	@echo "$(COLOR)Objects \033[100D\033[40C\0033[1;32m[Created]\0033[1;37m"
-	@echo $(INSTALL_LIBX)
-	@make -s -C $(LIB_DIR)
+#	@echo $(INSTALL_LIBX)
+#	@make -s -C $(LIB_DIR)
 	@$(CC) $(OBJ_BONUS) -Llibft -lft -Lminilibx -lmlx -lmlx_Linux -lXext -lX11 -lm -o $@
 	@echo "$(COLOR)$(NAME_BONUS) \033[100D\033[40C\0033[1;32m[Created]\0033[1;37m"
 
@@ -230,4 +237,4 @@ play: coffee
 	@echo ""
 	@./$(NAME) $(MAP)
 
-.PHONY: all clean fclean re coffee play
+.PHONY: all bonus clean fclean re coffee play
