@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/25 12:27:11 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 15:24:36 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,7 +336,7 @@ void			rectify_resolution_value(t_all *all);
 
 int				extract_map(char *line, t_all *all);
 int				check_map(t_all *all);
-int				pos_sprites(t_all *all);
+int				pos_sprites(t_all *all, int i);
 
 int				is_map_open(t_all *all);
 

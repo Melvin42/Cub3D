@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:51 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/25 12:27:42 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 15:23:56 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_pars_all(t_all *all, char **av)
 		return (-1);
 	if (ft_pars_file(all, av) < 0)
 		return (-1);
-	if (pos_sprites(all) < 0)
+	if (pos_sprites(all, 0) < 0)
 		return (-1);
 	if (check_resolution_value(all) < 0)
 		return (-1);
@@ -63,8 +63,8 @@ int	main(int ac, char **av)
 	{
 		if (ft_init_game(&all) < 0)
 			return (0);
-		ft_menu_loop(&all);
 		system("aplay -c 2 -t wav -r 48000 ./music/trap.wav &");
+		ft_menu_loop(&all);
 	}
 	return (0);
 }

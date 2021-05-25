@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 18:40:03 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/24 13:56:21 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 13:57:07 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ void	ft_damage(t_all *all)
 			|| all->sprite[i].num == 9)
 		{
 			if (((int)all->player.posy == (int)all->sprite[i].y)
-				&& ((int)(all->player.posx + 0.05) == (int)all->sprite[i].x))
+				&& ((int)(all->player.posx + 0.1) == (int)all->sprite[i].x))
 				all->player.hp -= 1;
 			else if (((int)all->player.posy == (int)all->sprite[i].y)
-				&& ((int)(all->player.posx - 0.05) == (int)all->sprite[i].x))
+				&& ((int)(all->player.posx - 0.1) == (int)all->sprite[i].x))
 				all->player.hp -= 1;
-			else if (((int)(all->player.posy + 0.05) == (int)all->sprite[i].y)
+			else if (((int)(all->player.posy + 0.1) == (int)all->sprite[i].y)
 				&& ((int)all->player.posx == (int)all->sprite[i].x))
 				all->player.hp -= 1;
-			else if (((int)(all->player.posy - 0.05) == (int)all->sprite[i].y)
+			else if (((int)(all->player.posy - 0.1) == (int)all->sprite[i].y)
 				&& ((int)all->player.posx == (int)all->sprite[i].x))
 				all->player.hp -= 1;
 		}

@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:21 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/25 11:25:36 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 15:24:48 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,18 +115,16 @@ int	check_map(t_all *all)
 	return (0);
 }
 
-int	pos_sprites(t_all *all)
+int	pos_sprites(t_all *all, int i)
 {
 	int	x;
 	int	y;
-	int	i;
 
 	all->sprite = malloc(sizeof(t_sprite) * (all->numsprites + 1));
 	if (!all->sprite)
 		return (check_error(all, MALLOC_ERROR));
 	all->sprite[all->numsprites] = (t_sprite){0, 0, 0, 0, 0};
 	y = -1;
-	i = 0;
 	while (all->map[++y])
 	{
 		x = -1;

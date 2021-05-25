@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 17:41:32 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/24 13:48:50 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 14:54:28 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	ft_menu_loop(t_all *all)
 void	ft_loop(t_all *all)
 {
 	mlx_loop_hook(all->mlx_ptr, &render, all);
-	mlx_hook(all->win_ptr, FocusIn, FocusChangeMask, &render, all);
 	mlx_hook(all->win_ptr, ClientMessage, StructureNotifyMask,
-		&ft_exit_cross, &all);
+		&ft_exit_cross, all);
+	mlx_hook(all->win_ptr, FocusIn, FocusChangeMask, &render, all);
 	mlx_hook(all->win_ptr, KeyPress, KeyPressMask, &handle_keypress, all);
 	mlx_hook(all->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, all);
 	mlx_loop(all->mlx_ptr);

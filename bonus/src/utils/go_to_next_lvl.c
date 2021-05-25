@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 10:48:37 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/24 15:11:23 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 14:04:40 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	ft_load_next_lvl(t_all *all)
 	test[0] = "./cub3D";
 	test[1] = "./maps/dragon.cub";
 	test[2] = NULL;
+	system("pkill -n aplay");
 	main(2, test);
 	return (0);
 }

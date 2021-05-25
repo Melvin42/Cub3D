@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:07 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/25 13:06:46 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 13:59:26 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	ft_end_lvl(t_all *all)
 	double	d;
 	int		i;
 
-	d = 0.05;
+	d = 0.5;
 	i = -1;
 	while (++i < all->numsprites)
 	{

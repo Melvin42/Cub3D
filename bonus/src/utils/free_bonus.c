@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 09:29:15 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/25 12:24:19 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 15:20:44 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,17 @@ static void	ft_free_path(t_all *all)
 void	ft_free_all(t_all *all)
 {
 	ft_free_path(all);
-	free(all->zbuffer);
-	while (all->index-- > 0)
-		if (all->map[all->index])
-			free(all->map[all->index]);
-	free(all->map);
-	free(all->sprite);
+	if (all->zbuffer)
+		free(all->zbuffer);
+	if (all->map)
+	{
+		while (--all->index >= 0)
+			if (all->map[all->index])
+				free(all->map[all->index]);
+		free(all->map);
+	}
+	if (all->sprite)
+		free(all->sprite);
 	if (all->mlx_ptr)
 	{
 		ft_destroy_img_tex(all);
