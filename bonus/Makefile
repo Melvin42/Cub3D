@@ -25,9 +25,9 @@ RENDERS_DIR		= renders
 
 ## Compilating Utilities
 
-#FAST = -Ofast
+FAST = -Ofast
 
-DEBUG = -g3 #-fsanitize=address
+#DEBUG = -g3 #-fsanitize=address
 
 FLAGS = -Wall -Wextra -Werror $(FAST) $(DEBUG) -D_REENTRANT
 
@@ -50,8 +50,8 @@ PARSING_FT		= check_resolution_bonus dispatcher \
 
 RAYCASTING_FT	= raycasting_bonus sprite_bonus raycasting_utils_bonus floor_raycasting
 
-UTILS_FT		= check_error_bonus cub_utils_bonus free_bonus mlx_utils_bonus \
-				  load_img go_to_next_lvl
+UTILS_FT		= check_error_bonus cub_utils_bonus cub_utils_two_bonus \
+				  free_bonus mlx_utils_bonus load_img go_to_next_lvl
 
 RENDERS_FT		= render_texture_bonus render_menu render_raycasting render_attack \
 				  render_life mini_map render_weapon

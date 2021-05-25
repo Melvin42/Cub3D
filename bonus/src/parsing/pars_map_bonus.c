@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:21 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/24 17:25:04 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 11:25:36 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ int	extract_map(char *line, t_all *all)
 	}
 	all->flag_map = 1;
 	if (!all->north || !all->south || !all->east || !all->west
-		|| !all->path_sprite || !all->floor || !all->skybox
-		|| all->rx == 0 || all->ry == 0)
-			return (check_error(all, PARS_ERROR));
+		|| !all->path_two || !all->path_three || !all->path_four
+		|| !all->path_five || !all->path_six || !all->path_seven
+		|| !all->path_eight || !all->path_nine || !all->floor
+		|| !all->skybox || all->rx == 0 || all->ry == 0)
+		return (check_error(all, PARS_ERROR));
 	all->map[all->index] = malloc(sizeof(char) * (all->map_width_max + 1));
 	if (!(all->map[all->index]))
 		return (check_error(all, MALLOC_ERROR));

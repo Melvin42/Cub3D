@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:15 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/24 20:07:06 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 11:34:12 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,6 @@ int	dispatcher(char *line, t_all *all)
 		return (extract_map(line, all));
 	else
 		return (check_error(all, PARS_ERROR));
-}
-
-static void	ft_free_gnl_line(char **line)
-{
-	free(*line);
-	*line = NULL;
-}
-
-static void	ft_finish_gnl(int fd, char *line)
-{
-	ft_free_gnl_line(&line);
-	while (get_next_line(fd, &line) > 0)
-		ft_free_gnl_line(&line);
-	ft_free_gnl_line(&line);
 }
 
 static int	read_file(int fd, t_all *all)

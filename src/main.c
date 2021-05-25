@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:51 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/24 12:18:39 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 12:17:59 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	main(int ac, char **av)
 	if (ft_pars_all(&all, av) < 0)
 		return (0);
 	if (ac == 3)
-		return (ft_save(&all));
+		return (ft_save(&all, av));
 	else
 	{
 		if (ft_init_game(&all) < 0)

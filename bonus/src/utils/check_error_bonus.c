@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:28:49 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/24 15:15:02 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 11:42:59 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	check_error_part_one(int error)
 
 int	check_error(t_all *all, int error)
 {
-	(void)all;
+	ft_free_all(all);
 	if (error >= -13 && error <= -8)
 		check_error_part_one(error);
 	else if (error >= -7 && error <= -1)

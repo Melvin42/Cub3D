@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/24 16:22:10 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 12:17:29 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,7 @@ typedef struct s_all
 ********************************************************************************
 */
 
+int				check_save_name(t_all *all, char *arg);
 int				check_map_name(t_all *all, char *arg);
 int				check_xpm_path(t_all *all, char *path);
 
@@ -324,7 +325,7 @@ void			move_right(t_all *all);
 void			rotate_left(t_all *all);
 void			rotate_right(t_all *all);
 
-int				ft_save(t_all *all);
+int				ft_save(t_all *all, char **av);
 
 /*
 ********************************************************************************
@@ -336,5 +337,8 @@ int				check_fd(t_all *all, int fd);
 int				check_error(t_all *all, int error);
 
 void			ft_free_all(t_all *all);
+
+void			ft_free_gnl_line(char **line);
+void			ft_finish_gnl(int fd, char *line);
 
 #endif

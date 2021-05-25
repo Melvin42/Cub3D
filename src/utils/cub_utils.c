@@ -6,11 +6,25 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:40 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/24 13:37:06 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 11:13:48 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
+
+void	ft_free_gnl_line(char **line)
+{
+	free(*line);
+	*line = NULL;
+}
+
+void	ft_finish_gnl(int fd, char *line)
+{
+	ft_free_gnl_line(&line);
+	while (get_next_line(fd, &line) > 0)
+		ft_free_gnl_line(&line);
+	ft_free_gnl_line(&line);
+}
 
 int	ft_only_space(char *line)
 {

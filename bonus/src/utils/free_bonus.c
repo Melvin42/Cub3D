@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 09:29:15 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/24 15:10:57 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 12:24:19 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,15 +109,13 @@ void	ft_free_all(t_all *all)
 	free(all->sprite);
 	if (all->mlx_ptr)
 	{
+		ft_destroy_img_tex(all);
+		ft_destroy_img_sprite(all);
+		ft_destroy_img_dragon(all);
+		if (all->img.mlx_img)
+			mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
 		if (all->win_ptr)
-		{
-			ft_destroy_img_tex(all);
-			ft_destroy_img_sprite(all);
-			ft_destroy_img_dragon(all);
-			if (all->img.mlx_img)
-				mlx_destroy_image(all->mlx_ptr, all->img.mlx_img);
 			mlx_destroy_window(all->mlx_ptr, all->win_ptr);
-		}
 		mlx_destroy_display(all->mlx_ptr);
 		free(all->mlx_ptr);
 	}

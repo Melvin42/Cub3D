@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 07:34:31 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/24 16:24:12 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 12:27:11 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,6 +302,7 @@ typedef struct s_all
 ********************************************************************************
 */
 
+int				check_save_name(t_all *all, char *arg);
 int				check_map_name(t_all *all, char *arg);
 int				check_xpm_path(t_all *all, char *path);
 
@@ -437,7 +438,7 @@ void			rotate_right(t_all *all);
 void			ft_damage(t_all *all);
 void			ft_heal(t_all *all);
 void			ft_player_attack(t_all *all);
-int				ft_save(t_all *all);
+int				ft_save(t_all *all, char **av);
 
 /*
 ********************************************************************************
@@ -488,5 +489,8 @@ int				ft_load_next_lvl(t_all *all);
 
 int				ft_img_scale(t_img *dst, t_img *src);
 int				main(int ac, char **av);
+
+void			ft_free_gnl_line(char **line);
+void			ft_finish_gnl(int fd, char *line);
 
 #endif

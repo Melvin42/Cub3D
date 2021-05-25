@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:59 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/24 13:58:36 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 12:34:48 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,15 @@ static void	set_header_struct(t_all *all, t_bmp_header *bmp, char header[54])
 	fill_header_part_one(bmp, header);
 }
 
-int	ft_save(t_all *all)
+int	ft_save(t_all *all, char **av)
 {
 	t_bmp_header	bmp;
 	int				i;
 	int				fd;
 	char			header[54];
 
+	if (check_save_name(all, av[2]) < 0)
+		return (-1);
 	ft_bzero(header, 54);
 	set_header_struct(all, &bmp, header);
 	ft_init_save(all);
@@ -95,10 +97,7 @@ int	ft_save(t_all *all)
 	floor_casting(all);
 	raycast(all);
 	render_life(all);
-	all->weapon.x_start = 0;
-	all->weapon.y_start = 0;
-	all->weapon.x_end = 352;
-	all->weapon.y_end = 93;
+	all->weapon = (t_weapon){0, 0, 352, 93};
 	ft_render_weapon(all);
 	fd = open("save.bmp", O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
 	write(fd, header, 54);
@@ -106,5 +105,6 @@ int	ft_save(t_all *all)
 	while (--i >= 0)
 		write(fd, &(all->img.addr[i * all->rx * 4]), all->rx * 4);
 	close(fd);
+	ft_free_all(all);
 	return (0);
 }

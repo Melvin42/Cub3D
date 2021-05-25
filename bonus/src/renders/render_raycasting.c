@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/04 18:00:41 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/24 15:06:23 by melperri         ###   ########.fr       */
+/*   Created: 2021/05/25 12:40:56 by melperri          #+#    #+#             */
+/*   Updated: 2021/05/25 12:50:35 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ int	render(t_all *all)
 	ft_put_string_life(all);
 	ft_move_dragon(all);
 	ft_control(all);
+	usleep(15000);
 	return (0);
 }

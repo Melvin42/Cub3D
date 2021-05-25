@@ -6,11 +6,33 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 20:03:27 by melperri          #+#    #+#             */
-/*   Updated: 2021/04/22 20:04:00 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 12:19:14 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
+
+int	check_save_name(t_all *all, char *arg)
+{
+	size_t	i;
+
+	i = ft_strlen((const char *)arg);
+	if (i != 6)
+		return (check_error(all, ARG_ERROR));
+	if (arg[--i] != 'e')
+		return (check_error(all, ARG_ERROR));
+	if (arg[--i] != 'v')
+		return (check_error(all, ARG_ERROR));
+	if (arg[--i] != 'a')
+		return (check_error(all, ARG_ERROR));
+	if (arg[--i] != 's')
+		return (check_error(all, ARG_ERROR));
+	if (arg[--i] != '-')
+		return (check_error(all, ARG_ERROR));
+	if (arg[--i] != '-')
+		return (check_error(all, ARG_ERROR));
+	return (0);
+}
 
 int	check_map_name(t_all *all, char *arg)
 {

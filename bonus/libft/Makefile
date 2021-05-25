@@ -25,9 +25,9 @@ STR_DIR		= str
 
 ## Compilating Utilities
 
-#DEBUG = -g3 -fsanitize=address
+#DEBUG = -g3 #-fsanitize=address
 
-FLAGS = -Wall -Wextra -Werror #$(DEBUG) -D_REENTRANT
+FLAGS = -Wall -Wextra -Werror $(DEBUG) -D_REENTRANT
 
 INC = $(./$(INC_DIR)/-I%.h)
 

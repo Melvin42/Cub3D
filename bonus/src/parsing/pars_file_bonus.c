@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:30:15 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/24 13:46:42 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/25 11:29:57 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,26 +60,22 @@ static int	read_file(int fd, t_all *all)
 
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (ft_only_space(line) && all->flag_map == 0)
+		if (ft_only_space(line) && all->flag_map == 1)
 		{
-			free(line);
-			line = NULL;
-			continue ;
-		}
-		else if (ft_only_space(line) && all->flag_map == 1)
-		{
-			free(line);
-			line = NULL;
+			ft_finish_gnl(fd, line);
 			return (check_error(all, EMPTY_LINE_ERROR));
 		}
 		if (*line != '\0')
+		{
 			if (dispatcher(line, all) < 0)
+			{
+				ft_finish_gnl(fd, line);
 				return (-1);
-		free(line);
-		line = NULL;
+			}
+		}
+		ft_free_gnl_line(&line);
 	}
-	free(line);
-	line = NULL;
+	ft_free_gnl_line(&line);
 	return (0);
 }
 
