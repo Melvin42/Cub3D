@@ -1,6 +1,6 @@
 ## Name of Project
 
-NAME = World_Of_Warcub3D
+NAME = ../cub3D
 
 MAP = maps/skull.cub
 
@@ -40,20 +40,24 @@ LIBX_DIR = ../minilibx
 
 INSTALL_LIBX = $(shell cd ../minilibx && sh configure && cd ../bonus)
 
-GAME_FT			= game_control_bonus move_player_bonus rotate_player_bonus save_bonus \
-				  loops attack_loops dragon menu_control fight heal
+GAME_FT			= game_control_bonus move_player_bonus rotate_player_bonus \
+				  save_bonus loops_bonus attack_loops_bonus dragon_bonus \
+				  menu_control_bonus fight_bonus heal_bonus
 
-PARSING_FT		= check_resolution_bonus dispatcher \
-				  pars_map_bonus check_file_format_bonus check_map_open_bonus pars_file_bonus \
-				  pars_path_bonus path_floor_skybox path_sprite_seven_to_nine path_sprite_two_to_six
+PARSING_FT		= check_resolution_bonus dispatcher_bonus pars_map_bonus \
+				  check_file_format_bonus check_map_open_bonus pars_file_bonus \
+				  pars_path_bonus path_floor_skybox_bonus \
+				  path_sprite_seven_to_nine_bonus path_sprite_two_to_six_bonus
 
-RAYCASTING_FT	= raycasting_bonus sprite_bonus raycasting_utils_bonus floor_raycasting
+RAYCASTING_FT	= raycasting_bonus sprite_bonus raycasting_utils_bonus \
+				  floor_raycasting_bonus
 
 UTILS_FT		= check_error_bonus cub_utils_bonus cub_utils_two_bonus \
-				  free_bonus mlx_utils_bonus load_img go_to_next_lvl
+				  free_bonus mlx_utils_bonus load_img_bonus go_to_next_lvl_bonus
 
-RENDERS_FT		= render_texture_bonus render_menu render_raycasting render_attack \
-				  render_life mini_map render_weapon
+RENDERS_FT		= render_texture_bonus render_menu_bonus \
+				  render_raycasting_bonus render_attack_bonus \
+				  render_life_bonus mini_map_bonus render_weapon_bonus
 
 SRC_FT 			= main_bonus
 
@@ -92,8 +96,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC)
 $(NAME): $(OBJ_DIRS) $(SRC) $(INC)
 	@$(MAKE) -j -s $(OBJ)
 	@echo "$(COLOR)Objects \033[100D\033[40C\0033[1;32m[Created]\0033[1;37m"
-	@echo $(INSTALL_LIBX)
-	@make -s -C $(LIB_DIR)
 	@$(CC) $(OBJ) -L../libft -lft -L../minilibx -lmlx -lmlx_Linux -lXext -lX11 -lm -o $@
 	@echo "$(COLOR)$(NAME) \033[100D\033[40C\0033[1;32m[Created]\0033[1;37m"
 
@@ -171,6 +173,6 @@ play: coffee
 	@echo "                            \0033[0;41m \0033[0m"         
 	@echo ""
 	@echo ""
-	@./$(NAME) $(MAP)
+	@$(shell cd .. && ./cub3D $(MAP))
 
 .PHONY: all clean fclean re coffee play

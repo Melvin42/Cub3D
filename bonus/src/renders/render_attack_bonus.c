@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_attack.c                                    :+:      :+:    :+:   */
+/*   render_attack_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 18:07:55 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/25 12:53:34 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/26 10:11:00 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	render_attack_one(t_all *all)
 	ft_player_attack(all);
 	ft_move_dragon(all);
 	ft_control(all);
-	usleep(15000);
+	usleep(8000);
 	return (0);
 }
 
@@ -61,7 +61,7 @@ int	render_attack_two(t_all *all)
 	all->key.attack++;
 	ft_move_dragon(all);
 	ft_control(all);
-	usleep(15000);
+	usleep(8000);
 	return (0);
 }
 
@@ -87,7 +87,7 @@ int	render_attack_three(t_all *all)
 	all->key.attack++;
 	ft_move_dragon(all);
 	ft_control(all);
-	usleep(15000);
+	usleep(8000);
 	return (0);
 }
 
@@ -114,6 +114,6 @@ int	render_attack_four(t_all *all)
 	ft_move_dragon(all);
 	ft_control(all);
 	ft_loop(all);
-	usleep(15000);
+	usleep(8000);
 	return (0);
 }

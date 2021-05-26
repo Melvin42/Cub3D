@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_raycasting.c                                :+:      :+:    :+:   */
+/*   render_raycasting_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 12:40:56 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/25 12:50:35 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/26 10:09:44 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,6 @@ int	render(t_all *all)
 	ft_put_string_life(all);
 	ft_move_dragon(all);
 	ft_control(all);
-	usleep(15000);
+	usleep(8000);
 	return (0);
 }
