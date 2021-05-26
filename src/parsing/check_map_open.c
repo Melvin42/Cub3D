@@ -6,7 +6,7 @@
 /*   By: melperri <melperri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:29:13 by melperri          #+#    #+#             */
-/*   Updated: 2021/05/24 12:20:14 by melperri         ###   ########.fr       */
+/*   Updated: 2021/05/26 14:16:14 by melperri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ static int	check_around_zero(t_all *all, int x, int y, int flag)
 		while (++x < all->map_width_max - 1)
 		{
 			flag = 1;
-			if (all->map[y][x] == '0')
+			if (all->map[y][x] == '0' || all->map[y][x] == '2')
 				flag = 0;
-			if ((all->map[y][x] == '0') && (all->map[y][x + 1] == '0'
-				|| all->map[y][x + 1] == '1' || all->map[y][x + 1] == '2')
-				&& (all->map[y][x - 1] == '0' || all->map[y][x - 1] == '1'
-				|| all->map[y][x - 1] == '2') && (all->map[y + 1][x] == '0'
-				|| all->map[y + 1][x] == '1' || all->map[y + 1][x] == '2')
-				&& (all->map[y - 1][x] == '0' || all->map[y - 1][x] == '1'
-				|| all->map[y - 1][x] == '2'))
+			if ((all->map[y][x] == '0' || all->map[y][x] == '2')
+				&& (all->map[y][x + 1] == '0' || all->map[y][x + 1] == '1'
+				|| all->map[y][x + 1] == '2') && (all->map[y][x - 1] == '0'
+				|| all->map[y][x - 1] == '1' || all->map[y][x - 1] == '2')
+				&& (all->map[y + 1][x] == '0' || all->map[y + 1][x] == '1'
+				|| all->map[y + 1][x] == '2') && (all->map[y - 1][x] == '0'
+				|| all->map[y - 1][x] == '1' || all->map[y - 1][x] == '2'))
 				flag = 1;
 			if (flag == 0)
 				return (check_error(all, MAP_ERROR));

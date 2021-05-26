@@ -79,7 +79,7 @@ all: $(NAME)
 	@echo "$(COLOR)$(NAME) \033[100D\033[40C\0033[1;30m[All OK]\0033[1;37m"
 
 bonus: $(LIB)
-	@echo "$(COLOR)$(NAME) \033[100D\033[40C0033[1;30m[All OK]\0033[1;37m"
+	@echo "$(COLOR)$(NAME) \033[100D\033[40C\0033[1;30m[All OK]\0033[1;37m"
 	@make -s -C $(BONUS_DIR)
 
 $(OBJ_DIRS):
