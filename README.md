@@ -2,7 +2,7 @@
 ##### A tiny doom-like graphic engine
 
 ## About the project
-#### c programing - level design - raycasting implementation
+#### C programming - level design - raycasting implementation
 
 ## How to use
 <sub>Just use the command below and have fun!</sub>
